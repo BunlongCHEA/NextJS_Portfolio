@@ -1,11 +1,15 @@
 'use client'
 
+import { useState } from 'react'
 import Header from '@/components/Header'
 import ExperienceList from '@/components/ExperienceList'
 import CodeEditor from '@/components/CodeEditor'
 import AnimatedBackground from '@/components/AnimatedBackground'
+import LanguageSwiper from '@/components/LanguageSwiper'
 
 export default function Home() {
+  const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
+
   return (
     <main className="min-h-screen relative">
       {/* Animated Background */}
@@ -39,12 +43,12 @@ export default function Home() {
           </div>
 
           {/* Language Filter Swiper - Full Width */}
-          {/* <div className="mt-8">
+          <div className="mt-8">
             <LanguageSwiper 
               onLanguageSelect={setSelectedLanguage} 
               selectedLanguage={selectedLanguage} 
             />
-          </div> */}
+          </div>
         </div>
       </div>
     </main>
