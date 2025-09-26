@@ -39,37 +39,41 @@ const ExperienceList: React.FC = () => {
   ];
 
   return (
-    <div className="bg-white rounded-lg shadow-lg p-6">
-      <div className="flex items-center gap-3 mb-6">
-        <Briefcase className="w-6 h-6 text-blue-600" />
-        <h2 className="text-2xl font-bold text-gray-800">Professional Experience</h2>
+    <div className="bg-gray-900 rounded-lg shadow-lg overflow-hidden h-[700px] flex flex-col">
+      {/* Header - Fixed */}
+      <div className="bg-gray-800 px-6 py-4 border-b border-gray-700">
+        <div className="flex items-center gap-3">
+          <Briefcase className="w-6 h-6 text-blue-400" />
+          <h2 className="text-2xl font-bold text-white">Professional Experience</h2>
+        </div>
       </div>
 
-      <div className="space-y-6">
+      {/* Scrollable Content Area - This is the key part for height matching */}
+      <div className="flex-1 overflow-y-auto p-6 space-y-6">
         {experiences.map((exp) => (
           <div key={exp.id} className="border-l-4 border-blue-500 pl-6 pb-6 relative">
             <div className="absolute -left-2 top-0 w-4 h-4 bg-blue-500 rounded-full"></div>
             
             <div className="mb-3">
-              <h3 className="text-xl font-semibold text-gray-800">{exp.title}</h3>
-              <p className="text-lg text-blue-600 font-medium">{exp.company}</p>
-              <div className="flex items-center gap-2 text-gray-500 mt-1">
+              <h3 className="text-xl font-semibold text-white">{exp.title}</h3>
+              <p className="text-lg text-blue-400 font-medium">{exp.company}</p>
+              <div className="flex items-center gap-2 text-gray-400 mt-1">
                 <Calendar className="w-4 h-4" />
                 <span className="text-sm">{exp.period}</span>
               </div>
             </div>
 
-            <p className="text-gray-600 mb-4 leading-relaxed">
+            <p className="text-gray-300 mb-4 leading-relaxed">
               {exp.description}
             </p>
 
             <div className="flex items-start gap-2">
-              <Code className="w-4 h-4 text-gray-500 mt-1 flex-shrink-0" />
+              <Code className="w-4 h-4 text-gray-400 mt-1 flex-shrink-0" />
               <div className="flex flex-wrap gap-2">
                 {exp.technologies.map((tech, index) => (
                   <span
                     key={index}
-                    className="px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded-full font-medium"
+                    className="px-3 py-1 bg-blue-900 text-blue-300 text-sm rounded-full font-medium border border-blue-700"
                   >
                     {tech}
                   </span>

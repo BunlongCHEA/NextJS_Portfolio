@@ -42,85 +42,83 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="gradient-bg text-white py-8 px-6 shadow-lg">
-      <div className="max-w-6xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-          
-          {/* Left Section - Personal Info */}
-          <div className="flex-1">
-            <div className="flex items-center gap-3 mb-2">
-              <User className="w-8 h-8" />
-              <h1 className="text-3xl md:text-4xl font-bold">{personalInfo.name}</h1>
-            </div>
-            
-            <p className="text-xl text-blue-100 mb-4 font-medium">
-              {personalInfo.title}
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 text-blue-100">
-              <div className="flex items-center gap-2">
-                <MapPin className="w-4 h-4" />
-                <span>{personalInfo.location}</span>
-              </div>
-              
-              <div className="flex items-center gap-2">
-                <Mail className="w-4 h-4" />
-                <button 
-                  onClick={() => handleContactClick('email')}
-                  className="hover:text-white transition-colors duration-200"
-                >
-                  {personalInfo.email}
-                </button>
-              </div>
-            </div>
+    <header className="gradient-bg text-white shadow-lg">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+        
+        {/* Left Section - Personal Info */}
+        <div className="flex-1">
+          <div className="flex items-center gap-3 mb-2">
+            <User className="w-8 h-8" />
+            <h1 className="text-3xl md:text-4xl font-bold">{personalInfo.name}</h1>
           </div>
-
-          {/* Right Section - Social Links */}
-          <div className="flex gap-4">
-            <a
-              href="#"
-              onClick={(e) => handleSocialLink(e, 'github')}
-              className="flex items-center gap-2 bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg transition-all duration-200 backdrop-blur-sm"
-            >
-              <Github className="w-5 h-5" />
-              <span className="hidden sm:block">GitHub</span>
-            </a>
-
-            {/* <a
-              href="#"
-              onClick={(e) => handleSocialLink(e, 'gitlab')}
-              className="flex items-center gap-2 bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg transition-all duration-200 backdrop-blur-sm"
-            >
-              <Linkedin className="w-5 h-5" />
-              <span className="hidden sm:block">GitLab</span>
-            </a> */}
+          
+          <p className="text-xl text-blue-100 mb-4 font-medium">
+            {personalInfo.title}
+          </p>
+          
+          <div className="flex flex-col sm:flex-row gap-4 text-blue-100">
+            <div className="flex items-center gap-2">
+              <MapPin className="w-4 h-4" />
+              <span>{personalInfo.location}</span>
+            </div>
             
-            <a
-              href="#"
-              onClick={(e) => handleSocialLink(e, 'linkedin')}
-              className="flex items-center gap-2 bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg transition-all duration-200 backdrop-blur-sm"
-            >
-              <Linkedin className="w-5 h-5" />
-              <span className="hidden sm:block">LinkedIn</span>
-            </a>
+            <div className="flex items-center gap-2">
+              <Mail className="w-4 h-4" />
+              <button 
+                onClick={() => handleContactClick('email')}
+                className="hover:text-white transition-colors duration-200"
+              >
+                {personalInfo.email}
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Skills Summary */}
-        <div className="mt-6 pt-6 border-t border-white/20">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-            <div className="bg-white/10 rounded-lg p-3 backdrop-blur-sm">
-              <h3 className="font-semibold mb-1">Data Engineering</h3>
-              <p className="text-blue-100">Python, SQL, ETL, Big Data, Hadoop</p>
-            </div>
-            <div className="bg-white/10 rounded-lg p-3 backdrop-blur-sm">
-              <h3 className="font-semibold mb-1">DevOps</h3>
-              <p className="text-blue-100">Docker, Kubernetes, CI/CD</p>
-            </div>
-            <div className="bg-white/10 rounded-lg p-3 backdrop-blur-sm">
-              <h3 className="font-semibold mb-1">Cloud Platforms</h3>
-              <p className="text-blue-100">GCP, DigitalOcean, AWS</p>
-            </div>
+        {/* Right Section - Social Links */}
+        <div className="flex gap-4">
+          <a
+            href="#"
+            onClick={(e) => handleSocialLink(e, 'github')}
+            className="flex items-center gap-2 bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg transition-all duration-200 backdrop-blur-sm"
+          >
+            <Github className="w-5 h-5" />
+            <span className="hidden sm:block">GitHub</span>
+          </a>
+
+          {/* <a
+            href="#"
+            onClick={(e) => handleSocialLink(e, 'gitlab')}
+            className="flex items-center gap-2 bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg transition-all duration-200 backdrop-blur-sm"
+          >
+            <Linkedin className="w-5 h-5" />
+            <span className="hidden sm:block">GitLab</span>
+          </a> */}
+          
+          <a
+            href="#"
+            onClick={(e) => handleSocialLink(e, 'linkedin')}
+            className="flex items-center gap-2 bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg transition-all duration-200 backdrop-blur-sm"
+          >
+            <Linkedin className="w-5 h-5" />
+            <span className="hidden sm:block">LinkedIn</span>
+          </a>
+        </div>
+      </div>
+
+      {/* Skills Summary */}
+      <div className="mt-6 pt-6 border-t border-white/20">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+          <div className="bg-white/10 rounded-lg p-3 backdrop-blur-sm">
+            <h3 className="font-semibold mb-1">Data Engineering</h3>
+            <p className="text-blue-100">Python, SQL, ETL, Big Data, Hadoop</p>
+          </div>
+          <div className="bg-white/10 rounded-lg p-3 backdrop-blur-sm">
+            <h3 className="font-semibold mb-1">DevOps</h3>
+            <p className="text-blue-100">Docker, Kubernetes, CI/CD</p>
+          </div>
+          <div className="bg-white/10 rounded-lg p-3 backdrop-blur-sm">
+            <h3 className="font-semibold mb-1">Cloud Platforms</h3>
+            <p className="text-blue-100">GCP, DigitalOcean, AWS</p>
           </div>
         </div>
       </div>
