@@ -10,6 +10,7 @@ import {
   SiAngular, 
   SiSpringboot,
   SiDotnet,
+  SiLaravel,
 
   SiVuedotjs,
   SiReact, 
@@ -23,6 +24,7 @@ import {
 
   SiDocker,
   SiKubernetes,
+  SiJenkins,
   SiGooglecloud,
   SiDigitalocean
 } from 'react-icons/si';
@@ -30,7 +32,8 @@ import {
   DiMsqlServer
 } from 'react-icons/di';
 import { 
-  FaJava
+  FaJava,
+  FaPhp
 } from 'react-icons/fa6';
 import { 
   TbBrandCSharp
@@ -49,12 +52,14 @@ const languages: LanguageItem[] = [
   { name: 'Bootstrap', icon: SiBootstrap, color: 'text-purple-600' },
   { name: 'Java', icon: FaJava, color: 'text-orange-400' },
   { name: 'C#', icon: TbBrandCSharp, color: 'text-purple-400' },
+  { name: 'PHP', icon: FaPhp, color: 'text-purple-500' },
 
   { name: 'Python', icon: SiPython, color: 'text-blue-400' },
   { name: 'Node.js', icon: SiNodedotjs, color: 'text-green-500' },
   { name: 'Angular', icon: SiAngular, color: 'text-red-500' },
   { name: 'Spring Boot', icon: SiSpringboot, color: 'text-green-500' },
   { name: '.NET', icon: SiDotnet, color: 'text-purple-500' },
+  { name: 'Laravel', icon: SiLaravel, color: 'text-red-600' },
 
   { name: 'Vue.js', icon: SiVuedotjs, color: 'text-green-400' },
   { name: 'React', icon: SiReact, color: 'text-cyan-400' },
@@ -69,6 +74,7 @@ const languages: LanguageItem[] = [
 
   { name: 'Docker', icon: SiDocker, color: 'text-blue-400' },
   { name: 'Kubernetes', icon: SiKubernetes, color: 'text-blue-500' },
+  { name: 'Jenkins', icon: SiJenkins, color: 'text-red-600' },
 //   { name: 'AWS', icon: SiAmazonaws, color: 'text-orange-400' },
   { name: 'GCP', icon: SiGooglecloud, color: 'text-blue-400' },
   { name: 'DigitalOcean', icon: SiDigitalocean, color: 'text-blue-600' },

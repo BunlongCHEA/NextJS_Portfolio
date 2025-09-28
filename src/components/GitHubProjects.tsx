@@ -10,6 +10,7 @@ import {
   SiAngular, 
   SiSpringboot,
   SiDotnet,
+  SiLaravel,
 
   SiVuedotjs,
   SiReact, 
@@ -23,6 +24,7 @@ import {
   
   SiDocker,
   SiKubernetes,
+  SiJenkins,
   SiGooglecloud,
   SiDigitalocean
 } from 'react-icons/si';
@@ -30,7 +32,8 @@ import {
   DiMsqlServer
 } from 'react-icons/di';
 import { 
-  FaJava
+  FaJava,
+  FaPhp
 } from 'react-icons/fa6';
 import { 
   TbBrandCSharp
@@ -62,12 +65,14 @@ const technologyIcons: Record<string, { icon: React.ComponentType<{ className?: 
   'Bootstrap': { icon: SiBootstrap, color: 'text-purple-600' },
   'Java': { icon: FaJava, color: 'text-orange-400' },
   'C#': { icon: TbBrandCSharp, color: 'text-purple-400' },
+  'PHP': { icon: FaPhp, color: 'text-purple-500' },
 
   'Python': { icon: SiPython, color: 'text-blue-400' },
   'Node.js': { icon: SiNodedotjs, color: 'text-green-500' },
   'Angular': { icon: SiAngular, color: 'text-red-500' },
   'Spring Boot': { icon: SiSpringboot, color: 'text-green-500' },
   '.NET': { icon: SiDotnet, color: 'text-purple-500' },
+  'Laravel': { icon: SiLaravel, color: 'text-red-600' },
 
   'Vue.js': { icon: SiVuedotjs, color: 'text-green-400' },
   'React': { icon: SiReact, color: 'text-cyan-400' },
@@ -82,6 +87,7 @@ const technologyIcons: Record<string, { icon: React.ComponentType<{ className?: 
 
   'Docker': { icon: SiDocker, color: 'text-blue-400' },
   'Kubernetes': { icon: SiKubernetes, color: 'text-blue-500' },
+  'Jenkins': { icon: SiJenkins, color: 'text-red-600' },
   'GCP': { icon: SiGooglecloud, color: 'text-blue-400' },
   'DigitalOcean': { icon: SiDigitalocean, color: 'text-blue-600' },
 };
@@ -90,7 +96,7 @@ const technologyIcons: Record<string, { icon: React.ComponentType<{ className?: 
 const projects: Project[] = [
   {
     id: 'ecommerce-dotnet',
-    name: 'E-commerce Backend (.NET)',
+    name: 'E-commerce (.NET)',
     description: 'Robust e-commerce backend built with ASP.NET Core, featuring JWT authentication, Entity Framework, and comprehensive API endpoints.',
     url: 'https://github.com/BunlongCHEA/Ecommerce-DotNet',
     liveUrl: 'https://ecommerceapi.bunlong.site/swagger',
@@ -104,7 +110,7 @@ const projects: Project[] = [
   },
   {
     id: 'ecommerce-vue',
-    name: 'E-commerce Frontend (Vue.js)',
+    name: 'E-commerce (Vue.js)',
     description: 'Modern e-commerce frontend with Vue.js, Vuex for state management, and responsive design.',
     url: 'https://github.com/BunlongCHEA/Ecommerce-Vue',
     liveUrl: 'https://ecommercevue.bunlong.site',
@@ -119,7 +125,7 @@ const projects: Project[] = [
   },
   {
     id: 'nextjs-portfolio',
-    name: 'NextJS Portfolio',
+    name: 'My Portfolio',
     description: 'Personal portfolio website built with Next.js, featuring modern animations and responsive design.',
     url: 'https://github.com/BunlongCHEA/NextJS_Portfolio',
     liveUrl: 'https://personalportfolio.bunlong.site',
@@ -164,11 +170,24 @@ const projects: Project[] = [
     name: 'Gym Management (.NET)',
     description: 'Robust gym management fullstack built with ASP.NET Core, featuring JWT authentication, Entity Framework, and interactive Bootstrap GUI endpoints.',
     url: 'https://github.com/BunlongCHEA/ASP.Net_GymManagement',
-    liveUrl: 'https://gymapi.bunlong.site/swagger',
-    technologies: ['C#', '.NET', 'SQL Server', 'Bootstrap', 'Docker', 'Kubernetes', 'GCP', 'DigitalOcean'],
+    liveUrl: 'https://gymdotnet.bunlong.site',
+    technologies: ['C#', '.NET', 'SQL Server', 'Bootstrap', 'Jenkins', 'Docker', 'Kubernetes', 'GCP', 'DigitalOcean'],
     images: [
       { url: '/images/gym-dotnet-1.png', alt: 'API Documentation' },
       { url: '/images/gym-dotnet-2.png', alt: 'Database Schema' },
+    ],
+    type: 'fullstack',
+  },
+  {
+    id: 'cuisine-laravel',
+    name: 'Order Cuisine (Laravel)',
+    description: 'Robust Order food fullstack built with Laravel, and interactive Bootstrap GUI endpoints.',
+    url: 'https://github.com/BunlongCHEA/Laravel_Online_Cuisine',
+    liveUrl: 'https://cuisinelaravel.bunlong.site',
+    technologies: ['PHP', 'Laravel', 'PostgreSQL', 'Bootstrap', 'Jenkins', 'Docker', 'Kubernetes', 'GCP', 'DigitalOcean'],
+    images: [
+      { url: '/images/cuisine-laravel-1.png', alt: 'API Documentation' },
+      { url: '/images/cuisine-laravel-2.png', alt: 'Database Schema' },
     ],
     type: 'fullstack',
   },

@@ -31,7 +31,7 @@
 .animate-slide-continuous {
   /* Takes 10 seconds to complete one full cycle */
   /* linear timing ensures constant speed with infinite loop */
-  animation: slide-continuous 15s linear infinite;
+  animation: slide-continuous 20s linear infinite;
   width: fit-content;
 }
 
