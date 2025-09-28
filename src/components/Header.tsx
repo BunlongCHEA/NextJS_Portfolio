@@ -19,7 +19,7 @@ const Header: React.FC = () => {
   // TypeScript: Defining typed objects
   const personalInfo: PersonalInfo = {
     name: "CHEA BUNLONG",
-    title: "Data Engineer & DevOps Professional",
+    title: "Data Engineer & DevOps Engineer",
     location: "Phnom Penh, Cambodia",
     email: "c.bunlong168@gmail.com"
   };

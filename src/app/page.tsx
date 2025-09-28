@@ -6,6 +6,7 @@ import ExperienceList from '@/components/ExperienceList'
 import CodeEditor from '@/components/CodeEditor'
 import AnimatedBackground from '@/components/AnimatedBackground'
 import LanguageSwiper from '@/components/LanguageSwiper'
+import GitHubProjects from '@/components/GitHubProjects'
 
 export default function Home() {
   const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
@@ -49,6 +50,9 @@ export default function Home() {
               selectedLanguage={selectedLanguage} 
             />
           </div>
+
+          {/* GitHub Projects Display */}
+          <GitHubProjects selectedLanguage={selectedLanguage} />
         </div>
       </div>
     </main>

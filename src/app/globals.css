@@ -24,15 +24,19 @@
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-50%);
+    transform: translateX(calc(-100% / 3));
   }
 }
 
 .animate-slide-continuous {
-  animation: slide-continuous 30s linear infinite;
+  /* Takes 10 seconds to complete one full cycle */
+  /* linear timing ensures constant speed with infinite loop */
+  animation: slide-continuous 15s linear infinite;
+  width: fit-content;
 }
 
 .animate-slide-continuous:hover {
+  /* Pauses on hover for better user interaction */
   animation-play-state: paused;
 }
 

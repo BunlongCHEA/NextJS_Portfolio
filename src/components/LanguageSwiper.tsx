@@ -2,25 +2,39 @@ import React, { useState } from 'react';
 import { 
   SiJavascript, 
   SiTypescript, 
-  SiPython, 
-//   SiJava, 
-//   SiCsharp, 
-  SiReact, 
-  SiNodedotjs, 
-  SiVuedotjs, 
+  SiTailwindcss,
+  SiBootstrap,
+
+  SiPython,
+  SiNodedotjs,
   SiAngular, 
   SiSpringboot,
   SiDotnet,
+
+  SiVuedotjs,
+  SiReact, 
   SiNextdotjs,
-  SiExpress,
+  SiAndroid,
+  
+  SiFirebase,
   SiMongodb,
   SiMysql,
   SiPostgresql,
+
   SiDocker,
   SiKubernetes,
-//   SiAmazonaws,
-  SiGooglecloud
+  SiGooglecloud,
+  SiDigitalocean
 } from 'react-icons/si';
+import { 
+  DiMsqlServer
+} from 'react-icons/di';
+import { 
+  FaJava
+} from 'react-icons/fa6';
+import { 
+  TbBrandCSharp
+} from 'react-icons/tb';
 
 interface LanguageItem {
   name: string;
@@ -31,24 +45,33 @@ interface LanguageItem {
 const languages: LanguageItem[] = [
   { name: 'JavaScript', icon: SiJavascript, color: 'text-yellow-400' },
   { name: 'TypeScript', icon: SiTypescript, color: 'text-blue-400' },
-  { name: 'Python', icon: SiPython, color: 'text-green-400' },
-//   { name: 'Java', icon: SiJava, color: 'text-orange-400' },
-//   { name: 'C#', icon: SiCsharp, color: 'text-purple-400' },
-  { name: 'React', icon: SiReact, color: 'text-cyan-400' },
+  { name: 'Tailwind CSS', icon: SiTailwindcss, color: 'text-sky-400' },
+  { name: 'Bootstrap', icon: SiBootstrap, color: 'text-purple-600' },
+  { name: 'Java', icon: FaJava, color: 'text-orange-400' },
+  { name: 'C#', icon: TbBrandCSharp, color: 'text-purple-400' },
+
+  { name: 'Python', icon: SiPython, color: 'text-blue-400' },
   { name: 'Node.js', icon: SiNodedotjs, color: 'text-green-500' },
-  { name: 'Vue.js', icon: SiVuedotjs, color: 'text-green-400' },
   { name: 'Angular', icon: SiAngular, color: 'text-red-500' },
   { name: 'Spring Boot', icon: SiSpringboot, color: 'text-green-500' },
   { name: '.NET', icon: SiDotnet, color: 'text-purple-500' },
+
+  { name: 'Vue.js', icon: SiVuedotjs, color: 'text-green-400' },
+  { name: 'React', icon: SiReact, color: 'text-cyan-400' },
   { name: 'Next.js', icon: SiNextdotjs, color: 'text-white' },
-  { name: 'Express', icon: SiExpress, color: 'text-gray-400' },
+  { name: 'Android', icon: SiAndroid, color: 'text-green-400' },
+
+  { name: 'Firebase', icon: SiFirebase, color: 'text-yellow-400' },
   { name: 'MongoDB', icon: SiMongodb, color: 'text-green-500' },
   { name: 'MySQL', icon: SiMysql, color: 'text-blue-500' },
   { name: 'PostgreSQL', icon: SiPostgresql, color: 'text-blue-400' },
+  { name: 'SQL Server', icon: DiMsqlServer, color: 'text-red-500' },
+
   { name: 'Docker', icon: SiDocker, color: 'text-blue-400' },
   { name: 'Kubernetes', icon: SiKubernetes, color: 'text-blue-500' },
 //   { name: 'AWS', icon: SiAmazonaws, color: 'text-orange-400' },
   { name: 'GCP', icon: SiGooglecloud, color: 'text-blue-400' },
+  { name: 'DigitalOcean', icon: SiDigitalocean, color: 'text-blue-600' },
 ];
 
 interface LanguageSwiperProps {
@@ -66,7 +89,7 @@ const LanguageSwiper: React.FC<LanguageSwiperProps> = ({ onLanguageSelect, selec
   };
 
   // Duplicate the array to create seamless loop
-  const duplicatedLanguages = [...languages, ...languages];
+  const duplicatedLanguages = [...languages, ...languages, ...languages];
 
   return (
     <div className="bg-gray-900/50 rounded-lg overflow-hidden border border-gray-700/50 backdrop-blur-sm">
