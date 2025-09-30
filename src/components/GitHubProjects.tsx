@@ -112,7 +112,7 @@ const projects: Project[] = [
     liveUrl: 'https://ecommerceapi.bunlong.site/swagger',
     technologies: ['C#', '.NET', 'SQL Server', 'MongoDB', 'Docker', 'Kubernetes', 'GCP', 'DigitalOcean'],
     images: [
-      { url: getGitHubImageUrl('Ecommerce-DotNet', 'images/argocd_1.png'), alt: 'Login-ArgoCD' },
+      { url: getGitHubImageUrl('NextJS_Portfolio', 'images/argocd_1.png'), alt: 'Login-ArgoCD' },
       { url: '/images/ecommerce-dotnet-2.png', alt: 'Database Schema' },
     ],
     type: 'backend',
