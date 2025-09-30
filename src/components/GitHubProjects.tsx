@@ -92,6 +92,16 @@ const technologyIcons: Record<string, { icon: React.ComponentType<{ className?: 
   'DigitalOcean': { icon: SiDigitalocean, color: 'text-blue-600' },
 };
 
+const GITHUB_CONFIG = {
+  username: 'BunlongCHEA',
+  branch: 'main'
+};
+
+// Helper function
+const getGitHubImageUrl = (repository: string, imagePath: string) => {
+  return `https://raw.githubusercontent.com/${GITHUB_CONFIG.username}/${repository}/${GITHUB_CONFIG.branch}/${imagePath}`;
+};
+
 // Data - For GitHub projects
 const projects: Project[] = [
   {
@@ -102,7 +112,7 @@ const projects: Project[] = [
     liveUrl: 'https://ecommerceapi.bunlong.site/swagger',
     technologies: ['C#', '.NET', 'SQL Server', 'MongoDB', 'Docker', 'Kubernetes', 'GCP', 'DigitalOcean'],
     images: [
-      { url: '/images/ecommerce-dotnet-1.png', alt: 'API Documentation' },
+      { url: getGitHubImageUrl('Ecommerce-DotNet', 'images/argocd_1.png'), alt: 'Login-ArgoCD' },
       { url: '/images/ecommerce-dotnet-2.png', alt: 'Database Schema' },
     ],
     type: 'backend',
