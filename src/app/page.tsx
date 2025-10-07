@@ -7,6 +7,7 @@ import CodeEditor from '@/components/CodeEditor'
 import AnimatedBackground from '@/components/AnimatedBackground'
 import LanguageSwiper from '@/components/LanguageSwiper'
 import GitHubProjects from '@/components/GitHubProjects'
+import ExperienceContainer from '@/components/ExperienceContainer'
 
 export default function Home() {
   const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
@@ -29,7 +30,7 @@ export default function Home() {
             
             {/* Left Column - Experience List */}
             <div className="order-2 lg:order-1">
-              <ExperienceList />
+              <ExperienceContainer />
             </div>
             
             {/* Right Column - Code Editor */}

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { 
   SiJavascript, 
   SiTypescript, 
@@ -43,6 +44,7 @@ import { FiGithub, FiExternalLink, FiX, FiChevronLeft, FiChevronRight } from 're
 interface ProjectImage {
   url: string;
   alt: string;
+  // placeholder?: string;
 }
 
 interface Project {
@@ -102,6 +104,18 @@ const getGitHubImageUrl = (repository: string, imagePath: string) => {
   return `https://raw.githubusercontent.com/${GITHUB_CONFIG.username}/${repository}/${GITHUB_CONFIG.branch}/${imagePath}`;
 };
 
+// Generate tiny base64 placeholders (1x1 pixel colored squares)
+// const generatePlaceholder = (color: string) => {
+//   return `data:image/svg+xml;base64,${btoa(`
+//     <svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+//       <rect width="100%" height="100%" fill="${color}"/>
+//       <text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="white" font-family="Arial" font-size="16">
+//         Loading...
+//       </text>
+//     </svg>
+//   `)}`;
+// };
+
 // Data - For GitHub projects
 const projects: Project[] = [
   {
@@ -112,8 +126,19 @@ const projects: Project[] = [
     liveUrl: 'https://ecommerceapi.bunlong.site/swagger',
     technologies: ['C#', '.NET', 'SQL Server', 'MongoDB', 'Docker', 'Kubernetes', 'GCP', 'DigitalOcean'],
     images: [
-      { url: getGitHubImageUrl('NextJS_Portfolio', 'images/argocd_1.png'), alt: 'Login-ArgoCD' },
-      { url: '/images/ecommerce-dotnet-2.png', alt: 'Database Schema' },
+      { url: getGitHubImageUrl('Ecommerce-DotNet', 'images/argocd_1.png'), alt: 'ArgoCD-Login' },
+      { url: getGitHubImageUrl('Ecommerce-DotNet', 'images/argocd_2.png'), alt: 'ArgoCD-Repo' },
+      { url: getGitHubImageUrl('Ecommerce-DotNet', 'images/argocd_3.png'), alt: 'ArgoCD-Project' },
+      { url: getGitHubImageUrl('Ecommerce-DotNet', 'images/argocd_4.png'), alt: 'ArgoCD-Project-SQLServer' },
+      { url: getGitHubImageUrl('Ecommerce-DotNet', 'images/argocd_5.png'), alt: 'ArgoCD-Project-MongoDB' },
+      { url: getGitHubImageUrl('Ecommerce-DotNet', 'images/argocd_6.png'), alt: 'ArgoCD-Project-Backend' },
+      { url: getGitHubImageUrl('Ecommerce-DotNet', 'images/argocd_7.png'), alt: 'ArgoCD-Project-Frontend' },
+      { url: getGitHubImageUrl('Ecommerce-DotNet', 'images/cloudflare_1.png'), alt: 'Cloudflare-Backend' },
+      { url: getGitHubImageUrl('Ecommerce-DotNet', 'images/cloudflare_2.png'), alt: 'Cloudflare-Frontend' },
+      { url: getGitHubImageUrl('Ecommerce-DotNet', 'images/k8s_1.png'), alt: 'Kubernetes_Namespace' },
+      { url: getGitHubImageUrl('Ecommerce-DotNet', 'images/k8s_2.png'), alt: 'Cloudflare-Ingress' },
+      { url: getGitHubImageUrl('Ecommerce-DotNet', 'images/web_1.png'), alt: 'Web_Backend_Swagger' },
+      { url: getGitHubImageUrl('Ecommerce-DotNet', 'images/web_2.png'), alt: 'Web_Frontend_Login' },
     ],
     type: 'backend',
     relatedProject: 'ecommerce-vue'
@@ -126,9 +151,11 @@ const projects: Project[] = [
     liveUrl: 'https://ecommercevue.bunlong.site',
     technologies: ['Vue.js', 'JavaScript', 'Tailwind CSS', 'Docker', 'Kubernetes', 'GCP', 'DigitalOcean'],
     images: [
-      { url: '/images/ecommerce-vue-1.png', alt: 'Home Page' },
-      { url: '/images/ecommerce-vue-2.png', alt: 'Product Catalog' },
-      { url: '/images/ecommerce-vue-3.png', alt: 'Shopping Cart' },
+      { url: getGitHubImageUrl('Ecommerce-Vue', 'images/argocd_1.png'), alt: 'ArgoCD-Login' },
+      { url: getGitHubImageUrl('Ecommerce-Vue', 'images/argocd_2.png'), alt: 'ArgoCD-Repo' },
+      { url: getGitHubImageUrl('Ecommerce-Vue', 'images/argocd_3.png'), alt: 'ArgoCD-Project' },
+      { url: getGitHubImageUrl('Ecommerce-Vue', 'images/argocd_4.png'), alt: 'ArgoCD-Project-Frontend' },
+      { url: getGitHubImageUrl('Ecommerce-Vue', 'images/web_1.png'), alt: 'Login' },
     ],
     type: 'frontend',
     relatedProject: 'ecommerce-dotnet'
@@ -210,6 +237,7 @@ interface GitHubProjectsProps {
 const GitHubProjects: React.FC<GitHubProjectsProps> = ({ selectedLanguage }) => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isImageFullscreen, setIsImageFullscreen] = useState(false); // State for fullscreen image
 
   // Filter projects based on selected language
   const filteredProjects = selectedLanguage 
@@ -253,14 +281,111 @@ const GitHubProjects: React.FC<GitHubProjectsProps> = ({ selectedLanguage }) => 
     return acc;
   }, [] as Array<{ key: string; projects: Project[]; type: 'single' | 'pair' }>);
 
+  // Image component with instant placeholder
+  const ImageWithPlaceholder: React.FC<{ src: string; alt: string; className?: string }> = ({ src, alt, className }) => {
+    const [loaded, setLoaded] = useState(false);
+    
+    return (
+      <div className={`relative ${className}`}>
+        {/* Instant placeholder */}
+        <div className={`absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center ${loaded ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}>
+          <div className="text-center">
+            <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-2"></div>
+            <span className="text-gray-400 text-sm">Loading...</span>
+          </div>
+        </div>
+        
+        <Image
+          src={src}
+          alt={alt}
+          className="w-full h-full object-cover"
+          onLoad={() => setLoaded(true)}
+          width={800}
+          height={600}
+          sizes="(max-width: 1600px) 100vw, 50vw"
+          priority={false}
+        />
+      </div>
+    );
+  };
+
+  // Handlers for project modal and image navigation
+  // ESC key handler
+  useEffect(() => {
+    const handleEscKey = (event: KeyboardEvent) => {
+      // Close modals with ESC
+      if (event.key === 'Escape') {
+        if (isImageFullscreen) {
+          setIsImageFullscreen(false); // Close fullscreen image first
+        } else if (selectedProject) {
+          closeModal(); // Close modal if no fullscreen image
+        }
+        return;
+      }
+
+      // Image navigation (only when modal is open and has images)
+      if (selectedProject && selectedProject.images.length > 1) {
+        switch (event.key) {
+          case 'ArrowLeft':
+          case 'a': // Alternative: A key
+          case 'A':
+            event.preventDefault();
+            prevImage();
+            break;
+            
+          case 'ArrowRight':
+          case 'd': // Alternative: D key
+          case 'D':
+            event.preventDefault();
+            nextImage();
+            break;
+            
+          case ' ': // Spacebar for next image
+            event.preventDefault();
+            nextImage();
+            break;
+        }
+      }
+      
+      // Open fullscreen with Enter (when modal is open)
+      if (event.key === 'Enter' && selectedProject && !isImageFullscreen) {
+        event.preventDefault();
+        openFullscreenImage();
+      }
+    };
+
+    // Add event listener when modal or fullscreen is open
+    if (selectedProject || isImageFullscreen) {
+      document.addEventListener('keydown', handleEscKey);
+    }
+
+    // Cleanup
+    return () => {
+      document.removeEventListener('keydown', handleEscKey);
+    };
+  }, [selectedProject, isImageFullscreen, currentImageIndex]);
+
+  // Open project modal
   const openProjectModal = (project: Project) => {
     setSelectedProject(project);
     setCurrentImageIndex(0);
   };
 
+  // Close project modal
   const closeModal = () => {
     setSelectedProject(null);
     setCurrentImageIndex(0);
+    setIsImageFullscreen(false); // Reset fullscreen state
+  };
+
+  // Open fullscreen image
+  const openFullscreenImage = () => {
+    setIsImageFullscreen(true);
+  };
+
+  // Close fullscreen image
+  const closeFullscreenImage = () => {
+    setIsImageFullscreen(false);
   };
 
   const nextImage = () => {
@@ -434,12 +559,26 @@ const GitHubProjects: React.FC<GitHubProjectsProps> = ({ selectedLanguage }) => 
                   {selectedProject.type.charAt(0).toUpperCase() + selectedProject.type.slice(1)}
                 </span>
               </div>
-              <button
+              <div className="flex items-center gap-2">
+                <div className="text-xs text-gray-400 text-right">
+                  <div>ESC to close</div>
+                  {selectedProject.images.length > 1 && (
+                    <div>← → to navigate</div>
+                  )}
+                </div>
+                <button
+                  onClick={closeModal}
+                  className="p-2 hover:bg-gray-800 rounded-lg transition-colors"
+                >
+                  <FiX className="w-6 h-6 text-gray-400" />
+                </button>
+              </div>
+              {/* <button
                 onClick={closeModal}
                 className="p-2 hover:bg-gray-800 rounded-lg transition-colors"
               >
                 <FiX className="w-6 h-6 text-gray-400" />
-              </button>
+              </button> */}
             </div>
 
             {/* Modal Body */}
@@ -496,14 +635,27 @@ const GitHubProjects: React.FC<GitHubProjectsProps> = ({ selectedLanguage }) => 
               {/* Images */}
               {selectedProject.images.length > 0 && (
                 <div className="mb-6">
-                  <h3 className="text-lg font-semibold text-white mb-3">Screenshots</h3>
+                  <div className="flex items-center justify-between mb-3">
+                    <h3 className="text-lg font-semibold text-white">Screenshots</h3>
+                    <span className="text-xs text-gray-400">Click image to view fullscreen</span>
+                  </div>
                   <div className="relative">
-                    <div className="aspect-video bg-gray-800 rounded-lg overflow-hidden group">
-                      <img
+                    <div 
+                      className="aspect-video bg-gray-800 rounded-lg overflow-hidden group cursor-pointer"
+                      onClick={openFullscreenImage}
+                    >
+                      <ImageWithPlaceholder
                         src={selectedProject.images[currentImageIndex].url}
                         alt={selectedProject.images[currentImageIndex].alt}
                         className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                       />
+                      
+                      {/* Zoom indicator */}
+                      <div className="absolute top-4 right-4 bg-black/50 text-white p-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity">
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                        </svg>
+                      </div>
                     </div>
                     
                     {selectedProject.images.length > 1 && (
@@ -536,6 +688,78 @@ const GitHubProjects: React.FC<GitHubProjectsProps> = ({ selectedLanguage }) => 
                       </>
                     )}
                   </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Fullscreen Image Modal */}
+      {isImageFullscreen && selectedProject && (
+        <div className="fixed inset-0 bg-black/95 backdrop-blur-sm z-[60] flex items-center justify-center p-4">
+          <div className="relative w-full h-full flex items-center justify-center">
+            {/* Close button */}
+            <button
+              onClick={closeFullscreenImage}
+              className="absolute top-4 right-4 z-10 bg-black/50 hover:bg-black/70 p-3 rounded-full transition-colors"
+            >
+              <FiX className="w-8 h-8 text-white" />
+            </button>
+
+            {/* ESC hint */}
+            <div className="absolute top-4 left-4 z-10 bg-black/50 text-white px-3 py-2 rounded-lg">
+              <span className="text-sm">Press ESC to close</span>
+            </div>
+
+            {/* Image navigation buttons */}
+            {selectedProject.images.length > 1 && (
+              <>
+                <button
+                  onClick={prevImage}
+                  className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 p-4 rounded-full transition-colors z-10"
+                >
+                  <FiChevronLeft className="w-8 h-8 text-white" />
+                </button>
+                <button
+                  onClick={nextImage}
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 p-4 rounded-full transition-colors z-10"
+                >
+                  <FiChevronRight className="w-8 h-8 text-white" />
+                </button>
+              </>
+            )}
+
+            {/* Fullscreen image */}
+            <div className="max-w-full max-h-full">
+              <ImageWithPlaceholder
+                src={selectedProject.images[currentImageIndex].url}
+                alt={selectedProject.images[currentImageIndex].alt}
+                className="max-w-full max-h-full object-contain"
+              />
+            </div>
+
+            {/* Image info and indicators */}
+            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-center">
+              <div className="bg-black/50 text-white px-4 py-2 rounded-lg mb-3">
+                <p className="text-sm font-medium">{selectedProject.images[currentImageIndex].alt}</p>
+                <p className="text-xs text-gray-300">
+                  {currentImageIndex + 1} of {selectedProject.images.length}
+                </p>
+              </div>
+              
+              {/* Image indicators */}
+              {selectedProject.images.length > 1 && (
+                <div className="flex justify-center gap-2">
+                  {selectedProject.images.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentImageIndex(index)}
+                      className={`w-3 h-3 rounded-full transition-colors ${
+                        index === currentImageIndex ? 'bg-blue-400' : 'bg-gray-600'
+                      }`}
+                    />
+                  ))}
                 </div>
               )}
             </div>

@@ -1,19 +1,6 @@
 import React from "react";
-import { User, MapPin, Mail, Github, Gitlab, Linkedin } from 'lucide-react';
-
-// TypeScript interfaces for type safety
-interface PersonalInfo {
-  name: string;
-  title: string;
-  location: string;
-  email: string;
-}
-
-interface SocialLinks {
-  github: string;
-  gitlab: string;
-  linkedin: string;
-}
+import { User, MapPin, Mail, Github, Gitlab, Linkedin, Download, Smartphone } from 'lucide-react';
+import { PersonalInfo, SocialLinks } from '@/types';
 
 const Header: React.FC = () => {
   // TypeScript: Defining typed objects
@@ -21,13 +8,20 @@ const Header: React.FC = () => {
     name: "CHEA BUNLONG",
     title: "Data Engineer & DevOps Engineer",
     location: "Phnom Penh, Cambodia",
-    email: "c.bunlong168@gmail.com"
+    email: "c.bunlong168@gmail.com",
+    phone: "+855 70 639 488",
+    cvUrl: "https://drive.google.com/file/d/1LT5UcnB-09m2GFjF14ul3ejh59KtcIAL/view?usp=drive_link"
   };
 
   const socialLinks: SocialLinks = {
     github: "https://github.com/BunlongCHEA",
     gitlab: "https://gitlab.com/BunlongCHEA",
     linkedin: "https://www.linkedin.com/in/chea-bunlong-479a2620b/"
+  };
+
+  // TypeScript: Function with download CV functionality
+  const handleCVDownload = (): void => {
+    window.open(personalInfo.cvUrl, '_blank');
   };
 
   // TypeScript: Function with typed parameters and return type
@@ -71,11 +65,24 @@ const Header: React.FC = () => {
                 {personalInfo.email}
               </button>
             </div>
+
+            <div className="flex items-center gap-2">
+              <Smartphone className="w-4 h-4" />
+              <span>{personalInfo.phone}</span>
+            </div>
           </div>
         </div>
 
         {/* Right Section - Social Links */}
         <div className="flex gap-4">
+          <button
+            onClick={handleCVDownload}
+            className="flex items-center gap-2 bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg transition-all duration-200 backdrop-blur-sm"
+          >
+            <Download className="w-5 h-5" />
+            <span className="hidden sm:block">CV</span>
+          </button>
+
           <a
             href="#"
             onClick={(e) => handleSocialLink(e, 'github')}
@@ -110,11 +117,11 @@ const Header: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
           <div className="bg-white/10 rounded-lg p-3 backdrop-blur-sm">
             <h3 className="font-semibold mb-1">Data Engineering</h3>
-            <p className="text-blue-100">Python, SQL, ETL, Big Data, Hadoop</p>
+            <p className="text-blue-100">Python, SQL, NoSQL, Streaming(Kafka, RabbiMQ), ETL, Big Data, Hadoop</p>
           </div>
           <div className="bg-white/10 rounded-lg p-3 backdrop-blur-sm">
             <h3 className="font-semibold mb-1">DevOps</h3>
-            <p className="text-blue-100">Docker, Kubernetes, CI/CD</p>
+            <p className="text-blue-100">Docker, Kubernetes, GitLab, Jenkins, CI/CD</p>
           </div>
           <div className="bg-white/10 rounded-lg p-3 backdrop-blur-sm">
             <h3 className="font-semibold mb-1">Cloud Platforms</h3>
