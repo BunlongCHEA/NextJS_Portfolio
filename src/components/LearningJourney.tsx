@@ -24,7 +24,7 @@ const LearningJourney: React.FC = () => {
       id: 2,
       title: "IT STEP Computer Academy (@itstep.bg)",
       platform: "Software Development",
-      period: "Nov 2022 - Nov 2022",
+      period: "Nov 2022 - Nov 2025",
       description: "Intensive learning and studying in the major of Software Development for the 3 school-year, to understand the life-cycle of software developer, best code practice, latest technologies, Big Data,.",
       detailedPoints: [
         "Learn, understand, and practice in system design and architecture like C++",
@@ -42,7 +42,7 @@ const LearningJourney: React.FC = () => {
       id: 3,
       title: "SalaCyber Training",
       platform: "DevOps And Cloud Computing",
-      period: "Feb 2024 - Apr 2024",
+      period: "Jan 2025 - Apr 2025",
       description: "Comprehensive study of CI/CD life-cycle, best practice security, containerd docker & Kubernestes, Jenkins, GitLab, and ArgoCD for deployment, Cloud Computing & Ansible for create, deploy k8s and virtual machine.",
       detailedPoints: [
         "Understanding the fundamentals of DevOps culture and practices",
