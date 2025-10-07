@@ -31,7 +31,7 @@ const ExperienceList: React.FC = () => {
       id: 2,
       title: "Data Analyst",
       company: "Piik Mall: E-commerce startup",
-      period: "Apr 2020 - Mar 2023",
+      period: "Apr 2022 - Mar 2023",
       description: "Understand and solve problem in E-commerce, designed dashboard, maintenance system, managed containerized docker, and optimized query.",
       detailedPoints: [
         "Using Talend to map ETL from Server of the App by cleaning, formatting, validate, and coding Stored-Procedure to load to company’s data warehouse",

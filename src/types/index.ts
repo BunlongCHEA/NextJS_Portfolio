@@ -26,6 +26,7 @@ export interface PersonalInfo {
   email: string;
   phone: string;
   cvUrl: string;
+  biography?: string[];
 }
 
 export interface SocialLinks {

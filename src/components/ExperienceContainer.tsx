@@ -9,7 +9,7 @@ const ExperienceContainer: React.FC = () => {
   const [activeView, setActiveView] = useState<ViewType>('experience');
 
   return (
-    <div className="w-full">
+    <div className="overflow-hidden h-[800px] flex flex-col">
       {/* Switch Button */}
       <div className="mb-6 flex justify-center">
         <div className="bg-gray-800 rounded-lg p-1 flex gap-1 border border-gray-700">

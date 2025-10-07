@@ -1,8 +1,10 @@
-import React from "react";
-import { User, MapPin, Mail, Github, Gitlab, Linkedin, Download, Smartphone } from 'lucide-react';
+import React, { useState } from "react";
+import { User, MapPin, Mail, Github, Gitlab, Linkedin, Download, Smartphone, ChevronDown, ChevronUp } from 'lucide-react';
 import { PersonalInfo, SocialLinks } from '@/types';
 
 const Header: React.FC = () => {
+  const [showFullBio, setShowFullBio] = useState(false);
+  
   // TypeScript: Defining typed objects
   const personalInfo: PersonalInfo = {
     name: "CHEA BUNLONG",
@@ -10,7 +12,17 @@ const Header: React.FC = () => {
     location: "Phnom Penh, Cambodia",
     email: "c.bunlong168@gmail.com",
     phone: "+855 70 639 488",
-    cvUrl: "https://drive.google.com/file/d/1LT5UcnB-09m2GFjF14ul3ejh59KtcIAL/view?usp=drive_link"
+    cvUrl: "https://drive.google.com/file/d/1LT5UcnB-09m2GFjF14ul3ejh59KtcIAL/view?usp=drive_link",
+    biography:
+    [
+      "Passionate about building robust, scalable, automated data pipelines.",
+      "Experienced in end-to-end data engineering, DevOps, and cloud architecture.",
+      "Experienced and enjoy learning in containerization, CI/CD automation, and infrastructure as code",
+      "Love to mentoring junior engineer, cross-functional collaboration, open-minded to asking & listening to understand technical, business team to solve and provide the optimized solution.",
+      "Curious and enjoy to learning new technology, best code practice, and tools to improve work efficiency.",
+      "Committed to continuous learning and staying updated with latest technologies and industry trends.",
+      "Enthusiastic and engaging to research new technology, and share knowledge with fellow engineer and friend. One of the example for my research in university is -- Factors influencing knowledge sharing practices among undergraduate students at a Cambodian higher education language institute at the Institute of Foreign Languages; as we conduct survey, interview, and analyze data to finding improvement in sharing knowledge among students.",
+    ]
   };
 
   const socialLinks: SocialLinks = {
@@ -110,6 +122,38 @@ const Header: React.FC = () => {
             <span className="hidden sm:block">LinkedIn</span>
           </a>
         </div>
+      </div>
+
+      {/* Biography Section */}
+      <div className="flex-1 mt-4">
+        <h3 className="text-lg font-semibold text-blue-100 mb-3">About Me</h3>
+        <ul className="space-y-2">
+          {personalInfo.biography?.slice(0, showFullBio ? personalInfo.biography.length : 6).map((point, index) => (
+            <li key={index} className="flex items-start gap-2 text-blue-100">
+              <div className="w-2 h-2 bg-blue-300 rounded-full mt-2 flex-shrink-0"></div>
+              <span className="text-sm leading-relaxed">{point}</span>
+            </li>
+          ))}
+        </ul>
+        
+        {personalInfo.biography && personalInfo.biography.length > 6 && (
+          <button
+            onClick={() => setShowFullBio(!showFullBio)}
+            className="flex items-center gap-2 mt-3 text-blue-200 hover:text-white transition-colors duration-200 text-sm"
+          >
+            {showFullBio ? (
+              <>
+                <ChevronUp className="w-4 h-4" />
+                <span>Read Less</span>
+              </>
+            ) : (
+              <>
+                <ChevronDown className="w-4 h-4" />
+                <span>Read More</span>
+              </>
+            )}
+          </button>
+        )}
       </div>
 
       {/* Skills Summary */}

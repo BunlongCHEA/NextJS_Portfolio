@@ -69,7 +69,7 @@ console.log("✅ All skills loaded successfully!");`;
   };
 
   return (
-    <div className="bg-slate-900/95 backdrop-blur-sm border border-slate-700/50 rounded-lg shadow-2xl overflow-hidden h-[620px] flex flex-col">
+    <div className="bg-slate-900/95 backdrop-blur-sm border border-slate-700/50 rounded-lg shadow-2xl overflow-hidden h-[690px] flex flex-col">
       {/* Editor Header */}
       <div className="bg-slate-800/90 px-4 py-3 flex items-center justify-between border-b border-slate-700/50">
         <div className="flex items-center gap-3">

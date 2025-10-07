@@ -10,63 +10,49 @@ const LearningJourney: React.FC = () => {
     const learningItems: LearningItem[] = [
     {
       id: 1,
-      title: "Advanced Data Engineering with Apache Spark",
-      platform: "Coursera",
-      period: "Oct 2024 - Present",
-      description: "Comprehensive course covering distributed data processing, optimization techniques, and real-world implementation patterns.",
+      title: "Institute of Foreign Languages (IFL)",
+      platform: "Bachelor of English (BA) - Royal University of Phnom Penh",
+      period: "Dec 2017 - Aug 2021",
+      description: "Complete thesis at Institute of Foreign Languages (IFL) related -- Factors influencing knowledge sharing practices among undergraduate students at a Cambodian higher education language institute.",
       detailedPoints: [
-        "Master Spark SQL and DataFrame optimizations",
-        "Implement streaming data pipelines with Spark Streaming",
-        "Learn advanced RDD transformations and actions",
-        "Optimize Spark applications for production environments",
-        "Integrate with cloud platforms (AWS, Azure, GCP)"
+        "Complete thesis at Institute of Foreign Languages (IFL) in -- Factors influencing knowledge sharing among undergraduate students -- and present research speaking to the audience.",
+        "Working and attending in field activity such as supporting workshop, conducting charity as class to support community",
       ],
-      technologies: ["Apache Spark", "Scala", "PySpark", "Kafka", "Delta Lake"]
+      technologies: ["English", "Communication", "Research", "Teamwork"]
     },
     {
       id: 2,
-      title: "Kubernetes Certified Application Developer",
-      platform: "CNCF",
-      period: "Aug 2024 - Sep 2024",
-      description: "Intensive certification program focusing on containerized application deployment and management in Kubernetes environments.",
+      title: "IT STEP Computer Academy (@itstep.bg)",
+      platform: "Software Development",
+      period: "Nov 2022 - Nov 2022",
+      description: "Intensive learning and studying in the major of Software Development for the 3 school-year, to understand the life-cycle of software developer, best code practice, latest technologies, Big Data,.",
       detailedPoints: [
-        "Design and build cloud-native applications",
-        "Understand Kubernetes architecture and components",
-        "Implement Pod design patterns and configurations",
-        "Master Services, Ingress, and NetworkPolicies",
-        "Handle persistent volumes and storage classes"
+        "Learn, understand, and practice in system design and architecture like C++",
+        "Design Window Application using C#, .NET framework, Winforms, WPF",
+        "Setup on Virtual Machine to practice Linux OS, command, Network (TCP/UDP to Request & Response), and Cloud Server (EC2 AWS)",
+        "Implement Database using SQL Server, MySQL, PostgreSQL, Oracle",
+        "Understand and practice in Web Development using HTML, CSS, JavaScript, React, ASP.NET core, Laravel",
+        "Understand and practice in Backend Development using PHP Laravel, ASP.NET core, Spring Boot Java",
+        "Understand and practice in Mobile Development using Java, Android Studio",
+        "Understand and practice in Gaming Development using Unity C#",
       ],
       technologies: ["Kubernetes", "Docker", "Helm", "YAML", "kubectl"]
     },
     {
       id: 3,
-      title: "Machine Learning Engineering Specialization",
-      platform: "Stanford Online",
-      period: "May 2024 - Jul 2024",
-      description: "End-to-end ML pipeline development, from data preprocessing to model deployment and monitoring in production.",
-      detailedPoints: [
-        "Build robust ML data pipelines",
-        "Implement feature engineering best practices",
-        "Deploy models using MLOps principles",
-        "Monitor and maintain production ML systems",
-        "Apply A/B testing for model validation"
-      ],
-      technologies: ["Python", "TensorFlow", "MLflow", "Kubeflow", "Airflow"]
-    },
-    {
-      id: 4,
-      title: "Cloud Architecture Patterns",
-      platform: "AWS Training",
+      title: "SalaCyber Training",
+      platform: "DevOps And Cloud Computing",
       period: "Feb 2024 - Apr 2024",
-      description: "Comprehensive study of cloud-native architecture patterns, microservices design, and serverless computing strategies.",
+      description: "Comprehensive study of CI/CD life-cycle, best practice security, containerd docker & Kubernestes, Jenkins, GitLab, and ArgoCD for deployment, Cloud Computing & Ansible for create, deploy k8s and virtual machine.",
       detailedPoints: [
-        "Design scalable microservices architectures",
-        "Implement event-driven systems",
-        "Master serverless computing patterns",
-        "Apply cloud security best practices",
-        "Optimize costs and performance"
+        "Understanding the fundamentals of DevOps culture and practices",
+        "Implement CI/CD pipelines using Jenkins and GitLab CI",
+        "Containerization using Docker and orchestration with Kubernetes using Cloud Provider (Digital-Ocean, GCP)",
+        "Implement GitOps deployment using ArgoCD for Kubernetes deployment and management application",
+        "Understand and practice setup ingress controller, cert-manager for SSL, and monitoring using Prometheus & Grafana",
+        "Using Ansible to create & configuration Virtual Machine for automation tasks",
       ],
-      technologies: ["AWS Lambda", "API Gateway", "EventBridge", "DynamoDB", "CloudFormation"]
+      technologies: ["Kubernetes", "Docker", "ArgoCD", "GitLab", "Jenkins", "Ansible", "Cloud (Digital-Ocean, GCP)"]
     }
   ];
 
