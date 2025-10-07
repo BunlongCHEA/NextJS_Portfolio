@@ -13,7 +13,7 @@ const ExperienceList: React.FC = () => {
       title: "Data Engineer",
       company: "Smart Axiata",
       period: "Mar 2023 - Present",
-      description: "Deploy data pipeline ETL development, optimization query, and analyze large-scale system performance & data. Implemented real-time data processing systems handling 10M+ events daily.",
+      description: "Deploy data pipeline ETL development, optimization query, and analyze large-scale system performance & data. Implemented real-time data processing systems handling 10M+ data daily.",
       detailedPoints: [
         "Working and do installation with many Technology tool like Hadoop, NIFI, Elasticsearch, RabbitMQ, Kafka, In-House Tool, etc",
         "Working with docker, kubernetes to deploy the API (using Python) to production environment, and sent logs to monitoring app for analyze issue",
