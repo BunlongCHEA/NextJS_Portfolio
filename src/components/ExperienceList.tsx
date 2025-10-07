@@ -13,28 +13,34 @@ const ExperienceList: React.FC = () => {
       title: "Data Engineer",
       company: "Smart Axiata",
       period: "Mar 2023 - Present",
-      description: "Led data pipeline development and optimization for large-scale analytics platforms. Implemented real-time data processing systems handling 10M+ events daily.",
+      description: "Deploy data pipeline ETL development, optimization query, and analyze large-scale system performance & data. Implemented real-time data processing systems handling 10M+ events daily.",
       detailedPoints: [
-        "Architected and implemented data lakes processing 10M+ daily events with 99.9% uptime",
-        "Reduced data processing costs by 40% through pipeline optimization and resource management",
-        "Led team of 5 engineers in migrating legacy systems to cloud-native architecture",
-        "Implemented real-time fraud detection system processing 50K transactions/minute",
-        "Established data governance framework ensuring GDPR compliance across all pipelines"
+        "Working and do installation with many Technology tool like Hadoop, NIFI, Elasticsearch, RabbitMQ, Kafka, In-House Tool, etc",
+        "Working with docker, kubernetes to deploy the API (using Python) to production environment, and sent logs to monitoring app for analyze issue",
+        "Provide API and data to Development Team to deploy SmartNas & In-house project, and analyze the definition of data to be accurate, and detail-oriented, so that team can deploy",
+        "Monitor working flow to ensure less downtime, and response to any emergency situation",
+        "Working to support Big Data like Hadoop, CDR data of the Telecom to ensure stability, efficiency, analysis to deep-dive the problem occur",
+        "Provide support to CRM and CBS project to ensure smooth process during upgrade, and maintenance",
+        "Support Smart Campaign project with business team to increase customer top-up, solve problems to ensure customer satisfaction, and generate and drive for more revenue to company",
+        "Working Incentive business team to provide data, and problem-solving to the data-flow architecture, ensure reliable processing data",
+        "Good communication, reliable, open-minded, hard-working, providing solutions, asking questions to the issue, to support the business and technical team."
       ],
       technologies: ["Python", "SQL", "NoSQL", "Streaming(Kafka, RabbiMQ)", "Apache Spark", "ETL", "Big Data", "Hadoop", "Cloud", "Docker", "Kubernetes"] 
     },
     {
       id: 2,
       title: "Data Analyst",
-      company: "Piik App",
+      company: "Piik Mall: E-commerce startup",
       period: "Apr 2020 - Mar 2023",
-      description: "Designed and maintained CI/CD pipelines, managed containerized applications, and implemented infrastructure as code practices.",
+      description: "Understand and solve problem in E-commerce, designed dashboard, maintenance system, managed containerized docker, and optimized query.",
       detailedPoints: [
-        "Built automated CI/CD pipelines reducing deployment time from 4 hours to 15 minutes",
-        "Managed Kubernetes clusters serving 200+ microservices with 99.95% availability",
-        "Implemented infrastructure as code reducing provisioning errors by 80%",
-        "Established monitoring and alerting systems improving incident response time by 60%",
-        "Mentored junior developers on DevOps best practices and cloud technologies"
+        "Using Talend to map ETL from Server of the App by cleaning, formatting, validate, and coding Stored-Procedure to load to company’s data warehouse",
+        "Set Task schedule and Cron-job to load to data warehouse and observer correctly or not",
+        "Mapping Primary and Foreign key of database before creating table into data warehouse",
+        "Support Development team to provide API for the App, and calculate the order amount with delivery fee, shipment, and refund.",
+        "Coding SQL to provide visualization for Finance, Marketing, Operation, and Product Department such as Merchant Settlement, Delivery and Merchant performance, User Journey, Special Product, etc.",
+        "Validate the order amount in each transaction between our system and iBanking from ABA & other Banks by checking through approval code (APV), and Bank Reference",
+        "Validate the order amount in each transaction between our system and iBanking from ABA & other Banks by checking through approval code (APV), and Bank Reference"
       ],
       technologies: ["Python", "SQL", "ETL", "BI", "Docker"]
     },
@@ -43,13 +49,12 @@ const ExperienceList: React.FC = () => {
       title: "Trainee Data Analyst",
       company: "DataU",
       period: "Nov 2021 - Mar 2022",
-      description: "Developed scalable web applications using modern frameworks. Built RESTful APIs and implemented microservices architecture.",
+      description: "Learning and practicing Data Analytics, Data Visualization, and Data Engineering, while provide consulting to real company projects with mentors who specilize in data field.",
       detailedPoints: [
-        "Developed e-commerce platform handling 100K+ daily active users",
-        "Built RESTful APIs serving 1M+ requests daily with sub-200ms response times",
-        "Implemented microservices architecture improving system scalability by 300%",
-        "Led frontend team in migrating from monolithic to component-based architecture",
-        "Optimized database queries reducing page load times by 50%"
+        "Coding SQL to analyze data to provide insight in customer churn and investigate the root of the problem.",
+        "Build logistic and linear regression to predict the customer behavior using Python and Machine learning",
+        "Modeling data pipeline to integrate data from SSIS to SQL server and MySQL for data warehouse",
+        "Visualizing the data in Power BI to share and communicate with the members to understand team opinion."
       ],
       technologies: ["Python", "SQL", "ETL", "BI"]
     }
