@@ -36,7 +36,7 @@ const LearningJourney: React.FC = () => {
         "Understand and practice in Mobile Development using Java, Android Studio",
         "Understand and practice in Gaming Development using Unity C#",
       ],
-      technologies: ["Kubernetes", "Docker", "Helm", "YAML", "kubectl"]
+      technologies: ["ASP.NET C#", "SpringBoot Java", "Laravel PHP", "React", "Vue", "NextJS", "C++", "Android Java", "Unity", "Database", "Linux command", "Networking", "Cloud (AWS)"]
     },
     {
       id: 3,
