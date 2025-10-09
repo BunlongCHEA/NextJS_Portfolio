@@ -281,6 +281,8 @@ const GitHubProjects: React.FC<GitHubProjectsProps> = ({ selectedLanguage }) => 
     return acc;
   }, [] as Array<{ key: string; projects: Project[]; type: 'single' | 'pair' }>);
 
+  // --- Handle Function Image & Fullscreen Image ---
+
   // Image component with instant placeholder
   const ImageWithPlaceholder: React.FC<{ src: string; alt: string; className?: string }> = ({ src, alt, className }) => {
     const [loaded, setLoaded] = useState(false);

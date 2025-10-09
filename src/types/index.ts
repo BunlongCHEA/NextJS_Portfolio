@@ -7,6 +7,7 @@ export interface Experience {
   description: string;
   detailedPoints?: string[];
   technologies: string[];
+  images: { url: string; alt: string; }[];
 }
 
 export interface LearningItem {
@@ -17,6 +18,7 @@ export interface LearningItem {
   description: string;
   detailedPoints: string[];
   technologies: string[];
+  images: { url: string; alt: string; }[];
 }
 
 export interface PersonalInfo {
