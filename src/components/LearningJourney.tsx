@@ -35,6 +35,7 @@ const LearningJourney: React.FC = () => {
       images: [
         { url: getGitHubImageUrl('NextJS_Portfolio', 'images/RUPP_IFL_Certification_English.png'), alt: 'RUPP-IFL-Certificate-English' },
         { url: getGitHubImageUrl('NextJS_Portfolio', 'images/RUPP_IFL_Certification_Khmer.png'), alt: "RUPP-IFL-Certificate-Khmer" },
+        { url: getGitHubImageUrl('NextJS_Portfolio', 'images/RUPP_IFL_Reseach_Recognization.png'), alt: "RUPP-IFL-Reseach-Recognization" },
       ]
     },
     {
@@ -55,8 +56,7 @@ const LearningJourney: React.FC = () => {
       ],
       technologies: ["ASP.NET C#", "SpringBoot Java", "Laravel PHP", "React", "Vue", "NextJS", "C++", "Android Java", "Unity", "Database", "Linux command", "Networking", "Cloud (AWS)"],
       images: [
-        { url: "/images/spark-course-1.png", alt: "Spark Course Dashboard" },
-        { url: "/images/spark-course-2.png", alt: "Course Progress" },
+        { url: getGitHubImageUrl('NextJS_Portfolio', 'images/IT-STEP_IT_Essentials_Certificate.png'), alt: "IT-STEP_IT_Essentials_Certificate" },
       ]
     },
     {
@@ -75,8 +75,7 @@ const LearningJourney: React.FC = () => {
       ],
       technologies: ["Kubernetes", "Docker", "ArgoCD", "GitLab", "Jenkins", "Ansible", "Cloud (Digital-Ocean, GCP)"],
       images: [
-        { url: "/images/spark-course-1.png", alt: "Spark Course Dashboard" },
-        { url: "/images/spark-course-2.png", alt: "Course Progress" },
+        { url: getGitHubImageUrl('NextJS_Portfolio', 'images/Salacyber_Certificate_Devops.png'), alt: "Salacyber-Certificate-Devops" },
       ]
     }
   ];

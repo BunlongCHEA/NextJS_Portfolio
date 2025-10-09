@@ -4,6 +4,16 @@ import { Experience } from '@/types';
 import { Briefcase, Calendar, Code, Book, ChevronLeft, X } from 'lucide-react';
 import SwipeCard from './SwipeCard';
 
+// Helper function
+const GITHUB_CONFIG = {
+  username: 'BunlongCHEA',
+  branch: 'main'
+};
+
+const getGitHubImageUrl = (repository: string, imagePath: string) => {
+  return `https://raw.githubusercontent.com/${GITHUB_CONFIG.username}/${repository}/${GITHUB_CONFIG.branch}/${imagePath}`;
+};
+
 const ExperienceList: React.FC = () => {
   const [selectedExperience, setSelectedExperience] = useState<Experience | null>(null);
   const [isCardOpen, setIsCardOpen] = useState(false);
