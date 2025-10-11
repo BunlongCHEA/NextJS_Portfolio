@@ -30,6 +30,7 @@ export interface PersonalInfo {
   email: string;
   phone: string;
   cvUrl: string;
+  profileImage: string;
   biography?: string[];
 }
 

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Image from "next/image";
 import { User, MapPin, Mail, Github, Gitlab, Linkedin, Download, Smartphone, ChevronDown, ChevronUp } from 'lucide-react';
 import { PersonalInfo, SocialLinks } from '@/types';
 
@@ -13,6 +14,7 @@ const Header: React.FC = () => {
     email: "c.bunlong168@gmail.com",
     phone: "+855 70 639 488",
     cvUrl: "https://drive.google.com/file/d/1LT5UcnB-09m2GFjF14ul3ejh59KtcIAL/view?usp=drive_link",
+    profileImage: "https://raw.githubusercontent.com/BunlongCHEA/NextJS_Portfolio/main/images/profile/bunlong-profile.jpg",
     biography:
     [
       "Passionate about building robust, scalable, automated data pipelines.",
@@ -47,6 +49,36 @@ const Header: React.FC = () => {
     window.open(socialLinks[platform], '_blank');
   };
 
+  // --- Handle Image ---
+
+  // Image component with error handling
+  const ProfileImage: React.FC<{ src?: string; alt: string; className?: string }> = ({ src, alt, className }) => {
+    const [imgSrc, setImgSrc] = useState(src);
+    const [hasError, setHasError] = useState(false);
+
+    const handleError = () => {
+      setHasError(true);
+    };
+
+    return (
+      <div className={`${className} flex items-center justify-center overflow-hidden`}>
+        {hasError || !imgSrc ? (
+          <User className="w-8 h-8" />
+        ) : (
+          <Image
+            src={imgSrc}
+            alt={alt}
+            width={32}
+            height={32}
+            className="w-full h-full object-cover"
+            onError={handleError}
+            priority
+          />
+        )}
+      </div>
+    );
+  };
+
   return (
     <header className="gradient-bg text-white shadow-lg">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
@@ -54,7 +86,13 @@ const Header: React.FC = () => {
         {/* Left Section - Personal Info */}
         <div className="flex-1">
           <div className="flex items-center gap-3 mb-2">
-            <User className="w-8 h-8" />
+            {/* <User className="w-8 h-8" /> */}
+            <ProfileImage 
+              src={personalInfo.profileImage} 
+              alt={`${personalInfo.name} Profile`} 
+              className="w-16 h-16 bg-white/10 rounded-full border-2 border-blue-500 flex-shrink-0"
+            />
+
             <h1 className="text-3xl md:text-4xl font-bold">{personalInfo.name}</h1>
           </div>
           

@@ -63,7 +63,7 @@ const ExperienceList: React.FC = () => {
       images: [
         // { url: getGitHubImageUrl('NextJS_Portfolio', 'images/test.png'), alt: "RUPP Certificate" },
       ],
-      logoUrl: getGitHubImageUrl('NextJS_Portfolio', 'images/logo/piik_mall_red.png') 
+      logoUrl: getGitHubImageUrl('NextJS_Portfolio', 'images/logo/piik_mall_red.png')
     },
     {
       id: 3,
