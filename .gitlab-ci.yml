@@ -11,7 +11,7 @@ variables:
 
 stages:
   - build
-  # - deploy
+  - deploy
 
 # Build Docker image
 build:
