@@ -7,41 +7,81 @@ import { Play, Code2, Terminal, Lock } from 'lucide-react';
 const CodeEditor: React.FC = () => {
   const [output, setOutput] = useState<string>('');
 
-  const initialCode = `// Job Title Functions with Skills
-function DataEngineer() {
-    console.log("=== DATA ENGINEER SKILLS ===");
-    console.log("• Python & SQL for data manipulation");
-    console.log("• Apache Spark for big data processing");
-    console.log("• ETL pipeline development");
-    console.log("• Data warehousing with Snowflake/Redshift");
-    console.log("• Apache Kafka for real-time streaming");
-    console.log("• AWS/GCP data services");
-    console.log("• Docker containerization");
-    console.log("• Data modeling and schema design");
-    return "Data Engineering expertise loaded!";
-}
+  const initialCode = `
+  function successFormula() {
+      console.log("=== SUCCESS FORMULA ===");
+      console.log("By: CHEA BUNLONG - Data Engineer & DevOps Engineer");
+      console.log("Date: " + new Date().toLocaleDateString());
+      console.log("");
+      
+      // Define the key ingredients
+      const personality = "Good Personality";
+      const hardWork = "Hard Work";
+      const communication = "Communication";
+      
+      console.log("🎯 THE EQUATION:");
+      console.log(personality + " + " + hardWork + " + " + communication + " = SUCCESS");
+      console.log("");
+      
+      return "Success formula revealed!";
+  }
 
-function DevOps() {
-    console.log("=== DEVOPS ENGINEER SKILLS ===");
-    console.log("• Kubernetes orchestration");
-    console.log("• CI/CD pipeline automation");
-    console.log("• Infrastructure as Code (Terraform)");
-    console.log("• Docker containerization");
-    console.log("• Jenkins & GitLab CI");
-    console.log("• AWS/Azure cloud platforms");
-    console.log("• Monitoring with Prometheus/Grafana");
-    console.log("• Linux system administration");
-    return "DevOps expertise loaded!";
-}
+  function breakDownSuccess() {
+      console.log("🌟 GOOD PERSONALITY:");
+      console.log("   ✓ Positive attitude in every situation");
+      console.log("   ✓ Empathy and kindness towards others");
+      console.log("   ✓ Reliability and integrity in actions");
+      console.log("   ✓ Adaptability to change and growth");
+      console.log("");
+      
+      console.log("💪 HARD WORK:");
+      console.log("   ✓ Consistent effort every single day");
+      console.log("   ✓ Dedication to continuous improvement");
+      console.log("   ✓ Perseverance through challenges");
+      console.log("   ✓ Going the extra mile when needed");
+      console.log("");
+      
+      console.log("🗣️ COMMUNICATION:");
+      console.log("   ✓ Clear and effective expression");
+      console.log("   ✓ Active listening to understand others");
+      console.log("   ✓ Building strong professional relationships");
+      console.log("   ✓ Sharing knowledge and helping teammates");
+      console.log("");
+      
+      return "Success components explained!";
+  }
 
-// Execute functions
-console.log("🚀 Loading professional skills...");
-console.log("");
-DataEngineer();
-console.log("");
-DevOps();
-console.log("");
-console.log("✅ All skills loaded successfully!");`;
+  function myJourney() {
+      console.log("🚀 MY SUCCESS JOURNEY:");
+      console.log("   • Data Engineer with 5+ years experience");
+      console.log("   • DevOps Engineer mastering cloud technologies");
+      console.log("   • Continuous learner and team collaborator");
+      console.log("   • Building data pipelines and scalable systems");
+      console.log("");
+      
+      console.log("🎯 APPLYING THE FORMULA:");
+      console.log("   Good Personality → Positive team dynamics");
+      console.log("   Hard Work → Technical excellence and reliability");
+      console.log("   Communication → Effective project delivery");
+      console.log("");
+      
+      console.log("✨ RESULT: Successful career in tech!");
+      return "Journey shared successfully!";
+  }
+
+  // Execute the success formula
+  console.log("🌟 Loading success insights...");
+  console.log("");
+  successFormula();
+  console.log("");
+  breakDownSuccess();
+  console.log("");
+  myJourney();
+  console.log("");
+  console.log("💫 Remember: Success is not just about talent,");
+  console.log("   it's about combining the right mindset,");
+  console.log("   consistent effort, and effective communication!");
+  `;
 
   const handleRunCode = () => {
     // Simulate code execution
@@ -74,7 +114,7 @@ console.log("✅ All skills loaded successfully!");`;
       <div className="bg-slate-800/90 px-4 py-3 flex items-center justify-between border-b border-slate-700/50">
         <div className="flex items-center gap-3">
           <Code2 className="w-5 h-5 text-blue-400" />
-          <span className="text-white font-medium">skills-demo.js</span>
+          <span className="text-white font-medium">personality-demo.js</span>
           <div className="flex gap-2 ml-4">
             <div className="w-3 h-3 bg-red-500 rounded-full"></div>
             <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>

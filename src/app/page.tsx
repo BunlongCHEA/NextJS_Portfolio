@@ -36,8 +36,8 @@ export default function Home() {
             {/* Right Column - Code Editor */}
             <div className="order-1 lg:order-2">
               <div className="mb-6">
-                <h2 className="text-2xl font-bold text-white mb-2">Experience Lists</h2>
-                <p className="text-blue-200">Interactive professional expertise</p>
+                <h2 className="text-2xl font-bold text-white mb-2">Personality Lists</h2>
+                <p className="text-blue-200">Interactive professional expertise and personality</p>
               </div>
               <CodeEditor />
             </div>
