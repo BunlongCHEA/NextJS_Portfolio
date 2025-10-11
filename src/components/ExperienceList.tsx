@@ -38,7 +38,7 @@ const ExperienceList: React.FC = () => {
         "Working Incentive business team to provide data, and problem-solving to the data-flow architecture, ensure reliable processing data",
         "Good communication, reliable, open-minded, hard-working, providing solutions, asking questions to the issue, to support the business and technical team."
       ],
-      technologies: ["Python", "SQL", "NoSQL", "Streaming(Kafka, RabbiMQ)", "Apache Spark", "ETL", "Big Data", "Hadoop", "Cloud", "Docker", "Kubernetes"],
+      technologies: ["Python", "SQL", "NoSQL", "Streaming(Kafka, RabbitMQ)", "Apache Spark", "ETL", "Big Data", "Hadoop", "Cloud", "Docker", "Kubernetes"],
       images: [
         // { url: getGitHubImageUrl('NextJS_Portfolio', 'images/test.png'), alt: "RUPP Certificate" },
       ],

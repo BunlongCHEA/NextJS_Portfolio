@@ -1,0 +1,22 @@
+# ArgoCD Application for E-commerce Vue.js Frontend
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: my-portfolio
+  namespace: argocd
+spec:
+  project: default
+  # Source configuration
+  source:
+    repoURL: https://gitlab.com/BunlongCHEA/NextJS_Portfolio.git
+    targetRevision: HEAD
+    path: src/deploy/k8s/app
+  # Destination cluster and namespace
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: production
+  # Sync policy
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

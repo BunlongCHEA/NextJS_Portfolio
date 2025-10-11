@@ -1,0 +1,136 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nextjs-portfolio
+  namespace: portfolio
+  labels:
+    app: nextjs-portfolio
+    environment: production
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: nextjs-portfolio
+  template:
+    metadata:
+      labels:
+        app: nextjs-portfolio
+        environment: production
+    spec:
+      containers:
+      - name: nextjs-portfolio
+        image: registry.gitlab.com/bunlongchea/nextjs-portfolio:latest  # Update with your registry
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        env:
+        - name: NODE_ENV
+          value: "production"
+        - name: NEXT_TELEMETRY_DISABLED
+          value: "1"
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 80
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+      restartPolicy: Always
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nextjs-portfolio-service
+  namespace: portfolio
+  labels:
+    app: nextjs-portfolio
+spec:
+  selector:
+    app: nextjs-portfolio
+  ports:
+  - port: 80
+    targetPort: 80
+    protocol: TCP
+  type: ClusterIP
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nextjs-portfolio-ingress
+  namespace: portfolio
+  annotations:
+    # Use nginx ingress controller
+    kubernetes.io/ingress.class: "nginx"
+
+    # SSL and security
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"  # Let Cloudflare handle HTTPS redirect
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "false"  # Let Cloudflare handle HTTPS redirect
+    
+    # Cloudflare specific annotations
+    nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "600"
+
+    # Cloudflare specific annotations
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      more_set_headers "CF-Cache-Tag: nextjs-portfolio";
+      more_set_headers "Cache-Control: public, max-age=3600";
+
+      more_set_headers "X-Forwarded-Proto $scheme";
+      more_set_headers "X-Forwarded-Port $server_port";
+      more_set_headers "X-Real-IP $remote_addr";
+      
+      # Security headers including CSP for WebSocket support
+      more_set_headers "X-Frame-Options: SAMEORIGIN";
+      more_set_headers "X-Content-Type-Options: nosniff";
+      more_set_headers "X-XSS-Protection: 1; mode=block";
+spec:
+  tls:
+  - hosts:
+    - myportfolio.bunlong.site
+    secretName: myportfolio-tls
+  rules:
+  - host: myportfolio.bunlong.site
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: nextjs-portfolio-service
+            port:
+              number: 80
+  - host: www.myportfolio.bunlong.site
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: nextjs-portfolio-service
+            port:
+              number: 80
