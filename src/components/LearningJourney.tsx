@@ -220,22 +220,29 @@ const LearningJourney: React.FC = () => {
           {learningItems.map((item) => (
             <div key={item.id} className="border-l-4 border-green-500 pl-6 pb-6 relative group">
               <div className="absolute -left-2 top-0 w-4 h-4 bg-green-500 rounded-full"></div>
-
-              {/* School/Platform Logo - ADD THIS */}
-              <div className="absolute -left-8 top-8 w-12 h-12 bg-gray-800 rounded-full border-2 border-green-500 flex items-center justify-center overflow-hidden">
-                <Image
-                  src={item.logoUrl || '/images/default-school-logo.png'}
-                  alt={`${item.platform} logo`}
-                  className="w-8 h-8 object-contain"
-                  onError={(e) => {
-                    e.currentTarget.src = '/images/default-school-logo.png';
-                  }}
-                />
-              </div>
               
               <div className="mb-3 flex items-start justify-between">
                 <div className="flex-1">
-                  <h3 className="text-xl font-semibold text-white">{item.title}</h3>
+                  <div className="flex items-center gap-3 mb-1">
+                    {/* School Logo Icon */}
+                    <div className="w-10 h-10 bg-gray-800 rounded-full border-2 border-blue-500 flex items-center justify-center overflow-hidden flex-shrink-0">
+                      <Image
+                        src={item.logoUrl || 'https://png.pngtree.com/png-vector/20210129/ourmid/pngtree-upload-avatar-by-default-png-image_2854358.jpg'}
+                        alt={`${item.title} logo`}
+                        width={32}
+                        height={32}
+                        className="rounded-full object-cover"
+                        onError={(e) => {
+                          e.currentTarget.src = 'https://png.pngtree.com/png-vector/20210129/ourmid/pngtree-upload-avatar-by-default-png-image_2854358.jpg';
+                        }}
+                      />
+                    </div>
+
+                    <h3 className="text-xl font-semibold text-white">{item.title}</h3>
+                  </div>
+
+
+                  {/* <h3 className="text-xl font-semibold text-white">{item.title}</h3> */}
                   <p className="text-lg text-green-400 font-medium">{item.platform}</p>
                   <div className="flex items-center gap-2 text-gray-400 mt-1">
                     <Calendar className="w-4 h-4" />

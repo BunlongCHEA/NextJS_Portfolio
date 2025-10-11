@@ -81,7 +81,7 @@ const ExperienceList: React.FC = () => {
       images: [
         // { url: getGitHubImageUrl('NextJS_Portfolio', 'images/test.png'), alt: "RUPP Certificate" },
       ],
-      logoUrl: getGitHubImageUrl('NextJS_Portfolio', 'images/company-logos/datau-white.png')
+      logoUrl: getGitHubImageUrl('NextJS_Portfolio', 'images/logo/datau_white.jpg')
     }
   ];
 
@@ -218,26 +218,30 @@ const ExperienceList: React.FC = () => {
         {/* Scrollable Content Area */}
         <div className="flex-1 overflow-y-auto p-6 space-y-6">
           {experiences.map((exp) => (
-            <div key={exp.id} className="border-l-4 border-blue-500 pl-12 pb-6 relative group">
+            <div key={exp.id} className="border-l-4 border-blue-500 pl-6 pb-6 relative group">
               <div className="absolute -left-2 top-0 w-4 h-4 bg-blue-500 rounded-full"></div>
-
-              {/* Company Logo - ADD THIS */}
-              <div className="absolute -left-8 top-8 w-12 h-12 bg-gray-800 rounded-full border-2 border-blue-500 flex items-center justify-center overflow-hidden">
-                <Image
-                  src={exp.logoUrl || '/images/default-company-logo.png'}
-                  alt={`${exp.company} logo`}
-                  width={200}
-                  height={150}
-                  className="w-8 h-8 object-contain"
-                  onError={(e) => {
-                    e.currentTarget.src = '/images/default-company-logo.png';
-                  }}
-                />
-              </div>
               
               <div className="mb-3 flex items-start justify-between">
                 <div className="flex-1">
-                  <h3 className="text-xl font-semibold text-white">{exp.title}</h3>
+                  <div className="flex items-center gap-3 mb-1">
+                    {/* Company Logo Icon */}
+                    <div className="w-10 h-10 bg-gray-800 rounded-full border-2 border-blue-500 flex items-center justify-center overflow-hidden flex-shrink-0">
+                      <Image
+                        src={exp.logoUrl || 'https://png.pngtree.com/png-vector/20210129/ourmid/pngtree-upload-avatar-by-default-png-image_2854358.jpg'}
+                        alt={`${exp.company} logo`}
+                        width={32}
+                        height={32}
+                        className="rounded-full object-cover"
+                        onError={(e) => {
+                          e.currentTarget.src = 'https://png.pngtree.com/png-vector/20210129/ourmid/pngtree-upload-avatar-by-default-png-image_2854358.jpg';
+                        }}
+                      />
+                    </div>
+
+                    <h3 className="text-xl font-semibold text-white">{exp.title}</h3>
+                  </div>
+
+                  {/* <h3 className="text-xl font-semibold text-white">{exp.title}</h3> */}
                   <p className="text-lg text-blue-400 font-medium">{exp.company}</p>
                   <div className="flex items-center gap-2 text-gray-400 mt-1">
                     <Calendar className="w-4 h-4" />
