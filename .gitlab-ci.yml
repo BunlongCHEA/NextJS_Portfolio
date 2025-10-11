@@ -11,14 +11,14 @@ variables:
 
 stages:
   - build
-  - deploy
+  # - deploy
 
 # Build Docker image
 build:
   stage: build
-  image: docker:28-alpine
+  image: docker:28.5.1
   services:
-    - docker:28-dind
+    - docker:28.5.1-dind
   before_script:  
     - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
   script:
