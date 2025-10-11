@@ -36,7 +36,8 @@ const LearningJourney: React.FC = () => {
         { url: getGitHubImageUrl('NextJS_Portfolio', 'images/RUPP_IFL_Certification_English.png'), alt: 'RUPP-IFL-Certificate-English' },
         { url: getGitHubImageUrl('NextJS_Portfolio', 'images/RUPP_IFL_Certification_Khmer.png'), alt: "RUPP-IFL-Certificate-Khmer" },
         { url: getGitHubImageUrl('NextJS_Portfolio', 'images/RUPP_IFL_Reseach_Recognization.png'), alt: "RUPP-IFL-Reseach-Recognization" },
-      ]
+      ],
+      logoUrl: getGitHubImageUrl('NextJS_Portfolio', 'images/logo/IFL_white.png')
     },
     {
       id: 2,
@@ -57,7 +58,8 @@ const LearningJourney: React.FC = () => {
       technologies: ["ASP.NET C#", "SpringBoot Java", "Laravel PHP", "React", "Vue", "NextJS", "C++", "Android Java", "Unity", "Database", "Linux command", "Networking", "Cloud (AWS)"],
       images: [
         { url: getGitHubImageUrl('NextJS_Portfolio', 'images/IT-STEP_IT_Essentials_Certificate.png'), alt: "IT-STEP_IT_Essentials_Certificate" },
-      ]
+      ],
+      logoUrl: getGitHubImageUrl('NextJS_Portfolio', 'images/logo/IT_Step_Academy.jpg')
     },
     {
       id: 3,
@@ -76,7 +78,8 @@ const LearningJourney: React.FC = () => {
       technologies: ["Kubernetes", "Docker", "ArgoCD", "GitLab", "Jenkins", "Ansible", "Cloud (Digital-Ocean, GCP)"],
       images: [
         { url: getGitHubImageUrl('NextJS_Portfolio', 'images/Salacyber_Certificate_Devops.png'), alt: "Salacyber-Certificate-Devops" },
-      ]
+      ],
+      logoUrl: getGitHubImageUrl('NextJS_Portfolio', 'images/logo/salacyber_blue.jpg')
     }
   ];
 
@@ -217,6 +220,18 @@ const LearningJourney: React.FC = () => {
           {learningItems.map((item) => (
             <div key={item.id} className="border-l-4 border-green-500 pl-6 pb-6 relative group">
               <div className="absolute -left-2 top-0 w-4 h-4 bg-green-500 rounded-full"></div>
+
+              {/* School/Platform Logo - ADD THIS */}
+              <div className="absolute -left-8 top-8 w-12 h-12 bg-gray-800 rounded-full border-2 border-green-500 flex items-center justify-center overflow-hidden">
+                <Image
+                  src={item.logoUrl || '/images/default-school-logo.png'}
+                  alt={`${item.platform} logo`}
+                  className="w-8 h-8 object-contain"
+                  onError={(e) => {
+                    e.currentTarget.src = '/images/default-school-logo.png';
+                  }}
+                />
+              </div>
               
               <div className="mb-3 flex items-start justify-between">
                 <div className="flex-1">

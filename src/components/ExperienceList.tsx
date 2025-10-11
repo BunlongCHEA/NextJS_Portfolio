@@ -40,8 +40,9 @@ const ExperienceList: React.FC = () => {
       ],
       technologies: ["Python", "SQL", "NoSQL", "Streaming(Kafka, RabbiMQ)", "Apache Spark", "ETL", "Big Data", "Hadoop", "Cloud", "Docker", "Kubernetes"],
       images: [
-        { url: "https://raw.githubusercontent.com/BunlongCHEA/Ecommerce-DotNet/main/images/argocd_1.png", alt: "RUPP Certificate" },
-      ]
+        // { url: getGitHubImageUrl('NextJS_Portfolio', 'images/test.png'), alt: "RUPP Certificate" },
+      ],
+      logoUrl: getGitHubImageUrl('NextJS_Portfolio', 'images/logo/smart_axiata_green.jpeg') 
     },
     {
       id: 2,
@@ -60,8 +61,9 @@ const ExperienceList: React.FC = () => {
       ],
       technologies: ["Python", "SQL", "ETL", "BI", "Docker"],
       images: [
-        { url: "https://raw.githubusercontent.com/BunlongCHEA/Ecommerce-DotNet/main/images/argocd_1.png", alt: "RUPP Certificate" },
-      ]
+        // { url: getGitHubImageUrl('NextJS_Portfolio', 'images/test.png'), alt: "RUPP Certificate" },
+      ],
+      logoUrl: getGitHubImageUrl('NextJS_Portfolio', 'images/logo/piik_mall_red.png') 
     },
     {
       id: 3,
@@ -77,8 +79,9 @@ const ExperienceList: React.FC = () => {
       ],
       technologies: ["Python", "SQL", "ETL", "BI"],
       images: [
-        { url: "https://raw.githubusercontent.com/BunlongCHEA/Ecommerce-DotNet/main/images/argocd_1.png", alt: "RUPP Certificate" },
-      ]
+        // { url: getGitHubImageUrl('NextJS_Portfolio', 'images/test.png'), alt: "RUPP Certificate" },
+      ],
+      logoUrl: getGitHubImageUrl('NextJS_Portfolio', 'images/company-logos/datau-white.png')
     }
   ];
 
@@ -215,8 +218,22 @@ const ExperienceList: React.FC = () => {
         {/* Scrollable Content Area */}
         <div className="flex-1 overflow-y-auto p-6 space-y-6">
           {experiences.map((exp) => (
-            <div key={exp.id} className="border-l-4 border-blue-500 pl-6 pb-6 relative group">
+            <div key={exp.id} className="border-l-4 border-blue-500 pl-12 pb-6 relative group">
               <div className="absolute -left-2 top-0 w-4 h-4 bg-blue-500 rounded-full"></div>
+
+              {/* Company Logo - ADD THIS */}
+              <div className="absolute -left-8 top-8 w-12 h-12 bg-gray-800 rounded-full border-2 border-blue-500 flex items-center justify-center overflow-hidden">
+                <Image
+                  src={exp.logoUrl || '/images/default-company-logo.png'}
+                  alt={`${exp.company} logo`}
+                  width={200}
+                  height={150}
+                  className="w-8 h-8 object-contain"
+                  onError={(e) => {
+                    e.currentTarget.src = '/images/default-company-logo.png';
+                  }}
+                />
+              </div>
               
               <div className="mb-3 flex items-start justify-between">
                 <div className="flex-1">
