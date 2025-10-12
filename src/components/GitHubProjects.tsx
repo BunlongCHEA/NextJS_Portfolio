@@ -187,8 +187,12 @@ const projects: Project[] = [
     liveUrl: 'https://myportfolio.bunlong.site',
     technologies: ['Next.js', 'TypeScript', 'React', 'Tailwind CSS', 'Docker', 'Kubernetes', 'GCP', 'DigitalOcean'],
     images: [
-      { url: '/images/portfolio-1.png', alt: 'Homepage' },
-      { url: '/images/portfolio-2.png', alt: 'Projects Section' },
+      { url: getGitHubImageUrl('NextJS_Portfolio', 'images/argocd/argocd_1.png'), alt: 'ArgoCD-Project-Deployment' },
+      { url: getGitHubImageUrl('NextJS_Portfolio', 'images/argocd/argocd_2.png'), alt: 'ArgoCD-Project-Details' },
+      { url: getGitHubImageUrl('NextJS_Portfolio', 'images/argocd/cloudflare_1.png'), alt: 'Cloudflare-DNS' },
+      { url: getGitHubImageUrl('NextJS_Portfolio', 'images/argocd/k8s_1.png'), alt: 'K8S-Namespace' },
+      { url: getGitHubImageUrl('NextJS_Portfolio', 'images/argocd/k8s_2.png'), alt: 'K8S-Pod-1' },
+      { url: getGitHubImageUrl('NextJS_Portfolio', 'images/argocd/portfolio_1.png'), alt: 'Web-My-Portfolio' },
     ],
     type: 'fullstack'
   },
