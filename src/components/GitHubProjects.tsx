@@ -184,7 +184,7 @@ const projects: Project[] = [
     name: 'My Portfolio (Next.js)',
     description: 'Personal portfolio website built with Next.js, featuring modern animations and responsive design.',
     url: 'https://github.com/BunlongCHEA/NextJS_Portfolio',
-    liveUrl: 'https://personalportfolio.bunlong.site',
+    liveUrl: 'https://myportfolio.bunlong.site',
     technologies: ['Next.js', 'TypeScript', 'React', 'Tailwind CSS', 'Docker', 'Kubernetes', 'GCP', 'DigitalOcean'],
     images: [
       { url: '/images/portfolio-1.png', alt: 'Homepage' },
