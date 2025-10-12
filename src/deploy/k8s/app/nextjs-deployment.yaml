@@ -99,15 +99,6 @@ metadata:
     nginx.ingress.kubernetes.io/configuration-snippet: |
       more_set_headers "CF-Cache-Tag: nextjs-portfolio";
       more_set_headers "Cache-Control: public, max-age=3600";
-
-      more_set_headers "X-Forwarded-Proto $scheme";
-      more_set_headers "X-Forwarded-Port $server_port";
-      more_set_headers "X-Real-IP $remote_addr";
-      
-      # Security headers including CSP for WebSocket support
-      more_set_headers "X-Frame-Options: SAMEORIGIN";
-      more_set_headers "X-Content-Type-Options: nosniff";
-      more_set_headers "X-XSS-Protection: 1; mode=block";
 spec:
   tls:
   - hosts:
