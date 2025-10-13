@@ -53,8 +53,8 @@ const CodeEditor: React.FC = () => {
 
   function myJourney() {
       console.log("🚀 MY SUCCESS JOURNEY:");
-      console.log("   • Data Engineer with 5+ years experience");
-      console.log("   • DevOps Engineer mastering cloud technologies");
+      console.log("   • Data Engineer with several years experience");
+      console.log("   • DevOps Engineer with keen interest on cloud technologies");
       console.log("   • Continuous learner and team collaborator");
       console.log("   • Building data pipelines and scalable systems");
       console.log("");
