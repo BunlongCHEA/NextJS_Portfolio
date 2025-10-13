@@ -250,9 +250,10 @@ const LearningJourney: React.FC = () => {
                   </div>
                 </div>
                 
+                {/* opacity-0 group-hover:opacity-100 : add this in-front-of transition opacity for hover */}
                 <button
                   onClick={() => handleMoreClick(item)}
-                  className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 p-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-full"
+                  className="transition-opacity duration-200 p-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-full"
                   title="View details"
                 >
                   <Book className="w-5 h-5" />
