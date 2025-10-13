@@ -229,7 +229,7 @@ const Header: React.FC = () => {
           </div>
           <div className="bg-white/10 rounded-lg p-3 backdrop-blur-sm">
             <h3 className="font-semibold mb-1">DevOps</h3>
-            <p className="text-blue-100">Docker, Kubernetes, GitLab, Jenkins, CI/CD</p>
+            <p className="text-blue-100">Docker, Kubernetes, ArgoCD, GitLab, Jenkins, CI/CD, Cloudflare</p>
           </div>
           <div className="bg-white/10 rounded-lg p-3 backdrop-blur-sm">
             <h3 className="font-semibold mb-1">Cloud Platforms</h3>
