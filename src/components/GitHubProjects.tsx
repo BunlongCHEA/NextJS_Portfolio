@@ -204,23 +204,23 @@ const projects: Project[] = [
     liveUrl: 'https://chatspringboot.bunlong.site',
     technologies: ['Java', 'Spring Boot', 'PostgreSQL', 'Docker', 'Kubernetes', 'GCP', 'DigitalOcean'],
     images: [
-      { url: '/images/chat-1.png', alt: 'Chat Interface' },
-      { url: '/images/chat-2.png', alt: 'Real-time Messaging' },
+      // { url: '/images/chat-1.png', alt: 'Chat Interface' },
+      // { url: '/images/chat-2.png', alt: 'Real-time Messaging' },
     ],
     type: 'backend',
-    relatedProject: 'android-chat'
+    relatedProject: 'nextjs-chat'
   },
   {
-    id: 'android-chat',
-    name: 'Real-Time Chat (Android)',
-    description: 'Real-time chat application with WebSocket integration, built using Android and modern web technologies.',
-    url: 'https://github.com/BunlongCHEA/Android-Java_RealTimeChat',
-    liveUrl: 'https://chatandroid.bunlong.site',
-    technologies: ['Java', 'Android', 'Firebase', 'Docker', 'Kubernetes', 'GCP', 'DigitalOcean'],
+    id: 'nextjs-chat',
+    name: 'Real-Time Chat (Next.js)',
+    description: 'Real-time chat application with WebSocket integration, built using NextJS and modern web technologies.',
+    url: 'https://github.com/BunlongCHEA/NextJS-RealTimeChat',
+    liveUrl: 'https://chatnextjs.bunlong.site',
+    technologies: ['Next.js', 'TypeScript', 'React', 'Firebase', 'Docker', 'Kubernetes', 'GCP', 'DigitalOcean'],
     images: [
-      { url: '/images/ecommerce-vue-1.png', alt: 'Home Page' },
-      { url: '/images/ecommerce-vue-2.png', alt: 'Product Catalog' },
-      { url: '/images/ecommerce-vue-3.png', alt: 'Shopping Cart' },
+      // { url: '/images/ecommerce-vue-1.png', alt: 'Home Page' },
+      // { url: '/images/ecommerce-vue-2.png', alt: 'Product Catalog' },
+      // { url: '/images/ecommerce-vue-3.png', alt: 'Shopping Cart' },
     ],
     type: 'frontend',
     relatedProject: 'springboot-chat'
@@ -233,8 +233,8 @@ const projects: Project[] = [
     liveUrl: 'https://gymdotnet.bunlong.site',
     technologies: ['C#', '.NET', 'SQL Server', 'Bootstrap', 'Jenkins', 'Docker', 'Kubernetes', 'GCP', 'DigitalOcean'],
     images: [
-      { url: '/images/gym-dotnet-1.png', alt: 'API Documentation' },
-      { url: '/images/gym-dotnet-2.png', alt: 'Database Schema' },
+      // { url: '/images/gym-dotnet-1.png', alt: 'API Documentation' },
+      // { url: '/images/gym-dotnet-2.png', alt: 'Database Schema' },
     ],
     type: 'fullstack',
   },
@@ -246,8 +246,8 @@ const projects: Project[] = [
     liveUrl: 'https://cuisinelaravel.bunlong.site',
     technologies: ['PHP', 'Laravel', 'PostgreSQL', 'Bootstrap', 'Jenkins', 'Docker', 'Kubernetes', 'GCP', 'DigitalOcean'],
     images: [
-      { url: '/images/cuisine-laravel-1.png', alt: 'API Documentation' },
-      { url: '/images/cuisine-laravel-2.png', alt: 'Database Schema' },
+      // { url: '/images/cuisine-laravel-1.png', alt: 'API Documentation' },
+      // { url: '/images/cuisine-laravel-2.png', alt: 'Database Schema' },
     ],
     type: 'fullstack',
   },
