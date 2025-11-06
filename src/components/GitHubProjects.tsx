@@ -226,9 +226,13 @@ const projects: Project[] = [
     liveUrl: 'https://chatnextjs.bunlong.site',
     technologies: ['Next.js', 'TypeScript', 'React', 'Firebase', 'Docker', 'Kubernetes', 'GCP', 'DigitalOcean'],
     images: [
-      // { url: '/images/ecommerce-vue-1.png', alt: 'Home Page' },
-      // { url: '/images/ecommerce-vue-2.png', alt: 'Product Catalog' },
-      // { url: '/images/ecommerce-vue-3.png', alt: 'Shopping Cart' },
+      { url: getGitHubImageUrl('NextJS-RealTimeChat', 'images/argocd_1.png'), alt: 'ArgoCD-Repo' },
+      { url: getGitHubImageUrl('NextJS-RealTimeChat', 'images/argocd_2.png'), alt: 'ArgoCD-Project' },
+      { url: getGitHubImageUrl('NextJS-RealTimeChat', 'images/argocd_3.png'), alt: 'ArgoCD-Project-Frontend' },
+      { url: getGitHubImageUrl('NextJS-RealTimeChat', 'images/cloudflare_1.png'), alt: 'Cloudflare-Frontend' },
+      { url: getGitHubImageUrl('NextJS-RealTimeChat', 'images/web_1.png'), alt: 'User-Login' },
+      { url: getGitHubImageUrl('NextJS-RealTimeChat', 'images/web_3.png'), alt: 'Chat-Front-Page' },
+      { url: getGitHubImageUrl('NextJS-RealTimeChat', 'images/web_4.png'), alt: 'Chat-Message-with-Another-User' },
     ],
     type: 'frontend',
     relatedProject: 'springboot-chat'
