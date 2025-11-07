@@ -20,6 +20,26 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Installation library
+
+```bash
+npm install @vercel/analytics
+```
+@vercel/analytics allows Vercel Web Analytics to automatically track page views and provide insights into your website's performance and traffic within your Vercel Dashboard. Note that analytics data is not tracked in development mode.
+
+```bash
+npm install @monaco-editor/react
+```
+@monaco-editor/react is the code editor that powers Visual Studio Code, into Next.js and other React applications with minimal configuration. It allows developers to easily embed a full-featured, in-browser code editor experience into their web applications. 
+
+Remember to use the "use client" directive in your component file if you are using Next.js App Router, as @monaco-editor/react is a client-side component
+
+```bash
+npm install lucide-react
+```
+lucide-react is the icon library, specifically designed to provide high-quality, customizable, and optimized SVG icons as React components. In the context of Next.js, which is a React framework, this package offers a seamless way to integrate consistent and scalable vector icons into your application. 
+
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
