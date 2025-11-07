@@ -241,7 +241,7 @@ const projects: Project[] = [
       { url: getGitHubImageUrl('NextJS-RealTimeChat', 'images/web_9.png'), alt: 'Chat-Access-Channel-with-Other-Menu-Options' },
       { url: getGitHubImageUrl('NextJS-RealTimeChat', 'images/web_10.png'), alt: 'Chat-Admin-Leave-Must-Promote-Role-to-Another-Member-First' },
       { url: getGitHubImageUrl('NextJS-RealTimeChat', 'images/web_10_1.png'), alt: 'Chat-Result-After-Admin-Leave' },
-      { url: getGitHubImageUrl('NextJS-RealTimeChat', 'images/web_health.png'), alt: 'Chat-Health-Status-200' },
+      { url: getGitHubImageUrl('NextJS-RealTimeChat', 'images/web_health.png'), alt: 'Chat-Health-Status-Code-200' },
     ],
     type: 'frontend',
     relatedProject: 'springboot-chat'
