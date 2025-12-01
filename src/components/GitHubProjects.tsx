@@ -27,7 +27,10 @@ import {
   SiKubernetes,
   SiJenkins,
   SiGooglecloud,
-  SiDigitalocean
+  SiDigitalocean,
+  SiAnsible,
+  SiRancher,
+  SiArgo
 } from 'react-icons/si';
 import { 
   DiMsqlServer
@@ -52,11 +55,12 @@ interface Project {
   name: string;
   description: string;
   url: string;
-  liveUrl?: string;
+  liveUrl?: string | string[];
   technologies: string[];
   images: ProjectImage[];
-  type: 'frontend' | 'backend' | 'fullstack';
+  type: 'frontend' | 'backend' | 'fullstack' | 'automation';
   relatedProject?: string; // ID of related project (frontend/backend pair)
+  headerTitle?: string;
 }
 
 // Mapping technology names to their icons and colors
@@ -87,6 +91,9 @@ const technologyIcons: Record<string, { icon: React.ComponentType<{ className?: 
   'PostgreSQL': { icon: SiPostgresql, color: 'text-blue-400' },
   'SQL Server': { icon: DiMsqlServer, color: 'text-red-500' },
 
+  'Ansible': { icon: SiAnsible, color: 'text-red-400' },
+  'Rancher': { icon: SiRancher, color: 'text-blue-400' },
+  'ArgoCD': { icon: SiArgo, color: 'text-orange-700' },
   'Docker': { icon: SiDocker, color: 'text-blue-400' },
   'Kubernetes': { icon: SiKubernetes, color: 'text-blue-500' },
   'Jenkins': { icon: SiJenkins, color: 'text-red-600' },
@@ -124,7 +131,7 @@ const projects: Project[] = [
     description: 'Robust e-commerce backend built with ASP.NET Core, featuring JWT authentication, Entity Framework, and comprehensive API endpoints.',
     url: 'https://github.com/BunlongCHEA/Ecommerce-DotNet',
     liveUrl: 'https://ecommerceapi.bunlong.site/swagger',
-    technologies: ['C#', '.NET', 'SQL Server', 'MongoDB', 'Docker', 'Kubernetes', 'GCP', 'DigitalOcean'],
+    technologies: ['C#', '.NET', 'SQL Server', 'MongoDB','ArgoCD', 'Docker', 'Kubernetes', 'GCP', 'DigitalOcean'],
     images: [
       { url: getGitHubImageUrl('Ecommerce-DotNet', 'images/argocd_1.png'), alt: 'ArgoCD-Login' },
       { url: getGitHubImageUrl('Ecommerce-DotNet', 'images/argocd_2.png'), alt: 'ArgoCD-Repo' },
@@ -149,7 +156,7 @@ const projects: Project[] = [
     description: 'Modern e-commerce frontend with Vue.js, Vuex for state management, and responsive design.',
     url: 'https://github.com/BunlongCHEA/Ecommerce-Vue',
     liveUrl: 'https://ecommercevue.bunlong.site',
-    technologies: ['Vue.js', 'JavaScript', 'Tailwind CSS', 'Docker', 'Kubernetes', 'GCP', 'DigitalOcean'],
+    technologies: ['Vue.js', 'JavaScript', 'Tailwind CSS','ArgoCD', 'Docker', 'Kubernetes', 'GCP', 'DigitalOcean'],
     images: [
       { url: getGitHubImageUrl('Ecommerce-Vue', 'images/argocd_1.png'), alt: 'ArgoCD-Login' },
       { url: getGitHubImageUrl('Ecommerce-Vue', 'images/argocd_2.png'), alt: 'ArgoCD-Repo' },
@@ -185,7 +192,7 @@ const projects: Project[] = [
     description: 'Personal portfolio website built with Next.js, featuring modern animations and responsive design.',
     url: 'https://github.com/BunlongCHEA/NextJS_Portfolio',
     liveUrl: 'https://myportfolio.bunlong.site',
-    technologies: ['Next.js', 'TypeScript', 'React', 'Tailwind CSS', 'Docker', 'Kubernetes', 'GCP', 'DigitalOcean'],
+    technologies: ['Next.js', 'TypeScript', 'React', 'Tailwind CSS','ArgoCD', 'Docker', 'Kubernetes', 'GCP', 'DigitalOcean'],
     images: [
       { url: getGitHubImageUrl('NextJS_Portfolio', 'images/argocd/argocd_1.png'), alt: 'ArgoCD-Project-Deployment' },
       { url: getGitHubImageUrl('NextJS_Portfolio', 'images/argocd/argocd_2.png'), alt: 'ArgoCD-Project-Details' },
@@ -194,7 +201,8 @@ const projects: Project[] = [
       { url: getGitHubImageUrl('NextJS_Portfolio', 'images/argocd/k8s_2.png'), alt: 'K8S-Pod-1' },
       { url: getGitHubImageUrl('NextJS_Portfolio', 'images/argocd/portfolio_1.png'), alt: 'Web-My-Portfolio' },
     ],
-    type: 'fullstack'
+    type: 'frontend',
+    headerTitle: 'FrontEnd Project'
   },
   {
     id: 'springboot-chat',
@@ -202,7 +210,7 @@ const projects: Project[] = [
     description: 'Real-time chat application with WebSocket integration, built using Spring Boot and modern web technologies.',
     url: 'https://github.com/BunlongCHEA/SpringBoot-RealTimeChat',
     liveUrl: 'https://chatspringboot.bunlong.site',
-    technologies: ['Java', 'Spring Boot', 'PostgreSQL', 'Docker', 'Kubernetes', 'GCP', 'DigitalOcean'],
+    technologies: ['Java', 'Spring Boot', 'PostgreSQL','ArgoCD', 'Docker', 'Kubernetes', 'GCP', 'DigitalOcean'],
     images: [
       { url: getGitHubImageUrl('SpringBoot-RealTimeChat', 'images/argocd_1.png'), alt: 'ArgoCD-Repo' },
       { url: getGitHubImageUrl('SpringBoot-RealTimeChat', 'images/argocd_2.png'), alt: 'ArgoCD-Project' },
@@ -224,7 +232,7 @@ const projects: Project[] = [
     description: 'Real-time chat application with WebSocket integration, built using NextJS and modern web technologies.',
     url: 'https://github.com/BunlongCHEA/NextJS-RealTimeChat',
     liveUrl: 'https://chatnextjs.bunlong.site',
-    technologies: ['Next.js', 'TypeScript', 'React', 'Firebase', 'Docker', 'Kubernetes', 'GCP', 'DigitalOcean'],
+    technologies: ['Next.js', 'TypeScript', 'React', 'Firebase','ArgoCD', 'Docker', 'Kubernetes', 'GCP', 'DigitalOcean'],
     images: [
       { url: getGitHubImageUrl('NextJS-RealTimeChat', 'images/argocd_1.png'), alt: 'ArgoCD-Repo' },
       { url: getGitHubImageUrl('NextJS-RealTimeChat', 'images/argocd_2.png'), alt: 'ArgoCD-Project' },
@@ -258,6 +266,7 @@ const projects: Project[] = [
       // { url: '/images/gym-dotnet-2.png', alt: 'Database Schema' },
     ],
     type: 'fullstack',
+    headerTitle: 'Full Stack Project'
   },
   {
     id: 'cuisine-laravel',
@@ -271,6 +280,32 @@ const projects: Project[] = [
       // { url: '/images/cuisine-laravel-2.png', alt: 'Database Schema' },
     ],
     type: 'fullstack',
+    headerTitle: 'Full Stack Project'
+  },
+  {
+    id: 'ansible-automation',
+    name: 'Kubernetes - Rancher - ArgoCD - VM (Ansible Automation)',
+    description: 'Build with Ansible Automation to deploy Kubernetes cluster with Rancher and ArgoCD on VMs. Fully automated CI/CD pipeline for application deployment and management.',
+    url: 'https://github.com/BunlongCHEA/Ansible-Playbook-Role',
+    liveUrl: [
+      'https://argocd.bunlong.site',
+      'https://rancher.bunlong.site'
+    ],
+    technologies: ['Ansible', 'Rancher', 'Kubernetes', 'ArgoCD', 'Docker' , 'GCP', 'DigitalOcean'],
+    images: [
+      { url: getGitHubImageUrl('Ansible-Playbook-Role', 'images/argocd_1.png'), alt: 'ArgoCD-Interface' },
+      { url: getGitHubImageUrl('Ansible-Playbook-Role', 'images/cloudflare_1.png'), alt: 'Cloudflare-DNS' },
+      { url: getGitHubImageUrl('Ansible-Playbook-Role', 'images/digitalocean_1.png'), alt: 'DigitalOcean-Droplet-K3S' },
+      { url: getGitHubImageUrl('Ansible-Playbook-Role', 'images/digitalocean_2.png'), alt: 'DigitalOcean-Droplet-Detail' },
+      { url: getGitHubImageUrl('Ansible-Playbook-Role', 'images/digitalocean_3.png'), alt: 'DigitalOcean-API' },
+      { url: getGitHubImageUrl('Ansible-Playbook-Role', 'images/linux_1.png'), alt: 'Command-Access-Droplet' },
+      { url: getGitHubImageUrl('Ansible-Playbook-Role', 'images/linux_2.png'), alt: 'Command-Systemctl-k3s' },
+      { url: getGitHubImageUrl('Ansible-Playbook-Role', 'images/linux_3.png'), alt: 'Command-k3s-Cluster-Pods' },
+      { url: getGitHubImageUrl('Ansible-Playbook-Role', 'images/linux_4.png'), alt: 'Command-k3s-Cluster-Cert-Secrets' },
+      { url: getGitHubImageUrl('Ansible-Playbook-Role', 'images/linux_5.png'), alt: 'Command-Ingress' },
+    ],
+    type: 'automation',
+    headerTitle: 'Ansible Automation & Infrastructure Project'
   },
 ];
 
@@ -479,7 +514,7 @@ const GitHubProjects: React.FC<GitHubProjectsProps> = ({ selectedLanguage }) => 
                     <div
                       key={project.id}
                       onClick={() => openProjectModal(project)}
-                      className="p-4 cursor-pointer hover:bg-gray-800/50 transition-colors duration-200 border-b border-gray-700/30 last:border-b-0"
+                      className="p-4 cursor-pointer hover:bg-gray-800/50 transition-colors duration-200 border-b border-gray-700/30 last:border-b-0 group"
                     >
                       <div className="flex items-start justify-between mb-3">
                         <div className="flex-1">
@@ -494,7 +529,7 @@ const GitHubProjects: React.FC<GitHubProjectsProps> = ({ selectedLanguage }) => 
                             {project.type.charAt(0).toUpperCase() + project.type.slice(1)}
                           </span>
                         </div>
-                        <FiGithub className="w-5 h-5 text-gray-400" />
+                        <FiGithub className="w-5 h-5 text-gray-400 group-hover:text-white transition-colors" />
                       </div>
                       
                       <p className="text-gray-300 text-sm mb-3 line-clamp-2">
@@ -531,6 +566,15 @@ const GitHubProjects: React.FC<GitHubProjectsProps> = ({ selectedLanguage }) => 
                     onClick={() => openProjectModal(project)}
                     className="bg-gray-900/70 rounded-lg border border-gray-700/50 backdrop-blur-sm overflow-hidden hover:border-blue-500/50 transition-all duration-300 cursor-pointer group"
                   >
+                    {/* Add header title span for single projects */}
+                    {project.headerTitle && (
+                      <div className="bg-gradient-to-r from-purple-600/20 to-blue-600/20 px-4 py-2 border-b border-gray-700/50">
+                        <span className="text-xs font-semibold text-purple-400 uppercase tracking-wide">
+                          {project.headerTitle}
+                        </span>
+                      </div>
+                    )}
+                    
                     <div className="p-6">
                       <div className="flex items-start justify-between mb-4">
                         <div className="flex-1">
@@ -538,13 +582,13 @@ const GitHubProjects: React.FC<GitHubProjectsProps> = ({ selectedLanguage }) => 
                             {project.name}
                           </h3>
                           <span className={`inline-block px-3 py-1 rounded text-sm font-medium ${
-                            project.type === 'fullstack' 
+                            project. type === 'fullstack' 
                               ? 'bg-purple-600/20 text-purple-400 border border-purple-600/30'
                               : project.type === 'frontend'
                               ? 'bg-green-600/20 text-green-400 border border-green-600/30'
                               : 'bg-orange-600/20 text-orange-400 border border-orange-600/30'
                           }`}>
-                            {project.type.charAt(0).toUpperCase() + project.type.slice(1)}
+                            {project.type. charAt(0).toUpperCase() + project.type.slice(1)}
                           </span>
                         </div>
                         <FiGithub className="w-6 h-6 text-gray-400 group-hover:text-white transition-colors" />
@@ -630,7 +674,7 @@ const GitHubProjects: React.FC<GitHubProjectsProps> = ({ selectedLanguage }) => 
             {/* Modal Body */}
             <div className="p-6">
               {/* Project Links */}
-              <div className="flex gap-4 mb-6">
+              <div className="flex flex-wrap gap-4 mb-6">
                 <a
                   href={selectedProject.url}
                   target="_blank"
@@ -640,16 +684,39 @@ const GitHubProjects: React.FC<GitHubProjectsProps> = ({ selectedLanguage }) => 
                   <FiGithub className="w-5 h-5" />
                   <span className="text-white">View Code</span>
                 </a>
+
+                {/* Handle single or multiple liveUrls */}
                 {selectedProject.liveUrl && (
-                  <a
-                    href={selectedProject.liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition-colors"
-                  >
-                    <FiExternalLink className="w-5 h-5" />
-                    <span className="text-white">Live Demo</span>
-                  </a>
+                  Array.isArray(selectedProject.liveUrl) ?  (
+                    // Multiple URLs
+                    selectedProject.liveUrl. map((url, index) => (
+                      <a
+                        key={index}
+                        href={url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition-colors"
+                      >
+                        <FiExternalLink className="w-5 h-5" />
+                        <span className="text-white">
+                          {selectedProject.liveUrl && (selectedProject.liveUrl as string[]).length > 1 
+                            ? `Live Demo ${index + 1}` 
+                            : 'Live Demo'}
+                        </span>
+                      </a>
+                    ))
+                  ) : (
+                    // Single URL
+                    <a
+                      href={selectedProject.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition-colors"
+                    >
+                      <FiExternalLink className="w-5 h-5" />
+                      <span className="text-white">Live Demo</span>
+                    </a>
+                  )
                 )}
               </div>
 

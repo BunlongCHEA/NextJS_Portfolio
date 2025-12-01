@@ -78,6 +78,7 @@ const LearningJourney: React.FC = () => {
       technologies: ["Kubernetes", "Docker", "ArgoCD", "GitLab", "Jenkins", "Ansible", "Cloud (Digital-Ocean, GCP)"],
       images: [
         { url: getGitHubImageUrl('NextJS_Portfolio', 'images/Salacyber_Certificate_Devops.png'), alt: "Salacyber-Certificate-Devops" },
+        { url: getGitHubImageUrl('NextJS_Portfolio', 'images/Salacyber_Certificate_Network.png'), alt: "Salacyber-Certificate-Network" },
       ],
       logoUrl: getGitHubImageUrl('NextJS_Portfolio', 'images/logo/salacyber_blue.jpg')
     }

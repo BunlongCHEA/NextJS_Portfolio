@@ -26,7 +26,10 @@ import {
   SiKubernetes,
   SiJenkins,
   SiGooglecloud,
-  SiDigitalocean
+  SiDigitalocean,
+  SiAnsible,
+  SiRancher,
+  SiArgo
 } from 'react-icons/si';
 import { 
   DiMsqlServer
@@ -72,6 +75,9 @@ const languages: LanguageItem[] = [
   { name: 'PostgreSQL', icon: SiPostgresql, color: 'text-blue-400' },
   { name: 'SQL Server', icon: DiMsqlServer, color: 'text-red-500' },
 
+  { name: 'Ansible', icon: SiAnsible, color: 'text-red-400' },
+  { name: 'Rancher', icon: SiRancher, color: 'text-blue-400' },
+  { name: 'ArgoCD', icon: SiArgo, color: 'text-orange-400' },
   { name: 'Docker', icon: SiDocker, color: 'text-blue-400' },
   { name: 'Kubernetes', icon: SiKubernetes, color: 'text-blue-500' },
   { name: 'Jenkins', icon: SiJenkins, color: 'text-red-600' },
