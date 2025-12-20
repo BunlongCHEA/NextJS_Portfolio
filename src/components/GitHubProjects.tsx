@@ -30,7 +30,8 @@ import {
   SiDigitalocean,
   SiAnsible,
   SiRancher,
-  SiArgo
+  SiArgo,
+  SiTerraform
 } from 'react-icons/si';
 import { 
   DiMsqlServer
@@ -93,6 +94,7 @@ const technologyIcons: Record<string, { icon: React.ComponentType<{ className?: 
 
   'Ansible': { icon: SiAnsible, color: 'text-red-400' },
   'Rancher': { icon: SiRancher, color: 'text-blue-400' },
+  'Terraform': { icon: SiTerraform , color: 'text-purple-500' },
   'ArgoCD': { icon: SiArgo, color: 'text-orange-700' },
   'Docker': { icon: SiDocker, color: 'text-blue-400' },
   'Kubernetes': { icon: SiKubernetes, color: 'text-blue-500' },
@@ -262,6 +264,57 @@ const projects: Project[] = [
     relatedProject: 'springboot-chat'
   },
   {
+    id: 'ansible-automation',
+    name: 'Kubernetes - Rancher - ArgoCD - VM (Ansible Automation)',
+    description: 'Build with Ansible Automation to deploy Kubernetes cluster with Rancher and ArgoCD on VMs. Fully automated CI/CD pipeline for application deployment and management.',
+    url: 'https://github.com/BunlongCHEA/Ansible-Playbook-Role',
+    liveUrl: [
+      'https://argocd.bunlong.site',
+      'https://rancher.bunlong.site'
+    ],
+    technologies: ['Ansible', 'Rancher', 'Kubernetes', 'ArgoCD', 'Docker' , 'GCP', 'DigitalOcean'],
+    images: [
+      { url: getGitHubImageUrl('Ansible-Playbook-Role', 'images/argocd_1.png'), alt: 'ArgoCD-Interface' },
+      { url: getGitHubImageUrl('Ansible-Playbook-Role', 'images/cloudflare_1.png'), alt: 'Cloudflare-DNS' },
+      { url: getGitHubImageUrl('Ansible-Playbook-Role', 'images/digitalocean_1.png'), alt: 'DigitalOcean-Droplet-K3S' },
+      { url: getGitHubImageUrl('Ansible-Playbook-Role', 'images/digitalocean_2.png'), alt: 'DigitalOcean-Droplet-Detail' },
+      { url: getGitHubImageUrl('Ansible-Playbook-Role', 'images/digitalocean_3.png'), alt: 'DigitalOcean-API' },
+      { url: getGitHubImageUrl('Ansible-Playbook-Role', 'images/linux_1.png'), alt: 'Command-Access-Droplet' },
+      { url: getGitHubImageUrl('Ansible-Playbook-Role', 'images/linux_2.png'), alt: 'Command-Systemctl-k3s' },
+      { url: getGitHubImageUrl('Ansible-Playbook-Role', 'images/linux_3.png'), alt: 'Command-k3s-Cluster-Pods' },
+      { url: getGitHubImageUrl('Ansible-Playbook-Role', 'images/linux_4.png'), alt: 'Command-k3s-Cluster-Cert-Secrets' },
+      { url: getGitHubImageUrl('Ansible-Playbook-Role', 'images/linux_5.png'), alt: 'Command-Ingress' },
+    ],
+    type: 'automation',
+    headerTitle: 'Ansible Automation & Infrastructure Project'
+  },
+  {
+    id: 'terraform-automation',
+    name: 'Kubernetes - Rancher - ArgoCD - VM (Terraform + Ansible Automation)',
+    description: 'Build with Terraform + Ansible Automation to deploy Kubernetes cluster with Rancher and ArgoCD on VMs. Fully automated CI/CD pipeline for application deployment and management.',
+    url: 'https://github.com/BunlongCHEA/Terraform-Plan',
+    liveUrl: [
+      'https://argocd.bunlong.site',
+      'https://rancher.bunlong.site'
+    ],
+    technologies: ['Terraform', 'Ansible', 'Rancher', 'Kubernetes', 'ArgoCD', 'Docker', 'DigitalOcean'],
+    images: [
+      { url: getGitHubImageUrl('Terraform-Plan', 'images/ansible-1.png'), alt: 'Ansible-Running' },
+      { url: getGitHubImageUrl('Terraform-Plan', 'images/terraform-1.png'), alt: 'Terraform-Main-Script-To-Run-this-Project' },
+      { url: getGitHubImageUrl('Terraform-Plan', 'images/cloudflare-1.png'), alt: 'Cloudflare-Deploy-For-Rancher' },
+      { url: getGitHubImageUrl('Terraform-Plan', 'images/kubectl-1.png'), alt: 'Kubectl-Get-All-Pods' },
+      { url: getGitHubImageUrl('Terraform-Plan', 'images/kubectl-2.png'), alt: 'Kubectl-Check-All-Pods-And-Nodes-Resources' },
+      { url: getGitHubImageUrl('Terraform-Plan', 'images/kubectl-3.png'), alt: 'Kubectl-Check-Certificate-Ingress-Status-Success' },
+      { url: getGitHubImageUrl('Terraform-Plan', 'images/kubectl-4.png'), alt: 'Kubectl-Describe-Certificate-Rancher-Detail' },
+      { url: getGitHubImageUrl('Terraform-Plan', 'images/kubectl-5.png'), alt: 'Kubectl-CertificateRequest-Rancher-by-Cert-Manager' },
+      { url: getGitHubImageUrl('Terraform-Plan', 'images/kubectl-6.png'), alt: 'Kubectl-Get-All-Certificate-Lists' },
+      { url: getGitHubImageUrl('Terraform-Plan', 'images/rancher-1.png'), alt: 'Rancher-Login-Page' },
+      { url: getGitHubImageUrl('Terraform-Plan', 'images/rancher-2.png'), alt: 'Rancher-Home-Page-With-K3S' },
+    ],
+    type: 'automation',
+    headerTitle: 'Terraform + Ansible Automation & Infrastructure Project'
+  },
+  {
     id: 'gym-dotnet',
     name: 'Gym Management (.NET)',
     description: 'Robust gym management fullstack built with ASP.NET Core, featuring JWT authentication, Entity Framework, and interactive Bootstrap GUI endpoints.',
@@ -289,31 +342,7 @@ const projects: Project[] = [
     type: 'fullstack',
     headerTitle: 'Full Stack Project'
   },
-  {
-    id: 'ansible-automation',
-    name: 'Kubernetes - Rancher - ArgoCD - VM (Ansible Automation)',
-    description: 'Build with Ansible Automation to deploy Kubernetes cluster with Rancher and ArgoCD on VMs. Fully automated CI/CD pipeline for application deployment and management.',
-    url: 'https://github.com/BunlongCHEA/Ansible-Playbook-Role',
-    liveUrl: [
-      'https://argocd.bunlong.site',
-      'https://rancher.bunlong.site'
-    ],
-    technologies: ['Ansible', 'Rancher', 'Kubernetes', 'ArgoCD', 'Docker' , 'GCP', 'DigitalOcean'],
-    images: [
-      { url: getGitHubImageUrl('Ansible-Playbook-Role', 'images/argocd_1.png'), alt: 'ArgoCD-Interface' },
-      { url: getGitHubImageUrl('Ansible-Playbook-Role', 'images/cloudflare_1.png'), alt: 'Cloudflare-DNS' },
-      { url: getGitHubImageUrl('Ansible-Playbook-Role', 'images/digitalocean_1.png'), alt: 'DigitalOcean-Droplet-K3S' },
-      { url: getGitHubImageUrl('Ansible-Playbook-Role', 'images/digitalocean_2.png'), alt: 'DigitalOcean-Droplet-Detail' },
-      { url: getGitHubImageUrl('Ansible-Playbook-Role', 'images/digitalocean_3.png'), alt: 'DigitalOcean-API' },
-      { url: getGitHubImageUrl('Ansible-Playbook-Role', 'images/linux_1.png'), alt: 'Command-Access-Droplet' },
-      { url: getGitHubImageUrl('Ansible-Playbook-Role', 'images/linux_2.png'), alt: 'Command-Systemctl-k3s' },
-      { url: getGitHubImageUrl('Ansible-Playbook-Role', 'images/linux_3.png'), alt: 'Command-k3s-Cluster-Pods' },
-      { url: getGitHubImageUrl('Ansible-Playbook-Role', 'images/linux_4.png'), alt: 'Command-k3s-Cluster-Cert-Secrets' },
-      { url: getGitHubImageUrl('Ansible-Playbook-Role', 'images/linux_5.png'), alt: 'Command-Ingress' },
-    ],
-    type: 'automation',
-    headerTitle: 'Ansible Automation & Infrastructure Project'
-  },
+  
 ];
 
 interface GitHubProjectsProps {

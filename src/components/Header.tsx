@@ -225,11 +225,11 @@ const Header: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
           <div className="bg-white/10 rounded-lg p-3 backdrop-blur-sm">
             <h3 className="font-semibold mb-1">Data Engineering</h3>
-            <p className="text-blue-100">Python, SQL, NoSQL, Streaming(Kafka, RabbitMQ), ETL, Big Data, Hadoop</p>
+            <p className="text-blue-100">Python, SQL, NoSQL, Streaming(Kafka, RabbitMQ), Monitoring(Elasticsearch+Kibana, Graylogs, Grafana), ETL, Big Data, Hadoop</p>
           </div>
           <div className="bg-white/10 rounded-lg p-3 backdrop-blur-sm">
             <h3 className="font-semibold mb-1">DevOps</h3>
-            <p className="text-blue-100">Docker, Kubernetes, ArgoCD, GitLab, Jenkins, CI/CD, Cloudflare</p>
+            <p className="text-blue-100">Docker, Kubernetes, ArgoCD, Ansible, Terraform, GitLab, Jenkins, CI/CD, Cloudflare</p>
           </div>
           <div className="bg-white/10 rounded-lg p-3 backdrop-blur-sm">
             <h3 className="font-semibold mb-1">Cloud Platforms</h3>

@@ -29,7 +29,8 @@ import {
   SiDigitalocean,
   SiAnsible,
   SiRancher,
-  SiArgo
+  SiArgo,
+  SiTerraform
 } from 'react-icons/si';
 import { 
   DiMsqlServer
@@ -77,6 +78,7 @@ const languages: LanguageItem[] = [
 
   { name: 'Ansible', icon: SiAnsible, color: 'text-red-400' },
   { name: 'Rancher', icon: SiRancher, color: 'text-blue-400' },
+  { name: 'Terraform', icon: SiTerraform , color: 'text-purple-500' },
   { name: 'ArgoCD', icon: SiArgo, color: 'text-orange-400' },
   { name: 'Docker', icon: SiDocker, color: 'text-blue-400' },
   { name: 'Kubernetes', icon: SiKubernetes, color: 'text-blue-500' },
