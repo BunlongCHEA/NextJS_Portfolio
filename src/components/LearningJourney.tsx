@@ -58,6 +58,8 @@ const LearningJourney: React.FC = () => {
       technologies: ["ASP.NET C#", "SpringBoot Java", "Laravel PHP", "React", "Vue", "NextJS", "C++", "Android Java", "Unity", "Database", "Linux command", "Networking", "Cloud (AWS)"],
       images: [
         { url: getGitHubImageUrl('NextJS_Portfolio', 'images/IT-STEP_IT_Essentials_Certificate.png'), alt: "IT-STEP_IT_Essentials_Certificate" },
+        { url: getGitHubImageUrl('NextJS_Portfolio', 'images/IT-STEP_Diploma_Sign.png'), alt: "IT-STEP_Certificate_With_Sign_From_ITSTEP" },
+        { url: getGitHubImageUrl('NextJS_Portfolio', 'images/IT-STEP_Diploma_Verify_gov-kh.jpg'), alt: "IT-STEP_Certificate_With_Verify_gov.kh" },
       ],
       logoUrl: getGitHubImageUrl('NextJS_Portfolio', 'images/logo/IT_Step_Academy.jpg')
     },
