@@ -37,7 +37,8 @@ import {
 } from 'react-icons/di';
 import { 
   FaJava,
-  FaPhp
+  FaPhp,
+  FaGolang
 } from 'react-icons/fa6';
 import { 
   TbBrandCSharp
@@ -57,6 +58,7 @@ const languages: LanguageItem[] = [
   { name: 'Java', icon: FaJava, color: 'text-orange-400' },
   { name: 'C#', icon: TbBrandCSharp, color: 'text-purple-400' },
   { name: 'PHP', icon: FaPhp, color: 'text-purple-500' },
+  { name: 'Golang', icon: FaGolang, color: 'text-blue-500' },
 
   { name: 'Python', icon: SiPython, color: 'text-blue-400' },
   { name: 'Node.js', icon: SiNodedotjs, color: 'text-green-500' },
