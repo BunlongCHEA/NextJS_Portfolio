@@ -106,6 +106,14 @@ export const projects: Project[] = [
         url: getGitHubImageUrl('NextJS-Blockchain-KYC', 'images/kyc-1.png'),
         alt: 'KYC-Blockchain-System-Architecture-Diagram',
       },
+      {
+        url: getGitHubImageUrl('NextJS-Blockchain-KYC', 'images/argocd-1.png'),
+        alt: 'ArgoCD-Overview-System-Architecture-Diagram',
+      },
+      {
+        url: getGitHubImageUrl('NextJS-Blockchain-KYC', 'images/argocd-2.png'),
+        alt: 'ArgoCD-Detail-Frontend-System-Architecture-Diagram',
+      },
       // ── Admin Portal ─────────────────────────────────────────────────────────
       {
         url: getGitHubImageUrl('NextJS-Blockchain-KYC', 'images/portal-admin-1.png'),
