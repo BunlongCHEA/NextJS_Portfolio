@@ -40,8 +40,8 @@ export const projects: Project[] = [
     description: 'Build with Ansible Automation to deploy Kubernetes cluster with Rancher and ArgoCD on VMs. Fully automated CI/CD pipeline for application deployment and management.',
     url: 'https://github.com/BunlongCHEA/Ansible-Playbook-Role',
     liveUrl: [
-      'https://argocd.bunlong.site',
-      'https://rancher.bunlong.site'
+      'https://argocd1.bunlong.uk',
+      'https://rancher.bunlong.uk'
     ],
     technologies: ['Ansible', 'Rancher', 'Kubernetes', 'ArgoCD', 'Docker' , 'GCP', 'DigitalOcean'],
     images: [
@@ -65,8 +65,8 @@ export const projects: Project[] = [
     description: 'Build with Terraform + Ansible Automation to deploy Kubernetes cluster with Rancher and ArgoCD on VMs. Fully automated CI/CD pipeline for application deployment and management.',
     url: 'https://github.com/BunlongCHEA/Terraform-Plan',
     liveUrl: [
-      'https://argocd.bunlong.site',
-      'https://rancher.bunlong.site'
+      'https://argocd1.bunlong.uk',
+      'https://rancher.bunlong.uk'
     ],
     technologies: ['Terraform', 'Ansible', 'Rancher', 'Kubernetes', 'ArgoCD', 'Docker', 'DigitalOcean'],
     images: [
@@ -94,7 +94,11 @@ export const projects: Project[] = [
     name: 'KYC Blockchain UI (Next.js)',
     description: 'A full-stack blockchain-based KYC platform built with Next.js and TypeScript, featuring a dual-portal architecture (Admin & Customer), JWT authentication, blockchain ledger for immutable KYC records, certificate management, and Kubernetes deployment.',
     url: 'https://github.com/BunlongCHEA/NextJS-Blockchain-KYC',
-    liveUrl: 'https://kyc.bunlong.site',
+    // liveUrl: 'https://kyc.bunlong.uk',
+    liveUrl: [
+      'https://kyc.bunlong.uk/login/admin',
+      'https://kyc.bunlong.uk/login/customer'
+    ],
     technologies: ['Next.js', 'TypeScript', 'React', 'ArgoCD', 'Docker', 'Kubernetes', 'GCP', 'DigitalOcean'],
     images: [
       // ── System Overview ──────────────────────────────────────────────────────
@@ -233,7 +237,7 @@ export const projects: Project[] = [
     name: 'KYC Blockchain (Go)',
     description: 'A Go-based backend service that manages Know Your Customer (KYC) records on a blockchain, where banks can submit, verify, and immutably store customer identity data. It includes JWT authentication, role-based access control, PostgreSQL storage, consensus mechanisms (PBFT/Raft), and Kubernetes deployment with Prometheus/Grafana monitoring, built using Golang Backend, which has popular community for Blockchain.',
     url: 'https://github.com/BunlongCHEA/Go-Blockchain-KYC',
-    liveUrl: 'https://kycapi.bunlong.site',
+    liveUrl: 'https://kycapi.bunlong.uk/health',
     technologies: ['Golang', 'PostgreSQL' , 'ArgoCD', 'Docker', 'Kubernetes', 'GCP', 'DigitalOcean'],
     images: [
       { url: getGitHubImageUrl('Go-Blockchain-KYC', 'images/argocd-1.png'), alt: 'ArgoCD-Repo-Overview' },
@@ -291,7 +295,7 @@ export const projects: Project[] = [
     name: 'KYC Blockchain Model (Python)',
     description: 'A Python/FastAPI microservice that handles the AI-powered identity verification layer for KYC — performing OCR on Cambodian National IDs/Passports (via Google Cloud Vision + EasyOCR) and face matching between ID photos and selfies (via DeepFace/ArcFace), with CI/CD via GitHub Actions and ArgoCD on Kubernetes.',
     url: 'https://github.com/BunlongCHEA/Python-Blockchain-KYC',
-    liveUrl: 'https://kyc-python-api.bunlong.site',
+    liveUrl: 'https://kyc-python-api.bunlong.uk',
     technologies: ['Python', 'PostgreSQL', 'ArgoCD', 'Docker', 'Kubernetes', 'GCP', 'DigitalOcean'],
     images: [
       { url: getGitHubImageUrl('Python-Blockchain-KYC', 'image/argocd-1.png'), alt: 'ArgoCD-Repo-Overview' },
@@ -324,7 +328,7 @@ export const projects: Project[] = [
     name: 'E-commerce (.NET)',
     description: 'Robust e-commerce backend built with ASP.NET Core, featuring JWT authentication, Entity Framework, and comprehensive API endpoints.',
     url: 'https://github.com/BunlongCHEA/Ecommerce-DotNet',
-    liveUrl: 'https://ecommerceapi.bunlong.site/swagger',
+    liveUrl: 'https://ecommerceapi.bunlong.uk/swagger',
     technologies: ['C#', '.NET', 'SQL Server', 'MongoDB','ArgoCD', 'Docker', 'Kubernetes', 'GCP', 'DigitalOcean'],
     images: [
       { url: getGitHubImageUrl('Ecommerce-DotNet', 'images/argocd_1.png'), alt: 'ArgoCD-Login' },
@@ -349,7 +353,7 @@ export const projects: Project[] = [
     name: 'E-commerce (Vue.js)',
     description: 'Modern e-commerce frontend with Vue.js, Vuex for state management, and responsive design.',
     url: 'https://github.com/BunlongCHEA/Ecommerce-Vue',
-    liveUrl: 'https://ecommercevue.bunlong.site',
+    liveUrl: 'https://ecommercevue.bunlong.uk',
     technologies: ['Vue.js', 'JavaScript', 'Tailwind CSS', 'ArgoCD', 'Docker', 'Kubernetes', 'GCP', 'DigitalOcean'],
     images: [
       { url: getGitHubImageUrl('Ecommerce-Vue', 'images/argocd_1.png'), alt: 'ArgoCD-Login' },
@@ -385,7 +389,7 @@ export const projects: Project[] = [
     name: 'Real-Time Chat (Spring Boot)',
     description: 'Real-time chat application with WebSocket integration, built using Spring Boot and modern web technologies.',
     url: 'https://github.com/BunlongCHEA/SpringBoot-RealTimeChat',
-    liveUrl: 'https://chatspringboot.bunlong.site',
+    liveUrl: 'https://chatspringboot.bunlong.uk',
     technologies: ['Java', 'Spring Boot', 'PostgreSQL','ArgoCD', 'Docker', 'Kubernetes', 'GCP', 'DigitalOcean'],
     images: [
       { url: getGitHubImageUrl('SpringBoot-RealTimeChat', 'images/argocd_1.png'), alt: 'ArgoCD-Repo' },
@@ -411,7 +415,7 @@ export const projects: Project[] = [
     name: 'Real-Time Chat (Next.js)',
     description: 'Real-time chat application with WebSocket integration, built using NextJS and modern web technologies.',
     url: 'https://github.com/BunlongCHEA/NextJS-RealTimeChat',
-    liveUrl: 'https://chatnextjs.bunlong.site',
+    liveUrl: 'https://chatnextjs.bunlong.uk',
     technologies: ['Next.js', 'TypeScript', 'React', 'Firebase','ArgoCD', 'Docker', 'Kubernetes', 'GCP', 'DigitalOcean'],
     images: [
       { url: getGitHubImageUrl('NextJS-RealTimeChat', 'images/argocd_1.png'), alt: 'ArgoCD-Repo' },
@@ -442,7 +446,7 @@ export const projects: Project[] = [
     name: 'My Portfolio (Next.js)',
     description: 'Personal portfolio website built with Next.js, featuring modern animations and responsive design.',
     url: 'https://github.com/BunlongCHEA/NextJS_Portfolio',
-    liveUrl: 'https://myportfolio.bunlong.site',
+    liveUrl: 'https://myportfolio.bunlong.uk',
     technologies: ['Next.js', 'TypeScript', 'React', 'Tailwind CSS','ArgoCD', 'Docker', 'Kubernetes', 'GCP', 'DigitalOcean'],
     images: [
       { url: getGitHubImageUrl('NextJS_Portfolio', 'images/argocd/argocd_1.png'), alt: 'ArgoCD-Project-Deployment' },
@@ -460,7 +464,7 @@ export const projects: Project[] = [
     name: 'Gym Management (.NET)',
     description: 'Robust gym management fullstack built with ASP.NET Core, featuring JWT authentication, Entity Framework, and interactive Bootstrap GUI endpoints.',
     url: 'https://github.com/BunlongCHEA/ASP.Net_GymManagement',
-    liveUrl: 'https://gymdotnet.bunlong.site',
+    liveUrl: 'https://gymdotnet.bunlong.uk',
     technologies: ['C#', '.NET', 'SQL Server', 'Bootstrap', 'Jenkins', 'Docker', 'Kubernetes', 'GCP', 'DigitalOcean'],
     images: [
       // { url: '/images/gym-dotnet-1.png', alt: 'API Documentation' },
@@ -474,7 +478,7 @@ export const projects: Project[] = [
     name: 'Order Cuisine (Laravel)',
     description: 'Robust Order food fullstack built with Laravel, and interactive Bootstrap GUI endpoints.',
     url: 'https://github.com/BunlongCHEA/Laravel_Online_Cuisine',
-    liveUrl: 'https://cuisinelaravel.bunlong.site',
+    liveUrl: 'https://cuisinelaravel.bunlong.uk',
     technologies: ['PHP', 'Laravel', 'PostgreSQL', 'Bootstrap', 'Jenkins', 'Docker', 'Kubernetes', 'GCP', 'DigitalOcean'],
     images: [
       // { url: '/images/cuisine-laravel-1.png', alt: 'API Documentation' },
