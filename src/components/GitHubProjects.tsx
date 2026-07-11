@@ -87,85 +87,121 @@ const technologyIcons: Record<string, { icon: React.ComponentType<{ className?: 
   'DigitalOcean': { icon: SiDigitalocean, color: 'text-blue-600' },
 };
 
-// Generate tiny base64 placeholders (1x1 pixel colored squares)
-// const generatePlaceholder = (color: string) => {
-//   return `data:image/svg+xml;base64,${btoa(`
-//     <svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
-//       <rect width="100%" height="100%" fill="${color}"/>
-//       <text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="white" font-family="Arial" font-size="16">
-//         Loading...
-//       </text>
-//     </svg>
-//   `)}`;
-// };
-
 interface GitHubProjectsProps {
   selectedLanguage: string | null;
 }
 
+// ─── Grouping Helper ──────────────────────────────────────────────────────────
+
+/**
+ * Normalise relatedProject to always be an array of IDs (empty if none).
+ */
+function getRelatedIds(project: Project): string[] {
+  if (!project.relatedProject) return [];
+  return Array.isArray(project.relatedProject)
+    ? project.relatedProject
+    : [project.relatedProject];
+}
+
+/**
+ * Build groups where all mutually-related projects (2 or more) are collected
+ * into a single "multi" group. Single projects stay standalone.
+ *
+ * Algorithm:
+ * 1. Build an adjacency list of bidirectional edges.
+ * 2. Run a simple BFS/DFS to find connected components.
+ * 3. Each component with >1 member becomes a group; each singleton stays solo.
+ */
+function buildGroups(filteredProjects: Project[]): Array<{
+  key: string;
+  projects: Project[];
+  type: 'single' | 'multi';
+}> {
+  const idSet = new Set(filteredProjects.map(p => p.id));
+
+  // Adjacency list (only within the filtered set)
+  const adj = new Map<string, Set<string>>();
+  for (const p of filteredProjects) {
+    if (!adj.has(p.id)) adj.set(p.id, new Set());
+    for (const relId of getRelatedIds(p)) {
+      if (!idSet.has(relId)) continue; // related project filtered out — skip
+      adj.get(p.id)!.add(relId);
+      if (!adj.has(relId)) adj.set(relId, new Set());
+      adj.get(relId)!.add(p.id);
+    }
+  }
+
+  // BFS to find connected components
+  const visited = new Set<string>();
+  const components: string[][] = [];
+
+  for (const p of filteredProjects) {
+    if (visited.has(p.id)) continue;
+    const component: string[] = [];
+    const queue = [p.id];
+    visited.add(p.id);
+    while (queue.length) {
+      const cur = queue.shift()!;
+      component.push(cur);
+      for (const neighbour of adj.get(cur) ?? []) {
+        if (!visited.has(neighbour)) {
+          visited.add(neighbour);
+          queue.push(neighbour);
+        }
+      }
+    }
+    components.push(component);
+  }
+
+  // Map component id lists → group objects (preserving original order)
+  const projectById = new Map(filteredProjects.map(p => [p.id, p]));
+
+  return components.map(ids => {
+    // Sort ids by original filteredProjects order for stable rendering
+    const ordered = filteredProjects
+      .filter(p => ids.includes(p.id))
+      .map(p => p);
+
+    const key = ordered.map(p => p.id).sort().join('-');
+    return {
+      key,
+      projects: ordered,
+      type: ordered.length > 1 ? 'multi' : 'single',
+    } as const;
+  });
+}
+
+// ─── Component ────────────────────────────────────────────────────────────────
+
 const GitHubProjects: React.FC<GitHubProjectsProps> = ({ selectedLanguage }) => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [isImageFullscreen, setIsImageFullscreen] = useState(false); // State for fullscreen image
+  const [isImageFullscreen, setIsImageFullscreen] = useState(false);
 
   // Filter projects based on selected language
-  const filteredProjects = selectedLanguage 
-    ? projects.filter(project => 
-        project.technologies.some(tech => 
+  const filteredProjects = selectedLanguage
+    ? projects.filter(project =>
+        project.technologies.some(tech =>
           tech.toLowerCase().includes(selectedLanguage.toLowerCase())
         )
       )
     : projects;
 
-  // Group related projects (frontend/backend pairs)
-  const groupedProjects = filteredProjects.reduce((acc, project) => {
-    if (project.relatedProject) {
-      const relatedProject = filteredProjects.find(p => p.id === project.relatedProject);
-      if (relatedProject) {
-        const groupKey = [project.id, project.relatedProject].sort().join('-');
-        if (!acc.some(group => group.key === groupKey)) {
-          acc.push({
-            key: groupKey,
-            projects: [project, relatedProject],
-            type: 'pair'
-          });
-        }
-        return acc;
-      }
-    }
-    
-    // Check if this project is not already part of a pair
-    const isInPair = acc.some(group => 
-      group.type === 'pair' && group.projects.some(p => p.id === project.id)
-    );
-    
-    if (!isInPair) {
-      acc.push({
-        key: project.id,
-        projects: [project],
-        type: 'single'
-      });
-    }
-    
-    return acc;
-  }, [] as Array<{ key: string; projects: Project[]; type: 'single' | 'pair' }>);
+  const groupedProjects = buildGroups(filteredProjects);
 
-  // --- Handle Function Image & Fullscreen Image ---
+  // --- Image helpers ---
 
-  // Image component with instant placeholder
   const ImageWithPlaceholder: React.FC<{ src: string; alt: string; className?: string }> = ({ src, alt, className }) => {
     const [loaded, setLoaded] = useState(false);
     
     return (
       <div className={`relative ${className}`}>
-        {/* Instant placeholder */}
         <div className={`absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center ${loaded ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}>
           <div className="text-center">
             <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-2"></div>
             <span className="text-gray-400 text-sm">Loading...</span>
           </div>
         </div>
-        
         <Image
           src={src}
           alt={alt}
@@ -180,88 +216,55 @@ const GitHubProjects: React.FC<GitHubProjectsProps> = ({ selectedLanguage }) => 
     );
   };
 
-  // Handlers for project modal and image navigation
-  // ESC key handler
+  // ESC / keyboard handler
   useEffect(() => {
     const handleEscKey = (event: KeyboardEvent) => {
-      // Close modals with ESC
       if (event.key === 'Escape') {
         if (isImageFullscreen) {
-          setIsImageFullscreen(false); // Close fullscreen image first
+          setIsImageFullscreen(false);
         } else if (selectedProject) {
-          closeModal(); // Close modal if no fullscreen image
+          closeModal();
         }
         return;
       }
 
-      // Image navigation (only when modal is open and has images)
       if (selectedProject && selectedProject.images.length > 1) {
         switch (event.key) {
-          case 'ArrowLeft':
-          case 'a': // Alternative: A key
-          case 'A':
-            event.preventDefault();
-            prevImage();
-            break;
-            
-          case 'ArrowRight':
-          case 'd': // Alternative: D key
-          case 'D':
-            event.preventDefault();
-            nextImage();
-            break;
-            
-          case ' ': // Spacebar for next image
-            event.preventDefault();
-            nextImage();
-            break;
+          case 'ArrowLeft': case 'a': case 'A':
+            event.preventDefault(); prevImage(); break;
+          case 'ArrowRight': case 'd': case 'D':
+            event.preventDefault(); nextImage(); break;
+          case ' ':
+            event.preventDefault(); nextImage(); break;
         }
       }
-      
-      // Open fullscreen with Enter (when modal is open)
+
       if (event.key === 'Enter' && selectedProject && !isImageFullscreen) {
         event.preventDefault();
-        openFullscreenImage();
+        setIsImageFullscreen(true);
       }
     };
 
-    // Add event listener when modal or fullscreen is open
     if (selectedProject || isImageFullscreen) {
       document.addEventListener('keydown', handleEscKey);
     }
-
-    // Cleanup
-    return () => {
-      document.removeEventListener('keydown', handleEscKey);
-    };
+    return () => { document.removeEventListener('keydown', handleEscKey); };
   }, [selectedProject, isImageFullscreen, currentImageIndex]);
 
-  // Open project modal
   const openProjectModal = (project: Project) => {
     setSelectedProject(project);
     setCurrentImageIndex(0);
   };
 
-  // Close project modal
   const closeModal = () => {
     setSelectedProject(null);
     setCurrentImageIndex(0);
-    setIsImageFullscreen(false); // Reset fullscreen state
-  };
-
-  // Open fullscreen image
-  const openFullscreenImage = () => {
-    setIsImageFullscreen(true);
-  };
-
-  // Close fullscreen image
-  const closeFullscreenImage = () => {
     setIsImageFullscreen(false);
   };
 
   const nextImage = () => {
     if (selectedProject && selectedProject.images.length > 1) {
-      setCurrentImageIndex((prev) => 
+      setCurrentImageIndex(prev =>
         prev === selectedProject.images.length - 1 ? 0 : prev + 1
       );
     }
@@ -269,11 +272,35 @@ const GitHubProjects: React.FC<GitHubProjectsProps> = ({ selectedLanguage }) => 
 
   const prevImage = () => {
     if (selectedProject && selectedProject.images.length > 1) {
-      setCurrentImageIndex((prev) => 
+      setCurrentImageIndex(prev =>
         prev === 0 ? selectedProject.images.length - 1 : prev - 1
       );
     }
   };
+
+  // ─── Type badge helper ───────────────────────────────────────────────────
+
+  const typeBadgeClass = (type: Project['type']) => {
+    switch (type) {
+      case 'fullstack':  return 'bg-purple-600/20 text-purple-400 border border-purple-600/30';
+      case 'frontend':   return 'bg-green-600/20 text-green-400 border border-green-600/30';
+      case 'backend':    return 'bg-orange-600/20 text-orange-400 border border-orange-600/30';
+      case 'automation': return 'bg-red-600/20 text-red-400 border border-red-600/30';
+      default:           return '';
+    }
+  };
+
+  // ─── Group header label ──────────────────────────────────────────────────
+
+  const groupHeaderLabel = (group: ReturnType<typeof buildGroups>[number]) => {
+    const types = [...new Set(group.projects.map(p => p.type))];
+    if (types.includes('automation')) return { label: 'Automation & Infrastructure Project', color: 'text-red-400' };
+    if (types.includes('fullstack'))  return { label: 'Full Stack Project', color: 'text-purple-400' };
+    if (types.length > 1)             return { label: 'Full Stack Project', color: 'text-blue-400' };
+    return { label: `${types[0].charAt(0).toUpperCase()}${types[0].slice(1)} Project`, color: 'text-blue-400' };
+  };
+
+  // ─── Render ──────────────────────────────────────────────────────────────
 
   return (
     <>
@@ -281,7 +308,7 @@ const GitHubProjects: React.FC<GitHubProjectsProps> = ({ selectedLanguage }) => 
         <div className="mb-6">
           <h2 className="text-2xl font-bold text-white mb-2">Featured Projects</h2>
           <p className="text-blue-200">
-            {selectedLanguage 
+            {selectedLanguage
               ? `Projects using ${selectedLanguage} (${filteredProjects.length} found)`
               : `All projects (${projects.length} total)`
             }
@@ -289,18 +316,20 @@ const GitHubProjects: React.FC<GitHubProjectsProps> = ({ selectedLanguage }) => 
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {groupedProjects.map((group) => (
-            <div key={group.key} className="space-y-4">
-              {group.type === 'pair' ? (
-                // Render paired projects (frontend/backend)
-                <div className="bg-gray-900/70 rounded-lg border border-gray-700/50 backdrop-blur-sm overflow-hidden hover:border-blue-500/50 transition-all duration-300">
+          {groupedProjects.map((group) => {
+            const header = groupHeaderLabel(group);
+
+            if (group.type === 'multi') {
+              // ── Multi-project card (2+ related projects) ──────────────────
+              return (
+                <div key={group.key} className="bg-gray-900/70 rounded-lg border border-gray-700/50 backdrop-blur-sm overflow-hidden hover:border-blue-500/50 transition-all duration-300">
                   <div className="bg-gradient-to-r from-blue-600/20 to-purple-600/20 px-4 py-2 border-b border-gray-700/50">
-                    <span className="text-xs font-semibold text-blue-400 uppercase tracking-wide">
-                      Full Stack Project
+                    <span className={`text-xs font-semibold uppercase tracking-wide ${header.color}`}>
+                      {header.label}
                     </span>
                   </div>
-                  
-                  {group.projects.map((project, index) => (
+
+                  {group.projects.map((project) => (
                     <div
                       key={project.id}
                       onClick={() => openProjectModal(project)}
@@ -311,26 +340,19 @@ const GitHubProjects: React.FC<GitHubProjectsProps> = ({ selectedLanguage }) => 
                           <h3 className="text-lg font-semibold text-white mb-1 hover:text-blue-400 transition-colors">
                             {project.name}
                           </h3>
-                          <span className={`inline-block px-2 py-1 rounded text-xs font-medium ${
-                            project.type === 'frontend' 
-                              ? 'bg-green-600/20 text-green-400 border border-green-600/30' 
-                              : 'bg-orange-600/20 text-orange-400 border border-orange-600/30'
-                          }`}>
+                          <span className={`inline-block px-2 py-1 rounded text-xs font-medium ${typeBadgeClass(project.type)}`}>
                             {project.type.charAt(0).toUpperCase() + project.type.slice(1)}
                           </span>
                         </div>
                         <FiGithub className="w-5 h-5 text-gray-400 group-hover:text-white transition-colors" />
                       </div>
-                      
-                      <p className="text-gray-300 text-sm mb-3 line-clamp-2">
-                        {project.description}
-                      </p>
-                      
+
+                      <p className="text-gray-300 text-sm mb-3 line-clamp-2">{project.description}</p>
+
                       <div className="flex flex-wrap gap-2">
                         {project.technologies.slice(0, 3).map((tech) => {
                           const techInfo = technologyIcons[tech];
                           if (!techInfo) return null;
-                          
                           const IconComponent = techInfo.icon;
                           return (
                             <div key={tech} className="flex items-center gap-1 bg-gray-800/50 px-2 py-1 rounded">
@@ -348,66 +370,56 @@ const GitHubProjects: React.FC<GitHubProjectsProps> = ({ selectedLanguage }) => 
                     </div>
                   ))}
                 </div>
-              ) : (
-                // Render single project
-                group.projects.map((project) => (
-                  <div
-                    key={project.id}
-                    onClick={() => openProjectModal(project)}
-                    className="bg-gray-900/70 rounded-lg border border-gray-700/50 backdrop-blur-sm overflow-hidden hover:border-blue-500/50 transition-all duration-300 cursor-pointer group"
-                  >
-                    {/* Add header title span for single projects */}
-                    {project.headerTitle && (
-                      <div className="bg-gradient-to-r from-purple-600/20 to-blue-600/20 px-4 py-2 border-b border-gray-700/50">
-                        <span className="text-xs font-semibold text-purple-400 uppercase tracking-wide">
-                          {project.headerTitle}
-                        </span>
-                      </div>
-                    )}
-                    
-                    <div className="p-6">
-                      <div className="flex items-start justify-between mb-4">
-                        <div className="flex-1">
-                          <h3 className="text-xl font-semibold text-white mb-2 group-hover:text-blue-400 transition-colors">
-                            {project.name}
-                          </h3>
-                          <span className={`inline-block px-3 py-1 rounded text-sm font-medium ${
-                            project. type === 'fullstack' 
-                              ? 'bg-purple-600/20 text-purple-400 border border-purple-600/30'
-                              : project.type === 'frontend'
-                              ? 'bg-green-600/20 text-green-400 border border-green-600/30'
-                              : 'bg-orange-600/20 text-orange-400 border border-orange-600/30'
-                          }`}>
-                            {project.type. charAt(0).toUpperCase() + project.type.slice(1)}
-                          </span>
-                        </div>
-                        <FiGithub className="w-6 h-6 text-gray-400 group-hover:text-white transition-colors" />
-                      </div>
-                      
-                      <p className="text-gray-300 mb-4 line-clamp-3">
-                        {project.description}
-                      </p>
-                      
-                      <div className="flex flex-wrap gap-2">
-                        {project.technologies.map((tech) => {
-                          const techInfo = technologyIcons[tech];
-                          if (!techInfo) return null;
-                          
-                          const IconComponent = techInfo.icon;
-                          return (
-                            <div key={tech} className="flex items-center gap-1 bg-gray-800/50 px-3 py-1 rounded-full">
-                              <IconComponent className={`w-4 h-4 ${techInfo.color}`} />
-                              <span className="text-sm text-gray-300">{tech}</span>
-                            </div>
-                          );
-                        })}
-                      </div>
-                    </div>
+              );
+            }
+
+            // ── Single project card ─────────────────────────────────────────
+            return group.projects.map((project) => (
+              <div
+                key={project.id}
+                onClick={() => openProjectModal(project)}
+                className="bg-gray-900/70 rounded-lg border border-gray-700/50 backdrop-blur-sm overflow-hidden hover:border-blue-500/50 transition-all duration-300 cursor-pointer group"
+              >
+                {project.headerTitle && (
+                  <div className="bg-gradient-to-r from-purple-600/20 to-blue-600/20 px-4 py-2 border-b border-gray-700/50">
+                    <span className="text-xs font-semibold text-purple-400 uppercase tracking-wide">
+                      {project.headerTitle}
+                    </span>
                   </div>
-                ))
-              )}
-            </div>
-          ))}
+                )}
+
+                <div className="p-6">
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="flex-1">
+                      <h3 className="text-xl font-semibold text-white mb-2 group-hover:text-blue-400 transition-colors">
+                        {project.name}
+                      </h3>
+                      <span className={`inline-block px-3 py-1 rounded text-sm font-medium ${typeBadgeClass(project.type)}`}>
+                        {project.type.charAt(0).toUpperCase() + project.type.slice(1)}
+                      </span>
+                    </div>
+                    <FiGithub className="w-6 h-6 text-gray-400 group-hover:text-white transition-colors" />
+                  </div>
+
+                  <p className="text-gray-300 mb-4 line-clamp-3">{project.description}</p>
+
+                  <div className="flex flex-wrap gap-2">
+                    {project.technologies.map((tech) => {
+                      const techInfo = technologyIcons[tech];
+                      if (!techInfo) return null;
+                      const IconComponent = techInfo.icon;
+                      return (
+                        <div key={tech} className="flex items-center gap-1 bg-gray-800/50 px-3 py-1 rounded-full">
+                          <IconComponent className={`w-4 h-4 ${techInfo.color}`} />
+                          <span className="text-sm text-gray-300">{tech}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            ));
+          })}
         </div>
 
         {filteredProjects.length === 0 && (
@@ -429,36 +441,19 @@ const GitHubProjects: React.FC<GitHubProjectsProps> = ({ selectedLanguage }) => 
             <div className="flex items-center justify-between p-6 border-b border-gray-700">
               <div>
                 <h2 className="text-2xl font-bold text-white mb-1">{selectedProject.name}</h2>
-                <span className={`inline-block px-3 py-1 rounded text-sm font-medium ${
-                  selectedProject.type === 'fullstack' 
-                    ? 'bg-purple-600/20 text-purple-400 border border-purple-600/30'
-                    : selectedProject.type === 'frontend'
-                    ? 'bg-green-600/20 text-green-400 border border-green-600/30'
-                    : 'bg-orange-600/20 text-orange-400 border border-orange-600/30'
-                }`}>
+                <span className={`inline-block px-3 py-1 rounded text-sm font-medium ${typeBadgeClass(selectedProject.type)}`}>
                   {selectedProject.type.charAt(0).toUpperCase() + selectedProject.type.slice(1)}
                 </span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="text-xs text-gray-400 text-right">
                   <div>ESC to close</div>
-                  {selectedProject.images.length > 1 && (
-                    <div>← → to navigate</div>
-                  )}
+                  {selectedProject.images.length > 1 && <div>← → to navigate</div>}
                 </div>
-                <button
-                  onClick={closeModal}
-                  className="p-2 hover:bg-gray-800 rounded-lg transition-colors"
-                >
+                <button onClick={closeModal} className="p-2 hover:bg-gray-800 rounded-lg transition-colors">
                   <FiX className="w-6 h-6 text-gray-400" />
                 </button>
               </div>
-              {/* <button
-                onClick={closeModal}
-                className="p-2 hover:bg-gray-800 rounded-lg transition-colors"
-              >
-                <FiX className="w-6 h-6 text-gray-400" />
-              </button> */}
             </div>
 
             {/* Modal Body */}
@@ -475,11 +470,9 @@ const GitHubProjects: React.FC<GitHubProjectsProps> = ({ selectedLanguage }) => 
                   <span className="text-white">View Code</span>
                 </a>
 
-                {/* Handle single or multiple liveUrls */}
                 {selectedProject.liveUrl && (
-                  Array.isArray(selectedProject.liveUrl) ?  (
-                    // Multiple URLs
-                    selectedProject.liveUrl. map((url, index) => (
+                  Array.isArray(selectedProject.liveUrl) ? (
+                    selectedProject.liveUrl.map((url, index) => (
                       <a
                         key={index}
                         href={url}
@@ -489,14 +482,11 @@ const GitHubProjects: React.FC<GitHubProjectsProps> = ({ selectedLanguage }) => 
                       >
                         <FiExternalLink className="w-5 h-5" />
                         <span className="text-white">
-                          {selectedProject.liveUrl && (selectedProject.liveUrl as string[]).length > 1 
-                            ? `Live Demo ${index + 1}` 
-                            : 'Live Demo'}
+                          {(selectedProject.liveUrl as string[]).length > 1 ? `Live Demo ${index + 1}` : 'Live Demo'}
                         </span>
                       </a>
                     ))
                   ) : (
-                    // Single URL
                     <a
                       href={selectedProject.liveUrl}
                       target="_blank"
@@ -523,7 +513,6 @@ const GitHubProjects: React.FC<GitHubProjectsProps> = ({ selectedLanguage }) => 
                   {selectedProject.technologies.map((tech) => {
                     const techInfo = technologyIcons[tech];
                     if (!techInfo) return null;
-                    
                     const IconComponent = techInfo.icon;
                     return (
                       <div key={tech} className="flex items-center gap-3 bg-gray-800/50 p-3 rounded-lg">
@@ -543,48 +532,36 @@ const GitHubProjects: React.FC<GitHubProjectsProps> = ({ selectedLanguage }) => 
                     <span className="text-xs text-gray-400">Click image to view fullscreen</span>
                   </div>
                   <div className="relative">
-                    <div 
+                    <div
                       className="aspect-video bg-gray-800 rounded-lg overflow-hidden group cursor-pointer"
-                      onClick={openFullscreenImage}
+                      onClick={() => setIsImageFullscreen(true)}
                     >
                       <ImageWithPlaceholder
                         src={selectedProject.images[currentImageIndex].url}
                         alt={selectedProject.images[currentImageIndex].alt}
                         className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                       />
-                      
-                      {/* Zoom indicator */}
                       <div className="absolute top-4 right-4 bg-black/50 text-white p-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity">
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
                         </svg>
                       </div>
                     </div>
-                    
+
                     {selectedProject.images.length > 1 && (
                       <>
-                        <button
-                          onClick={prevImage}
-                          className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 p-2 rounded-full transition-colors"
-                        >
+                        <button onClick={prevImage} className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 p-2 rounded-full transition-colors">
                           <FiChevronLeft className="w-6 h-6 text-white" />
                         </button>
-                        <button
-                          onClick={nextImage}
-                          className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 p-2 rounded-full transition-colors"
-                        >
+                        <button onClick={nextImage} className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 p-2 rounded-full transition-colors">
                           <FiChevronRight className="w-6 h-6 text-white" />
                         </button>
-                        
-                        {/* Image indicators */}
                         <div className="flex justify-center mt-3 gap-2">
                           {selectedProject.images.map((_, index) => (
                             <button
                               key={index}
                               onClick={() => setCurrentImageIndex(index)}
-                              className={`w-2 h-2 rounded-full transition-colors ${
-                                index === currentImageIndex ? 'bg-blue-400' : 'bg-gray-600'
-                              }`}
+                              className={`w-2 h-2 rounded-full transition-colors ${index === currentImageIndex ? 'bg-blue-400' : 'bg-gray-600'}`}
                             />
                           ))}
                         </div>
@@ -602,38 +579,24 @@ const GitHubProjects: React.FC<GitHubProjectsProps> = ({ selectedLanguage }) => 
       {isImageFullscreen && selectedProject && (
         <div className="fixed inset-0 bg-black/95 backdrop-blur-sm z-[60] flex items-center justify-center p-4">
           <div className="relative w-full h-full flex items-center justify-center">
-            {/* Close button */}
-            <button
-              onClick={closeFullscreenImage}
-              className="absolute top-4 right-4 z-10 bg-black/50 hover:bg-black/70 p-3 rounded-full transition-colors"
-            >
+            <button onClick={() => setIsImageFullscreen(false)} className="absolute top-4 right-4 z-10 bg-black/50 hover:bg-black/70 p-3 rounded-full transition-colors">
               <FiX className="w-8 h-8 text-white" />
             </button>
-
-            {/* ESC hint */}
             <div className="absolute top-4 left-4 z-10 bg-black/50 text-white px-3 py-2 rounded-lg">
               <span className="text-sm">Press ESC to close</span>
             </div>
 
-            {/* Image navigation buttons */}
             {selectedProject.images.length > 1 && (
               <>
-                <button
-                  onClick={prevImage}
-                  className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 p-4 rounded-full transition-colors z-10"
-                >
+                <button onClick={prevImage} className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 p-4 rounded-full transition-colors z-10">
                   <FiChevronLeft className="w-8 h-8 text-white" />
                 </button>
-                <button
-                  onClick={nextImage}
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 p-4 rounded-full transition-colors z-10"
-                >
+                <button onClick={nextImage} className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 p-4 rounded-full transition-colors z-10">
                   <FiChevronRight className="w-8 h-8 text-white" />
                 </button>
               </>
             )}
 
-            {/* Fullscreen image */}
             <div className="max-w-full max-h-full">
               <ImageWithPlaceholder
                 src={selectedProject.images[currentImageIndex].url}
@@ -642,25 +605,18 @@ const GitHubProjects: React.FC<GitHubProjectsProps> = ({ selectedLanguage }) => 
               />
             </div>
 
-            {/* Image info and indicators */}
             <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-center">
               <div className="bg-black/50 text-white px-4 py-2 rounded-lg mb-3">
                 <p className="text-sm font-medium">{selectedProject.images[currentImageIndex].alt}</p>
-                <p className="text-xs text-gray-300">
-                  {currentImageIndex + 1} of {selectedProject.images.length}
-                </p>
+                <p className="text-xs text-gray-300">{currentImageIndex + 1} of {selectedProject.images.length}</p>
               </div>
-              
-              {/* Image indicators */}
               {selectedProject.images.length > 1 && (
                 <div className="flex justify-center gap-2">
                   {selectedProject.images.map((_, index) => (
                     <button
                       key={index}
                       onClick={() => setCurrentImageIndex(index)}
-                      className={`w-3 h-3 rounded-full transition-colors ${
-                        index === currentImageIndex ? 'bg-blue-400' : 'bg-gray-600'
-                      }`}
+                      className={`w-3 h-3 rounded-full transition-colors ${index === currentImageIndex ? 'bg-blue-400' : 'bg-gray-600'}`}
                     />
                   ))}
                 </div>
