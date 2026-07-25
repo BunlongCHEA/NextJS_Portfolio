@@ -14,7 +14,7 @@ const Header: React.FC = () => {
     location: "Phnom Penh, Cambodia",
     email: "c.bunlong168@gmail.com",
     phone: "+855 70 639 488",
-    cvUrl: "https://drive.google.com/file/d/1wXHJBUVqThiFrVoqUUbG87PCHvy4gyPY/view?usp=drive_link",
+    cvUrl: "https://drive.google.com/file/d/1O31aJseEGyQnQ2w3Gwr7BDEtJaDnk55U/view?usp=drive_link",
     profileImage: "https://raw.githubusercontent.com/BunlongCHEA/NextJS_Portfolio/main/images/profile/Bunlong-profile.jpg",
     biography:
     [
