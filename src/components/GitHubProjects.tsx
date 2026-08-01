@@ -21,6 +21,7 @@ import {
   
   SiFirebase,
   SiMongodb,
+  SiRedis,
   SiMysql,
   SiPostgresql,
   
@@ -32,7 +33,7 @@ import {
   SiAnsible,
   SiRancher,
   SiArgo,
-  SiTerraform
+  SiTerraform,
 } from 'react-icons/si';
 import { 
   DiMsqlServer
@@ -72,6 +73,7 @@ const technologyIcons: Record<string, { icon: React.ComponentType<{ className?: 
 
   'Firebase': { icon: SiFirebase, color: 'text-yellow-400' },
   'MongoDB': { icon: SiMongodb, color: 'text-green-500' },
+  'Redis': { icon: SiRedis, color: 'text-red-500' },
   'MySQL': { icon: SiMysql, color: 'text-blue-500' },
   'PostgreSQL': { icon: SiPostgresql, color: 'text-blue-400' },
   'SQL Server': { icon: DiMsqlServer, color: 'text-red-500' },
