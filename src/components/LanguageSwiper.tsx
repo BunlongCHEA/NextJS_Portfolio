@@ -19,6 +19,7 @@ import {
   
   SiFirebase,
   SiMongodb,
+  SiRedis,
   SiMysql,
   SiPostgresql,
 
@@ -74,6 +75,7 @@ const languages: LanguageItem[] = [
 
   { name: 'Firebase', icon: SiFirebase, color: 'text-yellow-400' },
   { name: 'MongoDB', icon: SiMongodb, color: 'text-green-500' },
+  { name: 'Redis', icon: SiRedis, color: 'text-red-500' },
   { name: 'MySQL', icon: SiMysql, color: 'text-blue-500' },
   { name: 'PostgreSQL', icon: SiPostgresql, color: 'text-blue-400' },
   { name: 'SQL Server', icon: DiMsqlServer, color: 'text-red-500' },
