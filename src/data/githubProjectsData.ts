@@ -353,8 +353,8 @@ export const projects: Project[] = [
     liveUrl: 'https://cbsapi.bunlong.uk/health',
     technologies: ['Java', 'Spring Boot', 'PostgreSQL', 'Redis', 'MongoDB', 'Docker', 'Kubernetes', 'GCP', 'DigitalOcean'],
     images: [
-      { url: getGitHubImageUrl('CBS-Backend', 'images/accounts-1.png'), alt: 'CBS-Accounts-Module-Overview' },
-      { url: getGitHubImageUrl('CBS-Backend', 'images/transactions-1.png'), alt: 'CBS-Transactions-Module-Overview' },
+      // { url: getGitHubImageUrl('CBS-Backend', 'images/accounts-1.png'), alt: 'CBS-Accounts-Module-Overview' },
+      // { url: getGitHubImageUrl('CBS-Backend', 'images/transactions-1.png'), alt: 'CBS-Transactions-Module-Overview' },
     ],
     type: 'backend',
     relatedProject: 'core-banking-system-frontend',
@@ -367,8 +367,8 @@ export const projects: Project[] = [
     liveUrl: 'https://cbs.bunlong.uk',
     technologies: ['Next.js', 'TypeScript', 'TailwindCSS', 'Docker', 'Kubernetes', 'GCP', 'DigitalOcean'],
     images: [
-      { url: getGitHubImageUrl('CBS-Frontend', 'images/onboarding-1.png'), alt: 'CBS-KYC-Onboarding-Dialog' },
-      { url: getGitHubImageUrl('CBS-Frontend', 'images/accounts-ui-1.png'), alt: 'CBS-Accounts-Page-UI' },
+      // { url: getGitHubImageUrl('CBS-Frontend', 'images/onboarding-1.png'), alt: 'CBS-KYC-Onboarding-Dialog' },
+      // { url: getGitHubImageUrl('CBS-Frontend', 'images/accounts-ui-1.png'), alt: 'CBS-Accounts-Page-UI' },
     ],
     type: 'frontend',
     relatedProject: 'core-banking-system-backend',
