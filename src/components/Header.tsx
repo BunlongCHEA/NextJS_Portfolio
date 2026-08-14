@@ -6,7 +6,7 @@ import { PersonalInfo, SocialLinks } from '@/types';
 const Header: React.FC = () => {
   const [showFullBio, setShowFullBio] = useState(false);
   const [isProfileFullscreen, setIsProfileFullscreen] = useState(false);
-  
+
   // TypeScript: Defining typed objects
   const personalInfo: PersonalInfo = {
     name: "CHEA BUNLONG",
@@ -14,7 +14,7 @@ const Header: React.FC = () => {
     location: "Phnom Penh, Cambodia",
     email: "c.bunlong168@gmail.com",
     phone: "+855 70 639 488",
-    cvUrl: "https://drive.google.com/file/d/1wX4zvo1Hmlwr929-SdZKFYx-_eUk5GfD/view?usp=sharing",
+    cvUrl: "https://drive.google.com/file/d/1Yexmzplj8vFy-Ht8PydCLbkMgqbyJ8Q8/view?usp=drive_link",
     profileImage: "https://raw.githubusercontent.com/BunlongCHEA/NextJS_Portfolio/main/images/profile/Bunlong-profile.jpg",
     biography:
     [
@@ -69,13 +69,13 @@ const Header: React.FC = () => {
         title={isClickable ? "Click to view fullscreen" : undefined}
       >
         {hasError || !imgSrc ? (
-          <User className="w-8 h-8" />
+          <User className="w-12 h-12" />
         ) : (
           <Image
             src={imgSrc}
             alt={alt}
-            width={32}
-            height={32}
+            width={128}
+            height={128}
             className="w-full h-full object-cover"
             onError={handleError}
             priority
@@ -106,35 +106,35 @@ const Header: React.FC = () => {
     <>
     <header className="gradient-bg text-white shadow-lg">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-        
+
         {/* Left Section - Personal Info */}
         <div className="flex-1">
-          <div className="flex items-center gap-3 mb-2">
-            {/* <User className="w-8 h-8" /> */}
-            <ProfileImage 
-              src={personalInfo.profileImage} 
-              alt={`${personalInfo.name} Profile`} 
-              className="w-16 h-16 bg-white/10 rounded-full border-2 border-blue-500 flex-shrink-0"
+          <div className="flex items-center gap-4 mb-2">
+            {/* Profile Image - enlarged for better visibility */}
+            <ProfileImage
+              src={personalInfo.profileImage}
+              alt={`${personalInfo.name} Profile`}
+              className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 bg-white/10 rounded-full border-2 border-blue-500 flex-shrink-0"
               onClick={() => personalInfo.profileImage && setIsProfileFullscreen(true)}
               isClickable={!!personalInfo.profileImage}
             />
 
             <h1 className="text-3xl md:text-4xl font-bold">{personalInfo.name}</h1>
           </div>
-          
+
           <p className="text-xl text-blue-100 mb-4 font-medium">
             {personalInfo.title}
           </p>
-          
+
           <div className="flex flex-col sm:flex-row gap-4 text-blue-100">
             <div className="flex items-center gap-2">
               <MapPin className="w-4 h-4" />
               <span>{personalInfo.location}</span>
             </div>
-            
+
             <div className="flex items-center gap-2">
               <Mail className="w-4 h-4" />
-              <button 
+              <button
                 onClick={() => handleContactClick('email')}
                 className="hover:text-white transition-colors duration-200"
               >
@@ -176,7 +176,7 @@ const Header: React.FC = () => {
             <Linkedin className="w-5 h-5" />
             <span className="hidden sm:block">GitLab</span>
           </a> */}
-          
+
           <a
             href="#"
             onClick={(e) => handleSocialLink(e, 'linkedin')}
@@ -199,7 +199,7 @@ const Header: React.FC = () => {
             </li>
           ))}
         </ul>
-        
+
         {personalInfo.biography && personalInfo.biography.length > 6 && (
           <button
             onClick={() => setShowFullBio(!showFullBio)}
@@ -239,7 +239,7 @@ const Header: React.FC = () => {
       </div>
     </header>
 
-    {/* Fullscreen Profile Image Modal - ADD THIS */}
+    {/* Fullscreen Profile Image Modal */}
     {isProfileFullscreen && personalInfo.profileImage && (
       <div className="fixed inset-0 bg-black/95 backdrop-blur-sm z-[70] flex items-center justify-center p-4">
         <div className="relative w-full h-full flex items-center justify-center">

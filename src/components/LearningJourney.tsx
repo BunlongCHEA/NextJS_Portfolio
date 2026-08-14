@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import Image from 'next/image';
 import { LearningItem } from '@/types';
-import { BookOpen, Calendar, Book, Target, X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { BookOpen, Calendar, Book, Target, X, ChevronLeft, Search } from 'lucide-react';
 import SwipeCard from './SwipeCard';
 
 // Helper function
@@ -15,12 +15,13 @@ const getGitHubImageUrl = (repository: string, imagePath: string) => {
 };
 
 const LearningJourney: React.FC = () => {
-    const [selectedLearning, setSelectedLearning] = useState<LearningItem | null>(null);
-    const [isCardOpen, setIsCardOpen] = useState(false);
-    const [isImageFullscreen, setIsImageFullscreen] = useState(false);
-    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [selectedLearning, setSelectedLearning] = useState<LearningItem | null>(null);
+  const [isCardOpen, setIsCardOpen] = useState(false);
+  const [isImageFullscreen, setIsImageFullscreen] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [searchTerm, setSearchTerm] = useState('');
 
-    const learningItems: LearningItem[] = [
+  const learningItems: LearningItem[] = [
     {
       id: 1,
       title: "Institute of Foreign Languages (IFL)",
@@ -44,7 +45,7 @@ const LearningJourney: React.FC = () => {
       title: "IT STEP Computer Academy (@itstep.bg)",
       platform: "Software Development",
       period: "Nov 2022 - Nov 2025",
-      description: "Intensive learning and studying in the major of Software Development for the 3 school-year, to understand the life-cycle of software developer, best code practice, latest technologies, Big Data,.",
+      description: "Intensive learning and studying in the major of Software Development for the 3 school-year, to understand the life-cycle of software developer, best code practice, latest technologies, Big Data, and more.",
       detailedPoints: [
         "Learn, understand, and practice in system design and architecture like C++",
         "Design Window Application using C#, .NET framework, Winforms, WPF",
@@ -86,34 +87,60 @@ const LearningJourney: React.FC = () => {
     }
   ];
 
-  const handleMoreClick = (learningItems: LearningItem) => {
-    setSelectedLearning(learningItems);
+  // Filter by school/platform name OR title (case-insensitive)
+  const filteredLearningItems = useMemo(() => {
+    if (!searchTerm.trim()) return learningItems;
+    const term = searchTerm.toLowerCase();
+    return learningItems.filter(
+      (item) =>
+        item.title.toLowerCase().includes(term) ||
+        item.platform.toLowerCase().includes(term)
+    );
+  }, [searchTerm]);
+
+  const MAX_PREVIEW_POINTS = 5;
+
+  // Achievement points may be written as "Title: description".
+  // Bold the title (summary) portion before the colon, if present.
+  const renderAchievement = (point: string) => {
+    const colonIndex = point.indexOf(':');
+    if (colonIndex === -1) return <>{point}</>;
+    const title = point.slice(0, colonIndex + 1);
+    const rest = point.slice(colonIndex + 1);
+    return (
+      <>
+        <span className="font-semibold text-white">{title}</span>
+        {rest}
+      </>
+    );
+  };
+
+  const handleMoreClick = (learningItem: LearningItem) => {
+    setSelectedLearning(learningItem);
     setIsCardOpen(true);
-    setCurrentImageIndex(0); // Reset image index
+    setCurrentImageIndex(0);
   };
 
   const handleCloseCard = () => {
     setIsCardOpen(false);
-    setIsImageFullscreen(false); // Reset fullscreen state
+    setIsImageFullscreen(false);
     setTimeout(() => setSelectedLearning(null), 300);
   };
 
   // --- Handle Function Image & Fullscreen Image ---
 
-  // Image component with instant placeholder
   const ImageWithPlaceholder: React.FC<{ src: string; alt: string; className?: string }> = ({ src, alt, className }) => {
     const [loaded, setLoaded] = useState(false);
-    
+
     return (
       <div className={`relative ${className}`}>
-        {/* Instant placeholder */}
         <div className={`absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center ${loaded ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}>
           <div className="text-center">
             <div className="w-12 h-12 border-4 border-green-500 border-t-transparent rounded-full animate-spin mx-auto mb-2"></div>
             <span className="text-gray-400 text-sm">Loading...</span>
           </div>
         </div>
-        
+
         <Image
           src={src}
           alt={alt}
@@ -128,19 +155,17 @@ const LearningJourney: React.FC = () => {
     );
   };
 
-  // Open fullscreen image
   const openFullscreenImage = () => {
     setIsImageFullscreen(true);
   };
 
-  // Close fullscreen image
   const closeFullscreenImage = () => {
     setIsImageFullscreen(false);
   };
 
   const nextImage = () => {
     if (selectedLearning && selectedLearning.images && selectedLearning.images.length > 1) {
-      setCurrentImageIndex((prev) => 
+      setCurrentImageIndex((prev) =>
         prev === selectedLearning.images?.length - 1 ? 0 : prev + 1
       );
     }
@@ -148,7 +173,7 @@ const LearningJourney: React.FC = () => {
 
   const prevImage = () => {
     if (selectedLearning && selectedLearning.images && selectedLearning.images.length > 1) {
-      setCurrentImageIndex((prev) => 
+      setCurrentImageIndex((prev) =>
         prev === 0 ? selectedLearning.images.length - 1 : prev - 1
       );
     }
@@ -157,7 +182,6 @@ const LearningJourney: React.FC = () => {
   // ESC key handler
   useEffect(() => {
     const handleEscKey = (event: KeyboardEvent) => {
-      // Close modals with ESC
       if (event.key === 'Escape') {
         if (isImageFullscreen) {
           setIsImageFullscreen(false);
@@ -167,7 +191,6 @@ const LearningJourney: React.FC = () => {
         return;
       }
 
-      // Image navigation (only when modal is open and has images)
       if (selectedLearning && selectedLearning.images && selectedLearning.images.length > 1) {
         switch (event.key) {
           case 'ArrowLeft':
@@ -176,22 +199,21 @@ const LearningJourney: React.FC = () => {
             event.preventDefault();
             prevImage();
             break;
-            
+
           case 'ArrowRight':
           case 'd':
           case 'D':
             event.preventDefault();
             nextImage();
             break;
-            
+
           case ' ':
             event.preventDefault();
             nextImage();
             break;
         }
       }
-      
-      // Open fullscreen with Enter
+
       if (event.key === 'Enter' && selectedLearning && !isImageFullscreen) {
         event.preventDefault();
         openFullscreenImage();
@@ -212,77 +234,130 @@ const LearningJourney: React.FC = () => {
       <div className="bg-gray-900 rounded-lg shadow-lg overflow-hidden h-[700px] flex flex-col">
         {/* Header - Fixed */}
         <div className="bg-gray-800 px-6 py-4 border-b border-gray-700">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 mb-3">
             <BookOpen className="w-6 h-6 text-green-400" />
             <h2 className="text-2xl font-bold text-white">Learning Journey</h2>
           </div>
+
+          {/* Search by School Name */}
+          <div className="relative">
+            <Search className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Search by school name..."
+              className="w-full bg-gray-900 border border-gray-700 rounded-lg pl-9 pr-9 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+            />
+            {searchTerm && (
+              <button
+                onClick={() => setSearchTerm('')}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white"
+                title="Clear search"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            )}
+          </div>
         </div>
 
-        {/* Scrollable Content Area */}
+        {/* Scrollable Content Area (Top-Down scrollbar) */}
         <div className="flex-1 overflow-y-auto p-6 space-y-6">
-          {learningItems.map((item) => (
-            <div key={item.id} className="border-l-4 border-green-500 pl-6 pb-6 relative group">
-              <div className="absolute -left-2 top-0 w-4 h-4 bg-green-500 rounded-full"></div>
-              
-              <div className="mb-3 flex items-start justify-between">
-                <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-1">
-                    {/* School Logo Icon */}
-                    <div className="w-10 h-10 bg-gray-800 rounded-full border-2 border-blue-500 flex items-center justify-center overflow-hidden flex-shrink-0">
-                      <Image
-                        src={item.logoUrl || 'https://png.pngtree.com/png-vector/20210129/ourmid/pngtree-upload-avatar-by-default-png-image_2854358.jpg'}
-                        alt={`${item.title} logo`}
-                        width={32}
-                        height={32}
-                        className="rounded-full object-cover"
-                        onError={(e) => {
-                          e.currentTarget.src = 'https://png.pngtree.com/png-vector/20210129/ourmid/pngtree-upload-avatar-by-default-png-image_2854358.jpg';
-                        }}
-                      />
+          {filteredLearningItems.length === 0 && (
+            <div className="text-center text-gray-400 py-10">
+              No school found matching &quot;{searchTerm}&quot;
+            </div>
+          )}
+
+          {filteredLearningItems.map((item) => {
+            const previewPoints = item.detailedPoints?.slice(0, MAX_PREVIEW_POINTS) ?? [];
+            const remainingCount = (item.detailedPoints?.length ?? 0) - previewPoints.length;
+
+            return (
+              <div key={item.id} className="border-l-4 border-green-500 pl-6 pb-6 relative group">
+                <div className="absolute -left-2 top-0 w-4 h-4 bg-green-500 rounded-full"></div>
+
+                <div className="mb-3 flex items-start justify-between">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-3 mb-1">
+                      {/* School Logo Icon */}
+                      <div className="w-10 h-10 bg-gray-800 rounded-full border-2 border-green-500 flex items-center justify-center overflow-hidden flex-shrink-0">
+                        <Image
+                          src={item.logoUrl || 'https://png.pngtree.com/png-vector/20210129/ourmid/pngtree-upload-avatar-by-default-png-image_2854358.jpg'}
+                          alt={`${item.title} logo`}
+                          width={32}
+                          height={32}
+                          className="rounded-full object-cover"
+                          onError={(e) => {
+                            e.currentTarget.src = 'https://png.pngtree.com/png-vector/20210129/ourmid/pngtree-upload-avatar-by-default-png-image_2854358.jpg';
+                          }}
+                        />
+                      </div>
+
+                      <h3 className="text-xl font-semibold text-white">{item.title}</h3>
                     </div>
 
-                    <h3 className="text-xl font-semibold text-white">{item.title}</h3>
+                    <p className="text-lg text-green-400 font-medium">{item.platform}</p>
+                    <div className="flex items-center gap-2 text-gray-400 mt-1">
+                      <Calendar className="w-4 h-4" />
+                      <span className="text-sm">{item.period}</span>
+                    </div>
                   </div>
 
+                  <button
+                    onClick={() => handleMoreClick(item)}
+                    className="transition-opacity duration-200 p-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-full"
+                    title="View full details"
+                  >
+                    <Book className="w-5 h-5" />
+                  </button>
+                </div>
 
-                  {/* <h3 className="text-xl font-semibold text-white">{item.title}</h3> */}
-                  <p className="text-lg text-green-400 font-medium">{item.platform}</p>
-                  <div className="flex items-center gap-2 text-gray-400 mt-1">
-                    <Calendar className="w-4 h-4" />
-                    <span className="text-sm">{item.period}</span>
+                {/* Overview */}
+                <p className="text-gray-300 mb-4 leading-relaxed">
+                  {item.description}
+                </p>
+
+                {/* Key Achievements / Learning Objectives (preview - up to 5) */}
+                {previewPoints.length > 0 && (
+                  <div className="mb-4">
+                    <h4 className="text-sm font-semibold text-gray-200 mb-2">Key Achievements</h4>
+                    <ul className="space-y-2">
+                      {previewPoints.map((point, index) => (
+                        <li key={index} className="flex items-start gap-2">
+                          <div className="w-1.5 h-1.5 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
+                          <span className="text-gray-300 text-sm leading-relaxed">{renderAchievement(point)}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    {remainingCount > 0 && (
+                      <button
+                        onClick={() => handleMoreClick(item)}
+                        className="mt-2 text-sm text-green-400 hover:text-green-300 font-medium"
+                      >
+                        +{remainingCount} more — View full details
+                      </button>
+                    )}
+                  </div>
+                )}
+
+                {/* All Technologies */}
+                <div className="flex items-start gap-2">
+                  <Target className="w-4 h-4 text-gray-400 mt-1 flex-shrink-0" />
+                  <div className="flex flex-wrap gap-2">
+                    {item.technologies.map((tech, index) => (
+                      <span
+                        key={index}
+                        className="px-3 py-1 bg-green-900 text-green-300 text-sm rounded-full font-medium border border-green-700"
+                      >
+                        {tech}
+                      </span>
+                    ))}
                   </div>
                 </div>
-                
-                {/* opacity-0 group-hover:opacity-100 : add this in-front-of transition opacity for hover */}
-                <button
-                  onClick={() => handleMoreClick(item)}
-                  className="transition-opacity duration-200 p-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-full"
-                  title="View details"
-                >
-                  <Book className="w-5 h-5" />
-                </button>
               </div>
-
-              <p className="text-gray-300 mb-4 leading-relaxed">
-                {item.description}
-              </p>
-
-              <div className="flex items-start gap-2 mb-4">
-                <Target className="w-4 h-4 text-gray-400 mt-1 flex-shrink-0" />
-                <div className="flex flex-wrap gap-2">
-                  {item.technologies.map((tech, index) => (
-                    <span
-                      key={index}
-                      className="px-3 py-1 bg-green-900 text-green-300 text-sm rounded-full font-medium border border-green-700"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
@@ -307,7 +382,6 @@ const LearningJourney: React.FC = () => {
       {isImageFullscreen && selectedLearning && selectedLearning.images && (
         <div className="fixed inset-0 bg-black/95 backdrop-blur-sm z-[60] flex items-center justify-center p-4">
           <div className="relative w-full h-full flex items-center justify-center">
-            {/* Close button */}
             <button
               onClick={closeFullscreenImage}
               className="absolute top-4 right-4 z-10 bg-black/50 hover:bg-black/70 p-3 rounded-full transition-colors"
@@ -315,12 +389,10 @@ const LearningJourney: React.FC = () => {
               <X className="w-8 h-8 text-white" />
             </button>
 
-            {/* ESC hint */}
             <div className="absolute top-4 left-4 z-10 bg-black/50 text-white px-3 py-2 rounded-lg">
               <span className="text-sm">Press ESC to close</span>
             </div>
 
-            {/* Image navigation buttons */}
             {selectedLearning.images.length > 1 && (
               <>
                 <button
@@ -338,13 +410,7 @@ const LearningJourney: React.FC = () => {
               </>
             )}
 
-            {/* Fullscreen image */}
             <div className="max-w-full max-h-full">
-              {/* <img
-                src={selectedLearning.images[currentImageIndex].url}
-                alt={selectedLearning.images[currentImageIndex].alt}
-                className="max-w-full max-h-full object-contain"
-              /> */}
               <ImageWithPlaceholder
                 src={selectedLearning.images[currentImageIndex].url}
                 alt={selectedLearning.images[currentImageIndex].alt}
@@ -352,7 +418,6 @@ const LearningJourney: React.FC = () => {
               />
             </div>
 
-            {/* Image info and indicators */}
             <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-center">
               <div className="bg-black/50 text-white px-4 py-2 rounded-lg mb-3">
                 <p className="text-sm font-medium">{selectedLearning.images[currentImageIndex].alt}</p>
@@ -360,8 +425,7 @@ const LearningJourney: React.FC = () => {
                   {currentImageIndex + 1} of {selectedLearning.images.length}
                 </p>
               </div>
-              
-              {/* Image indicators */}
+
               {selectedLearning.images.length > 1 && (
                 <div className="flex justify-center gap-2">
                   {selectedLearning.images.map((_, index) => (

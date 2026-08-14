@@ -21,9 +21,24 @@ const SwipeCard: React.FC<SwipeCardProps> = ({ item, isOpen, onClose, type, onIm
   const company = isExperience ? (item as Experience).company : (item as LearningItem).platform;
   const accentColor = isExperience ? 'blue' : 'green';
 
+  // Achievement points are written as "Title: description".
+  // Bold the title (summary) portion before the colon.
+  const renderAchievement = (point: string) => {
+    const colonIndex = point.indexOf(':');
+    if (colonIndex === -1) return <>{point}</>;
+    const title = point.slice(0, colonIndex + 1);
+    const rest = point.slice(colonIndex + 1);
+    return (
+      <>
+        <span className="font-semibold text-white">{title}</span>
+        {rest}
+      </>
+    );
+  };
+
   const ImageWithPlaceholder: React.FC<{ src: string; alt: string; className?: string }> = ({ src, alt, className }) => {
     const [loaded, setLoaded] = useState(false);
-    
+
     return (
       <div className={`relative ${className}`}>
         {/* Instant placeholder */}
@@ -33,7 +48,7 @@ const SwipeCard: React.FC<SwipeCardProps> = ({ item, isOpen, onClose, type, onIm
             <span className="text-gray-400 text-sm">Loading...</span>
           </div>
         </div>
-        
+
         <Image
           src={src}
           alt={alt}
@@ -47,10 +62,10 @@ const SwipeCard: React.FC<SwipeCardProps> = ({ item, isOpen, onClose, type, onIm
       </div>
     );
   };
-  
+
   return (
     <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center p-4">
-      <div 
+      <div
         className={`bg-gray-900 rounded-lg shadow-2xl max-w-2xl w-full max-h-[80vh] overflow-hidden transform transition-all duration-300 ${
           isOpen ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'
         }`}
@@ -58,7 +73,7 @@ const SwipeCard: React.FC<SwipeCardProps> = ({ item, isOpen, onClose, type, onIm
         {/* Header */}
         <div className={`bg-gray-800 px-6 py-4 border-b border-gray-700 flex items-center justify-between`}>
           <div className="flex items-center gap-3">
-            <button 
+            <button
               onClick={onClose}
               className="text-gray-400 hover:text-white transition-colors"
             >
@@ -66,7 +81,7 @@ const SwipeCard: React.FC<SwipeCardProps> = ({ item, isOpen, onClose, type, onIm
             </button>
             <h3 className="text-xl font-bold text-white">{item.title}</h3>
           </div>
-          <button 
+          <button
             onClick={onClose}
             className="text-gray-400 hover:text-white transition-colors"
           >
@@ -95,7 +110,7 @@ const SwipeCard: React.FC<SwipeCardProps> = ({ item, isOpen, onClose, type, onIm
                 {item.detailedPoints.map((point, index) => (
                   <li key={index} className="flex items-start gap-3">
                     <div className={`w-2 h-2 bg-${accentColor}-500 rounded-full mt-2 flex-shrink-0`}></div>
-                    <span className="text-gray-300 leading-relaxed">{point}</span>
+                    <span className="text-gray-300 leading-relaxed">{renderAchievement(point)}</span>
                   </li>
                 ))}
               </ul>
@@ -116,7 +131,7 @@ const SwipeCard: React.FC<SwipeCardProps> = ({ item, isOpen, onClose, type, onIm
             </div>
           </div>
 
-          {/* Images Section - ADD THIS */}
+          {/* Images Section */}
           {item.images && item.images.length > 0 && (
             <div className="mb-6">
               <div className="flex items-center justify-between mb-3">
@@ -124,16 +139,10 @@ const SwipeCard: React.FC<SwipeCardProps> = ({ item, isOpen, onClose, type, onIm
                 <span className="text-xs text-gray-400">Click image to view fullscreen</span>
               </div>
               <div className="relative">
-                <div 
+                <div
                   className="aspect-video bg-gray-800 rounded-lg overflow-hidden group cursor-pointer"
                   onClick={() => onImageClick?.(currentImageIndex)}
                 >
-                  {/* <img
-                    src={item.images[currentImageIndex].url}
-                    alt={item.images[currentImageIndex].alt}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  /> */}
-
                   <ImageWithPlaceholder
                     src={item.images[currentImageIndex].url}
                     alt={item.images[currentImageIndex].alt}
@@ -147,7 +156,7 @@ const SwipeCard: React.FC<SwipeCardProps> = ({ item, isOpen, onClose, type, onIm
                     </svg>
                   </div>
                 </div>
-                
+
                 {item.images.length > 1 && (
                   <>
                     <button
@@ -162,7 +171,7 @@ const SwipeCard: React.FC<SwipeCardProps> = ({ item, isOpen, onClose, type, onIm
                     >
                       <ChevronLeft className="w-6 h-6 text-white rotate-180" />
                     </button>
-                    
+
                     {/* Image indicators */}
                     <div className="flex justify-center mt-3 gap-2">
                       {item.images.map((_, index) => (
