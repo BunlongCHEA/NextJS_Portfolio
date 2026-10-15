@@ -31,7 +31,8 @@ import {
   SiAnsible,
   SiRancher,
   SiArgo,
-  SiTerraform
+  SiTerraform,
+  SiCloudflare
 } from 'react-icons/si';
 import { 
   DiMsqlServer
@@ -90,6 +91,7 @@ const languages: LanguageItem[] = [
 //   { name: 'AWS', icon: SiAmazonaws, color: 'text-orange-400' },
   { name: 'GCP', icon: SiGooglecloud, color: 'text-blue-400' },
   { name: 'DigitalOcean', icon: SiDigitalocean, color: 'text-blue-600' },
+  { name: 'Cloudflare', icon: SiCloudflare, color: 'text-orange-400' },
 ];
 
 interface LanguageSwiperProps {

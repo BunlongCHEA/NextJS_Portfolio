@@ -34,6 +34,7 @@ import {
   SiRancher,
   SiArgo,
   SiTerraform,
+  SiCloudflare
 } from 'react-icons/si';
 import { 
   DiMsqlServer
@@ -87,6 +88,7 @@ const technologyIcons: Record<string, { icon: React.ComponentType<{ className?: 
   'Jenkins': { icon: SiJenkins, color: 'text-red-600' },
   'GCP': { icon: SiGooglecloud, color: 'text-blue-400' },
   'DigitalOcean': { icon: SiDigitalocean, color: 'text-blue-600' },
+  'Cloudflare': { icon: SiCloudflare, color: 'text-orange-400' },
 };
 
 interface GitHubProjectsProps {

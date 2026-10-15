@@ -35,13 +35,69 @@ export const getGitHubImageUrl = (repository: string, imagePath: string): string
 // Data - For GitHub projects
 export const projects: Project[] = [
   {
+    id: 'terraform-automation',
+    name: 'Kubernetes - Rancher - ArgoCD - VM (Terraform + Ansible Automation)',
+    description: 'Build with Terraform + Ansible Automation to deploy Kubernetes cluster with Rancher and ArgoCD on VMs. Fully automated CI/CD pipeline for application deployment and management.',
+    url: 'https://github.com/BunlongCHEA/Terraform-Plan',
+    liveUrl: [
+      'https://argocd1.bunlong.uk',
+      'https://rancher1.bunlong.uk',
+      'https://grafana.bunlong.uk',
+    ],
+    technologies: ['Terraform', 'Ansible', 'Rancher', 'Kubernetes', 'ArgoCD', 'Docker', 'DigitalOcean', 'GCP', 'Cloudflare'],
+    images: [
+      { url: getGitHubImageUrl('Terraform-Plan', 'images/ansible-1.png'), alt: 'Ansible-Running' },
+      { url: getGitHubImageUrl('Terraform-Plan', 'images/terraform-1.png'), alt: 'Terraform-Main-Script-To-Run-this-Project' },
+      { url: getGitHubImageUrl('Terraform-Plan', 'images/cloudflare-1.png'), alt: 'Cloudflare-Deploy-For-Rancher' },
+
+      { url: getGitHubImageUrl('Terraform-Plan', 'images/kubectl-1.png'), alt: 'Kubectl-Get-All-Pods' },
+      { url: getGitHubImageUrl('Terraform-Plan', 'images/kubectl-2.png'), alt: 'Kubectl-Check-All-Pods-And-Nodes-Resources' },
+      { url: getGitHubImageUrl('Terraform-Plan', 'images/kubectl-3.png'), alt: 'Kubectl-Check-Certificate-Ingress-Status-Success' },
+      { url: getGitHubImageUrl('Terraform-Plan', 'images/kubectl-4.png'), alt: 'Kubectl-Describe-Certificate-Rancher-Detail' },
+      { url: getGitHubImageUrl('Terraform-Plan', 'images/kubectl-5.png'), alt: 'Kubectl-CertificateRequest-Rancher-by-Cert-Manager' },
+      { url: getGitHubImageUrl('Terraform-Plan', 'images/kubectl-6.png'), alt: 'Kubectl-Get-All-Certificate-Lists' },
+
+      { url: getGitHubImageUrl('Terraform-Plan', 'images/rancher-1.png'), alt: 'Rancher-Login-Page' },
+      { url: getGitHubImageUrl('Terraform-Plan', 'images/rancher-2.png'), alt: 'Rancher-Home-Page-With-K3S' },
+      { url: getGitHubImageUrl('Terraform-Plan', 'images/rancher-3.png'), alt: 'Rancher-Local-Cluster-Capacity-And-Kubectl-Shell' },
+
+      { url: getGitHubImageUrl('Terraform-Plan', 'images/gcp-1.png'), alt: 'GCP-Compute-Engine' },
+      { url: getGitHubImageUrl('Terraform-Plan', 'images/gcp-2.png'), alt: 'GCP-Compute-Engine-SSH' },
+      { url: getGitHubImageUrl('Terraform-Plan', 'images/gcp-3.png'), alt: 'GCP-Compute-Engine-Terraform-Apply' },
+      { url: getGitHubImageUrl('Terraform-Plan', 'images/gcp-4.png'), alt: 'GCP-Compute-Engine-Terraform-Destroy' },
+
+      { url: getGitHubImageUrl('Terraform-Plan', 'images/argocd-1.png'), alt: 'ArgoCD-Applications-Tiles-KYC-Blockchain-App-And-DB' },
+      { url: getGitHubImageUrl('Terraform-Plan', 'images/argocd-2.png'), alt: 'ArgoCD-Application-Tree-KYC-Blockchain-DB-Postgres-Resources' },
+      { url: getGitHubImageUrl('Terraform-Plan', 'images/argocd-3.png'), alt: 'ArgoCD-Application-Tree-KYC-Blockchain-App-Config-And-Secrets' },
+      { url: getGitHubImageUrl('Terraform-Plan', 'images/argocd-4.png'), alt: 'ArgoCD-Application-Tree-KYC-Blockchain-Monitoring-And-Ingress-Certificate' },
+      { url: getGitHubImageUrl('Terraform-Plan', 'images/argocd-5.png'), alt: 'ArgoCD-Applications-Tiles-All-Four-Apps-Healthy-Synced' },
+      { url: getGitHubImageUrl('Terraform-Plan', 'images/argocd-6.png'), alt: 'ArgoCD-Application-Tree-KYC-Logging-Stack-Fluent-Bit-Kibana-Elasticsearch' },
+      { url: getGitHubImageUrl('Terraform-Plan', 'images/argocd-202610-1.png'), alt: 'ArgoCD-Applications-Tiles-Monitoring-And-Logging-Stack' },
+
+      { url: getGitHubImageUrl('Terraform-Plan', 'images/kibana-elk-1.png'), alt: 'Kibana-Discover-KYC-Logs-Data-View' },
+      { url: getGitHubImageUrl('Terraform-Plan', 'images/kibana-elk-202610-1.png'), alt: 'Kibana-Discover-Alloy-OTel-Logs-In-Elasticsearch' },
+
+      { url: getGitHubImageUrl('Terraform-Plan', 'images/monitoring-1.png'), alt: 'Grafana-Welcome-Home-Page' },
+      { url: getGitHubImageUrl('Terraform-Plan', 'images/monitoring-1-1.png'), alt: 'Grafana-Dashboards-List-Kubernetes-Prometheus-Node-Exporter' },
+      { url: getGitHubImageUrl('Terraform-Plan', 'images/monitoring-1-2.png'), alt: 'Grafana-Kubernetes-Views-Global-CPU-RAM-Overview' },
+      { url: getGitHubImageUrl('Terraform-Plan', 'images/monitoring-1-3.png'), alt: 'Grafana-Kubernetes-Compute-Resources-Node-Pods-Memory-Usage' },
+      { url: getGitHubImageUrl('Terraform-Plan', 'images/monitoring-2.png'), alt: 'Prometheus-Query-Page-Empty-State' },
+      { url: getGitHubImageUrl('Terraform-Plan', 'images/monitoring-2-1.png'), alt: 'Prometheus-Target-Health-KYC-Blockchain-Monitor-Down-Postgres-Monitor-Up' },
+      { url: getGitHubImageUrl('Terraform-Plan', 'images/monitoring-2-2.png'), alt: 'Prometheus-Target-Health-Kube-Prometheus-Stack-Alertmanager-Apiserver-Up' },
+      { url: getGitHubImageUrl('Terraform-Plan', 'images/monitoring-202610-1.png'), alt: 'Grafana-Drilldown-Logs-Loki-By-Service' },
+      { url: getGitHubImageUrl('Terraform-Plan', 'images/monitoring-202610-2.png'), alt: 'Grafana-Drilldown-Metrics-Prometheus' },
+      { url: getGitHubImageUrl('Terraform-Plan', 'images/monitoring-202610-3.png'), alt: 'Grafana-Drilldown-Traces-Tempo-Span-Rate' },
+    ],
+    type: 'automation',
+    headerTitle: 'Terraform + Ansible Automation & Infrastructure Project'
+  },
+  {
     id: 'ansible-automation',
     name: 'Kubernetes - Rancher - ArgoCD - VM (Ansible Automation)',
     description: 'Build with Ansible Automation to deploy Kubernetes cluster with Rancher and ArgoCD on VMs. Fully automated CI/CD pipeline for application deployment and management.',
     url: 'https://github.com/BunlongCHEA/Ansible-Playbook-Role',
     liveUrl: [
-      'https://argocd1.bunlong.uk',
-      'https://rancher.bunlong.uk'
+      'https://argocd1.bunlong.uk'
     ],
     technologies: ['Ansible', 'Rancher', 'Kubernetes', 'ArgoCD', 'Docker' , 'GCP', 'DigitalOcean'],
     images: [
@@ -58,50 +114,6 @@ export const projects: Project[] = [
     ],
     type: 'automation',
     headerTitle: 'Ansible Automation & Infrastructure Project'
-  },
-  {
-    id: 'terraform-automation',
-    name: 'Kubernetes - Rancher - ArgoCD - VM (Terraform + Ansible Automation)',
-    description: 'Build with Terraform + Ansible Automation to deploy Kubernetes cluster with Rancher and ArgoCD on VMs. Fully automated CI/CD pipeline for application deployment and management.',
-    url: 'https://github.com/BunlongCHEA/Terraform-Plan',
-    liveUrl: [
-      'https://argocd1.bunlong.uk',
-      'https://rancher.bunlong.uk'
-    ],
-    technologies: ['Terraform', 'Ansible', 'Rancher', 'Kubernetes', 'ArgoCD', 'Docker', 'DigitalOcean'],
-    images: [
-      { url: getGitHubImageUrl('Terraform-Plan', 'images/ansible-1.png'), alt: 'Ansible-Running' },
-      { url: getGitHubImageUrl('Terraform-Plan', 'images/terraform-1.png'), alt: 'Terraform-Main-Script-To-Run-this-Project' },
-      { url: getGitHubImageUrl('Terraform-Plan', 'images/cloudflare-1.png'), alt: 'Cloudflare-Deploy-For-Rancher' },
-      { url: getGitHubImageUrl('Terraform-Plan', 'images/kubectl-1.png'), alt: 'Kubectl-Get-All-Pods' },
-      { url: getGitHubImageUrl('Terraform-Plan', 'images/kubectl-2.png'), alt: 'Kubectl-Check-All-Pods-And-Nodes-Resources' },
-      { url: getGitHubImageUrl('Terraform-Plan', 'images/kubectl-3.png'), alt: 'Kubectl-Check-Certificate-Ingress-Status-Success' },
-      { url: getGitHubImageUrl('Terraform-Plan', 'images/kubectl-4.png'), alt: 'Kubectl-Describe-Certificate-Rancher-Detail' },
-      { url: getGitHubImageUrl('Terraform-Plan', 'images/kubectl-5.png'), alt: 'Kubectl-CertificateRequest-Rancher-by-Cert-Manager' },
-      { url: getGitHubImageUrl('Terraform-Plan', 'images/kubectl-6.png'), alt: 'Kubectl-Get-All-Certificate-Lists' },
-      { url: getGitHubImageUrl('Terraform-Plan', 'images/rancher-1.png'), alt: 'Rancher-Login-Page' },
-      { url: getGitHubImageUrl('Terraform-Plan', 'images/rancher-2.png'), alt: 'Rancher-Home-Page-With-K3S' },
-      { url: getGitHubImageUrl('Terraform-Plan', 'images/gcp-1.png'), alt: 'GCP-Compute-Engine' },
-      { url: getGitHubImageUrl('Terraform-Plan', 'images/gcp-2.png'), alt: 'GCP-Compute-Engine-SSH' },
-      { url: getGitHubImageUrl('Terraform-Plan', 'images/gcp-3.png'), alt: 'GCP-Compute-Engine-Terraform-Apply' },
-      { url: getGitHubImageUrl('Terraform-Plan', 'images/gcp-4.png'), alt: 'GCP-Compute-Engine-Terraform-Destroy' },
-      { url: getGitHubImageUrl('Terraform-Plan', 'images/argocd-1.png'), alt: 'ArgoCD-Applications-Tiles-KYC-Blockchain-App-And-DB' },
-      { url: getGitHubImageUrl('Terraform-Plan', 'images/argocd-2.png'), alt: 'ArgoCD-Application-Tree-KYC-Blockchain-DB-Postgres-Resources' },
-      { url: getGitHubImageUrl('Terraform-Plan', 'images/argocd-3.png'), alt: 'ArgoCD-Application-Tree-KYC-Blockchain-App-Config-And-Secrets' },
-      { url: getGitHubImageUrl('Terraform-Plan', 'images/argocd-4.png'), alt: 'ArgoCD-Application-Tree-KYC-Blockchain-Monitoring-And-Ingress-Certificate' },
-      { url: getGitHubImageUrl('Terraform-Plan', 'images/argocd-5.png'), alt: 'ArgoCD-Applications-Tiles-All-Four-Apps-Healthy-Synced' },
-      { url: getGitHubImageUrl('Terraform-Plan', 'images/argocd-6.png'), alt: 'ArgoCD-Application-Tree-KYC-Logging-Stack-Fluent-Bit-Kibana-Elasticsearch' },
-      { url: getGitHubImageUrl('Terraform-Plan', 'images/kibana-elk-1.png'), alt: 'Kibana-Discover-KYC-Logs-Data-View' },
-      { url: getGitHubImageUrl('Terraform-Plan', 'images/monitoring-1.png'), alt: 'Grafana-Welcome-Home-Page' },
-      { url: getGitHubImageUrl('Terraform-Plan', 'images/monitoring-1-1.png'), alt: 'Grafana-Dashboards-List-Kubernetes-Prometheus-Node-Exporter' },
-      { url: getGitHubImageUrl('Terraform-Plan', 'images/monitoring-1-2.png'), alt: 'Grafana-Kubernetes-Views-Global-CPU-RAM-Overview' },
-      { url: getGitHubImageUrl('Terraform-Plan', 'images/monitoring-1-3.png'), alt: 'Grafana-Kubernetes-Compute-Resources-Node-Pods-Memory-Usage' },
-      { url: getGitHubImageUrl('Terraform-Plan', 'images/monitoring-2.png'), alt: 'Prometheus-Query-Page-Empty-State' },
-      { url: getGitHubImageUrl('Terraform-Plan', 'images/monitoring-2-1.png'), alt: 'Prometheus-Target-Health-KYC-Blockchain-Monitor-Down-Postgres-Monitor-Up' },
-      { url: getGitHubImageUrl('Terraform-Plan', 'images/monitoring-2-2.png'), alt: 'Prometheus-Target-Health-Kube-Prometheus-Stack-Alertmanager-Apiserver-Up' },
-    ],
-    type: 'automation',
-    headerTitle: 'Terraform + Ansible Automation & Infrastructure Project'
   },
   {
     id: 'blockchain-kyc-nextjs',
