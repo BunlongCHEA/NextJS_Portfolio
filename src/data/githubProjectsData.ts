@@ -361,7 +361,7 @@ export const projects: Project[] = [
     id: 'core-banking-system-backend',
     name: 'Core Banking System (Spring Boot)',
     description: 'A Spring Boot backend for a production-grade Core Banking System (CBS) covering customer onboarding, KYC-governed account creation, account management, and transaction processing. It integrates with a Go-based KYC blockchain service for identity verification, uses PostgreSQL with Hibernate 6 (Criteria API/Specifications), Redis-backed idempotency for transaction integrity, dynamic fee/threshold configuration via a system_settings table, and JWT authentication with multi-node Raft cluster support.',
-    url: 'https://github.com/BunlongCHEA/CBS-Backend',
+    url: 'https://github.com/BunlongCHEA/SpringBoot-Core-Banking',
     liveUrl: 'https://cbsapi.bunlong.uk/health',
     technologies: ['Java', 'Spring Boot', 'PostgreSQL', 'Redis', 'MongoDB', 'Docker', 'Kubernetes', 'GCP', 'DigitalOcean'],
     images: [
@@ -375,7 +375,7 @@ export const projects: Project[] = [
     id: 'core-banking-system-frontend',
     name: 'Core Banking System (Next.js)',
     description: 'A Next.js frontend for the Core Banking System, providing KYC-governed customer onboarding flows, an accounts dashboard with new-account creation, freeze/unfreeze/close actions, and a transactions module with live account-number preview, customer-name-based history search, and currency-precision-aware amount entry. Communicates with the Spring Boot CBS backend and the Go-based KYC blockchain service.',
-    url: 'https://github.com/BunlongCHEA/CBS-Frontend',
+    url: 'https://github.com/BunlongCHEA/NextJS-Core-Banking',
     liveUrl: 'https://cbs.bunlong.uk',
     technologies: ['Next.js', 'TypeScript', 'TailwindCSS', 'Docker', 'Kubernetes', 'GCP', 'DigitalOcean'],
     images: [
